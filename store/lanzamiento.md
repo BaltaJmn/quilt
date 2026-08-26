@@ -13,10 +13,12 @@ trámites y el test cerrado de 14 días. Todo lo que sea código cabe dentro de 
 - [x] ~~**El nombre de la tienda.**~~ **Quilt**, aplicado en código y ficha. El `applicationId`
       (`com.baltajmn.habit`) se queda como está: es irreversible tras la primera subida y el nombre
       visible es independiente. Pendiente solo comprobar el registro de marca (clase 9).
-- [ ] **[tú] El paywall.** Hoy promete widgets, paletas e histórico que no están limitados. O se
-      recorta la promesa (un minuto) o se construyen las puertas (1-2 jornadas). Hay un `TODO` en
-      `Strings.kt` sobre la entrada `pitch`.
-- [ ] **[tú] El precio de Pro.** Pago único. Mira lo que cobran HabitKit y Streaks en tu país.
+- [x] ~~**El paywall.**~~ Decidido y aplicado: Pro abre **hábitos ilimitados** (gratis 3) y la
+      **paleta completa** (gratis 4 de 8). Widgets, recordatorios, exportación y la cuadrícula anual
+      entera son gratis para siempre. `pitch` reescrito en los cinco idiomas y el `TODO` fuera.
+      Detalle en `revenuecat.md` §0.
+- [x] ~~**El precio de Pro.**~~ **4,99 €** de base, conversión automática con redondeo, todos los
+      países, sin prueba gratuita.
 
 ## Deudas conocidas antes de publicar
 
@@ -24,7 +26,7 @@ trámites y el test cerrado de 14 días. Todo lo que sea código cabe dentro de 
       (`NSPhotoLibraryAddUsageDescription`). Un usuario alemán o francés verá castellano al guardar
       una imagen. Se arregla con un `InfoPlist.strings` por idioma dentro de carpetas `.lproj`, lo
       que además obliga a tocar el proyecto de Xcode.
-- [ ] **[tú] El paywall promete lo que no limita** (ver Fase 0).
+- [x] ~~**El paywall promete lo que no limita.**~~ Resuelto en Fase 0.
 - [ ] **[yo] `:shared:iosSimulatorArm64Test` no enlaza en esta máquina.** El linker busca
       `swiftCompatibility56` para RevenueCat y no lo encuentra; en el log aparecen dos rutas de Xcode
       distintas (`Xcode.app` y `Xcode-16.4.app`), así que huele a `xcode-select` apuntando a una
@@ -89,7 +91,8 @@ que no hace nada. El día que metamos código nativo propio, se añade entonces.
       y pegar el enlace en la ficha. Play no acepta el fichero, solo la URL.
 - [ ] **[tú] Data Safety.** Borrador en `play-listing.md`; contrástalo con la guía de RevenueCat.
 - [ ] **[tú] Clasificación de contenido** (cuestionario IARC) y **público objetivo** 13+.
-- [ ] **[tú] Crear el producto de compra** dentro de la app. Anota el identificador.
+- [ ] **[tú] Crear el producto de compra** `pro_lifetime`, 4,99 €. Textos y pasos en
+      `revenuecat.md` §1. Requiere el AAB ya subido y el perfil de pagos verificado.
 
 ## Fase 3 — RevenueCat
 

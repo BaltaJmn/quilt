@@ -9,14 +9,52 @@ actual, el paywall aparece vacío.
 
 ---
 
+## 0. Qué se vende, decidido
+
+| | |
+|---|---|
+| Producto | Uno solo, compra única. Nunca suscripción. |
+| Identificador | `pro_lifetime`. **Irreversible**: un ID borrado no se reutiliza jamás. |
+| Nombre visible | Quilt Pro |
+| Precio | 4,99 € de base, conversión automática al resto de monedas **con redondeo**. |
+| Países | Todos. |
+| Prueba gratuita | No. El plan gratis es la prueba. |
+
+Qué abre el pago, y solo esto:
+
+- **Hábitos ilimitados.** Gratis son 3 (`HabitRepository.FREE_HABIT_LIMIT`).
+- **La paleta completa.** Gratis los 4 primeros colores (`FREE_COLOR_LIMIT`), de 8.
+
+Qué **no** se cobra nunca, porque está prometido en la ficha y en la política de privacidad:
+los tres tamaños de widget, los recordatorios, exportar e importar, y la cuadrícula anual entera.
+
+> Si un día cambia cualquiera de estas dos listas, hay que tocar `pitch` en `Strings.kt` y la
+> descripción larga de la ficha **en el mismo commit**. Vender una función que la versión gratis ya
+> tiene es tergiversación, y Play lo trata como tal.
+
+Un usuario gratis que acabe con más hábitos de los que le tocan (importó un backup, le reembolsaron
+la compra) **los conserva todos**. `canAddHabit()` solo bloquea crear el siguiente. No se oculta
+nada: pedirle a alguien que elija cuáles de sus hábitos sobreviven es peor que el agujero que tapa.
+
 ## 1. Antes de tocar RevenueCat: el producto en Play
 
 No se puede conectar nada hasta que Play tenga qué vender.
 
 1. Play Console → tu app → **Monetizar → Productos → Productos de una sola compra**.
 2. Crear producto. Tipo: **compra única**, no suscripción.
-3. Identificador sugerido: `pro_lifetime`. Anótalo, hace falta luego.
-4. Ponle precio y **actívalo**. Un producto inactivo no aparece por la API.
+3. Identificador: `pro_lifetime`.
+4. Nombre y descripción por idioma, los de la tabla de abajo.
+5. Precio 4,99 €, convierte al resto y pulsa **Redondear precios**: sin eso salen 5,37 zł y
+   227,43 ¥, que leen como un error de la tienda.
+6. **Actívalo.** Un producto inactivo no aparece por la API y el paywall sale sin precio.
+
+| Idioma | Nombre | Descripción |
+|---|---|---|
+| en-US | Quilt Pro | Removes the habit limit for good and unlocks the full colour palette. One-time payment, not a subscription. Reminders, widgets, export and the full year grid stay free. |
+| es-ES | Quilt Pro | Quita el límite de hábitos para siempre y desbloquea la paleta completa. Pago único, no es una suscripción. Recordatorios, widgets, exportación y rejilla anual siguen gratis. |
+| pt-PT | Quilt Pro | Remove o limite de hábitos para sempre e desbloqueia a paleta completa. Pagamento único, não é uma assinatura. |
+| de-DE | Quilt Pro | Hebt das Gewohnheiten-Limit dauerhaft auf und schaltet die komplette Farbpalette frei. Einmalzahlung, kein Abo. |
+| fr-FR | Quilt Pro | Supprime la limite d'habitudes pour toujours et débloque la palette complète. Paiement unique, pas d'abonnement. |
 
 > Requisito previo: haber subido ya un AAB a un canal de prueba. Sin binario, Play no deja crear
 > productos.
@@ -25,14 +63,18 @@ No se puede conectar nada hasta que Play tenga qué vender.
 
 Es lo que permite a RevenueCat preguntarle a Google si una compra es real.
 
-1. [Google Cloud Console](https://console.cloud.google.com) → el proyecto asociado a tu cuenta de
-   Play → **IAM y administración → Cuentas de servicio → Crear**.
-2. Sin roles en Google Cloud. Los permisos se dan en Play, no aquí.
-3. Dentro de la cuenta creada → **Claves → Agregar clave → Crear nueva → JSON**. Se descarga.
-4. Play Console → **Usuarios y permisos → Invitar usuario** → pega el correo de la cuenta de
-   servicio (`...@....iam.gserviceaccount.com`).
-5. Dale permisos de app para Quilt: **ver información de la app**, **ver datos
-   financieros**, **gestionar pedidos y suscripciones**.
+Camino corto: se empieza en Play, que crea el proyecto de Google Cloud por ti. No hace falta tener
+uno antes.
+
+1. Play Console → **Configuración → Acceso a la API** → *Vincular un proyecto de Google Cloud* →
+   **Crear un proyecto nuevo**.
+2. En esa misma página → **Crear cuenta de servicio**. Te lleva a Google Cloud.
+3. Google Cloud → *Crear cuenta de servicio*. Nombre: `revenuecat`. **Sin roles**: los permisos se
+   dan en Play, no aquí.
+4. Sobre la cuenta creada → **Claves → Agregar clave → Crear nueva → JSON**. Se descarga.
+5. Vuelta a Play Console → *Acceso a la API* → aparece la cuenta → **Conceder acceso**. Permisos
+   sobre Quilt: **ver información de la app**, **ver datos financieros**, **gestionar pedidos y
+   suscripciones**. Nada más.
 
 > Ese JSON es una credencial. No lo pegues en un chat ni lo subas al repositorio: se sube
 > directamente en el formulario de RevenueCat.

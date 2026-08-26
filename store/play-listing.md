@@ -79,11 +79,12 @@ te cansas de la app, te llevas tu historial entero contigo. La única conexión 
 de procesar una compra, si decides hacerla.
 
 GRATIS DE VERDAD
-Cinco hábitos, todos los widgets, todos los recordatorios, la exportación completa y la cuadrícula
+Tres hábitos, todos los widgets, todos los recordatorios, la exportación completa y la cuadrícula
 anual entera. Sin anuncios. Sin límite de tiempo. Sin pedirte la tarjeta.
 
-YEARLY PRO
-Un pago único, para siempre, que quita el límite de hábitos. No es una suscripción y nunca lo será.
+QUILT PRO
+Un pago único, para siempre, que quita el límite de hábitos y desbloquea la paleta de colores
+completa. No es una suscripción y nunca lo será.
 
 NO VAS A ENCONTRAR AQUÍ
 Ni retos sociales, ni amigos, ni chat, ni un coach de inteligencia artificial diciéndote que
@@ -148,11 +149,12 @@ your entire history comes with you. The only connection Quilt makes is to proces
 you choose to make one.
 
 ACTUALLY FREE
-Five habits, every widget, every reminder, the full export and the complete year grid. No ads. No
+Three habits, every widget, every reminder, the full export and the complete year grid. No ads. No
 trial clock. No card required.
 
-YEARLY PRO
-A single payment, forever, that removes the habit limit. It is not a subscription and never will be.
+QUILT PRO
+A single payment, forever, that removes the habit limit and unlocks the full colour palette. It is
+not a subscription and never will be.
 ```
 
 ---

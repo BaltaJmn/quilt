@@ -30,8 +30,18 @@ private data class Store(
  */
 object HabitRepository {
 
-    /** Deliberately generous: the free tier is the trial, since one-off purchases have none. */
-    const val FREE_HABIT_LIMIT = 5
+    /**
+     * The free tier is the trial, since one-off purchases have none. Three habits is enough to
+     * reach the second week with a real streak going, which is when anyone considers paying;
+     * a tighter limit hits the wall on day one, before the app means anything.
+     */
+    const val FREE_HABIT_LIMIT = 3
+
+    /**
+     * The first colours of HabitPalette are free: one per free habit, plus a choice. Gating the
+     * whole palette would leave three same-coloured grids, and the colours are the quilt.
+     */
+    const val FREE_COLOR_LIMIT = 4
 
     private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
     private val _habits = mutableStateListOf<Habit>()

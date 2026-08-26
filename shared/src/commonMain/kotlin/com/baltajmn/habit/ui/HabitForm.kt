@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.baltajmn.habit.data.HabitRepository
 import com.baltajmn.habit.model.Habit
 import com.baltajmn.habit.ui.theme.HabitPalette
 import com.baltajmn.habit.i18n.S
@@ -62,6 +63,7 @@ fun HabitForm(
     var days by remember { mutableStateOf(initial?.scheduleDays ?: Habit.ALL_DAYS) }
     var reminder by remember { mutableStateOf(initial?.reminderMinute) }
     var pickingTime by remember { mutableStateOf(false) }
+    var showPaywall by remember { mutableStateOf(false) }
     val valid = name.isNotBlank() && days.isNotEmpty()
 
     Column(
@@ -95,12 +97,17 @@ fun HabitForm(
         }
 
         PickerRow(label = S.color) {
-            HabitPalette.forEach { option ->
+            HabitPalette.forEachIndexed { index, option ->
+                // A colour the habit already wears stays pickable without Pro: a refund or a
+                // failed entitlement check must never leave an existing habit uneditable.
+                val locked = !HabitRepository.isPro &&
+                    index >= HabitRepository.FREE_COLOR_LIMIT &&
+                    option != initial?.colorArgb
                 SelectableCircle(
                     selected = option == color,
-                    background = Color(option),
-                    onClick = { color = option },
-                ) {}
+                    background = Color(option).copy(alpha = if (locked) 0.3f else 1f),
+                    onClick = { if (locked) showPaywall = true else color = option },
+                ) { if (locked) Text("\uD83D\uDD12", fontSize = 11.sp) }
             }
         }
 
@@ -174,6 +181,8 @@ fun HabitForm(
             },
         )
     }
+
+    if (showPaywall) ProDialog(onDismiss = { showPaywall = false })
 }
 
 @Composable

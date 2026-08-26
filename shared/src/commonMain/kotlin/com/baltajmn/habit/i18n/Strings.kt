@@ -242,23 +242,22 @@ object S {
         "Unbegrenzte Gewohnheiten",
         "Habitudes illimitées",
     )
-    // TODO: this promises widgets, palettes and full history that Pro does not actually gate.
-    // `isPro` only opens `canAddHabit()`. Decide before publishing: cut the claim, or build the gates.
     val pitch = t(
-        "Pro removes the limit and adds every widget, every palette and the full history.\n\n" +
-            "One-time purchase, no subscription. Reminders and exporting your data stay free forever.",
-        "Pro quita el límite y añade todos los widgets, todas las paletas y el histórico completo.\n\n" +
-            "Pago único, sin suscripción. Los recordatorios y la exportación de tus datos siguen " +
-            "siendo gratis siempre.",
-        "O Pro remove o limite e adiciona todos os widgets, todas as paletas e o histórico completo.\n\n" +
-            "Pagamento único, sem assinatura. Os lembretes e a exportação dos seus dados continuam " +
-            "sempre gratuitos.",
-        "Pro hebt das Limit auf und bringt alle Widgets, alle Paletten und den vollständigen Verlauf.\n\n" +
-            "Einmalzahlung, kein Abo. Erinnerungen und der Export deiner Daten bleiben für immer " +
-            "kostenlos.",
-        "Pro supprime la limite et ajoute tous les widgets, toutes les palettes et l'historique complet.\n\n" +
-            "Paiement unique, sans abonnement. Les rappels et l'export de vos données restent " +
-            "gratuits pour toujours.",
+        "Pro removes the habit limit and unlocks the full colour palette.\n\n" +
+            "One-time purchase, no subscription. Every widget, every reminder, the whole year " +
+            "and exporting your data stay free forever.",
+        "Pro quita el límite de hábitos y desbloquea la paleta de colores completa.\n\n" +
+            "Pago único, sin suscripción. Todos los widgets, todos los recordatorios, el año " +
+            "entero y la exportación de tus datos siguen siendo gratis siempre.",
+        "O Pro remove o limite de hábitos e desbloqueia a paleta de cores completa.\n\n" +
+            "Pagamento único, sem assinatura. Todos os widgets, todos os lembretes, o ano " +
+            "inteiro e a exportação dos seus dados continuam sempre gratuitos.",
+        "Pro hebt das Gewohnheiten-Limit auf und schaltet die komplette Farbpalette frei.\n\n" +
+            "Einmalzahlung, kein Abo. Alle Widgets, alle Erinnerungen, das ganze Jahr und der " +
+            "Export deiner Daten bleiben für immer kostenlos.",
+        "Pro supprime la limite d'habitudes et débloque la palette de couleurs complète.\n\n" +
+            "Paiement unique, sans abonnement. Tous les widgets, tous les rappels, l'année " +
+            "entière et l'export de vos données restent gratuits pour toujours.",
     )
     fun freeIncludes(limit: Int) = t(
         "The free plan includes $limit habits.",
