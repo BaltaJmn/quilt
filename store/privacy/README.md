@@ -3,19 +3,22 @@
 `index.html` es la política, en inglés y español en la misma página. Un solo fichero, sin
 dependencias externas: se abre igual en local que alojado.
 
-## Antes de publicarla
+## Dónde está publicada
 
-Sustituye las seis apariciones de `CONTACT_EMAIL` por el correo que quieras dar como público. Va a
-ser visible para cualquiera, así que decide si usas tu correo personal o uno dedicado:
+**https://baltajmn.github.io/quilt-privacy/**
 
-```bash
-sed -i '' 's/CONTACT_EMAIL/tu@correo.com/g' store/privacy/index.html
-```
+El correo de contacto que aparece en la página es `baltajmn@gmail.com`. Tiene que ser el mismo
+que pongas de contacto en la ficha de Play, o los revisores lo marcan como incoherencia.
 
-Ese correo debería ser el mismo que pongas como contacto en la ficha de Play, o los revisores lo
-marcan como incoherencia.
+Servida por GitHub Pages desde el repositorio público `BaltaJmn/quilt-privacy`. Ese repositorio es
+una **copia**: el original es este fichero. Para cambiarla, edita aquí y copia allí, o los dos
+divergen y gana el publicado.
 
-## Alojarla gratis con GitHub Pages
+No se metió en `bybalta` a propósito, aunque ya tenga Pages montado: su README avisa de que un
+proceso automático lo reescribe, y una URL de la que depende la publicación en Play no puede vivir
+donde un script puede borrarla.
+
+## Cómo se montó, por si hay que repetirlo
 
 1. Crea un repositorio **público** nuevo, por ejemplo `quilt-privacy`.
 2. Sube `index.html` a la raíz.

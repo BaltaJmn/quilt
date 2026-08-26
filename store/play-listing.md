@@ -236,7 +236,7 @@ nunca la app qué hace.
 | Categoría | **Salud y bienestar** (más volumen que Productividad en esta categoría) |
 | Etiquetas | Seguimiento de hábitos, Productividad personal, Estilo de vida |
 | Correo de contacto | El tuyo, público en la ficha |
-| Política de privacidad | URL pública obligatoria. Reutiliza el dominio de tus otras apps |
+| Política de privacidad | **https://baltajmn.github.io/quilt-privacy/** |
 | Anuncios | **No contiene anuncios** |
 | Compras en la aplicación | **Sí** — un producto, pago único |
 | Clasificación de contenido | Cuestionario IARC: sin violencia, sin sexo, sin contenido de usuario, sin apuestas, sin datos compartidos → sale **PEGI 3 / Everyone** |

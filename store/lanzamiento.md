@@ -53,10 +53,11 @@ trámites y el test cerrado de 14 días. Todo lo que sea código cabe dentro de 
 - [x] **[yo] Generar el AAB firmado** — `androidApp/build/outputs/bundle/release/androidApp-release.aab`,
       7,1 MB, versionCode 1, versionName 1.0, firmado con la clave de subida. Se regenera con
       `./gradlew :androidApp:bundleRelease`.
-- [ ] **[tú] Publicar la política de privacidad** en una URL pública. Ya está escrita, en inglés y
-      español, en `store/privacy/index.html` — hecha a medida contra lo que hace el código, no con un
-      generador de pago. Falta sustituir `CONTACT_EMAIL` y subirla a GitHub Pages o a tu dominio;
-      los pasos están en `store/privacy/README.md`.
+- [x] **[tú] Publicar la política de privacidad** — **https://baltajmn.github.io/quilt-privacy/**
+      Escrita a medida contra lo que hace el código, en inglés y español, alojada en GitHub Pages
+      desde el repositorio público `BaltaJmn/quilt-privacy`. El original vive en
+      `store/privacy/index.html`; el repositorio público es una copia, así que un cambio hay que
+      hacerlo aquí y copiarlo allí.
 
 ## Avisos de Play que se ignoran a propósito
 
