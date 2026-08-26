@@ -17,5 +17,5 @@ expect object Backup {
 /** `quilt-2026-08-25.json` */
 fun backupFilename(): String = "quilt-${today()}.json"
 
-/** `quilt-2026-08-25.csv` — the extension is what tells the system, and the user, what this is. */
+/** `quilt-2026-08-25.csv`. The extension is what tells the system, and the user, what this is. */
 fun csvFilename(): String = "quilt-${today()}.csv"

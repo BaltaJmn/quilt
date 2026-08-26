@@ -2,7 +2,7 @@
 
 Todo lo que hay que pegar en Play Console.
 
-**La app está traducida a cinco idiomas** — inglés, español, portugués, alemán y francés — así que
+**La app está traducida a cinco idiomas** (inglés, español, portugués, alemán y francés), así que
 la ficha debería ir en los cinco: en Play cada idioma es una ficha independiente con sus propias
 palabras clave, y rellenarlas es gratis. Aquí abajo están escritos el español y el inglés; faltan
 portugués, alemán y francés.
@@ -25,7 +25,7 @@ clase 9 en OEPM o EUIPO.**
 El identificador del paquete sigue siendo `com.baltajmn.habit` y no se toca: es irreversible tras la
 primera subida, y el nombre visible en la tienda es independiente.
 
-## Textos — Español
+## Textos en español
 
 ### Título (máx. 30 caracteres)
 ```
@@ -93,7 +93,7 @@ respires. Una cuadrícula, tus hábitos y el año por delante.
 
 ---
 
-## Textos — English
+## Textos en inglés
 
 ### Título (máx. 30)
 ```
@@ -122,7 +122,7 @@ rate, all counted over the days that actually asked something of you.
 
 TICK OFF WITHOUT OPENING THE APP
 Genuinely interactive home screen widgets, in three sizes. One tap on the square and the habit is
-done — no app, no distraction. The medium and large widgets also show each habit's streak and its
+done. No app, no distraction. The medium and large widgets also show each habit's streak and its
 last seven days, so you know where you stand without going in.
 
 SKIPPED DAYS BREAK NOTHING
@@ -159,13 +159,13 @@ not a subscription and never will be.
 
 ---
 
-## Notas de la versión — 1.1
+## Notas de la versión 1.1
 
 Play las pide en un solo campo, con una etiqueta por idioma. El tope de **500 caracteres es por
 idioma**, no del bloque entero, y las etiquetas no cuentan. Los códigos tienen que coincidir con los
 idiomas dados de alta en la ficha, o Play rechaza el bloque.
 
-Pegable tal cual — también está suelto en `store/release-notes-1.1.txt`:
+Pegable tal cual. También está suelto en `store/release-notes-1.1.txt`:
 
 ```
 <en-US>
@@ -240,7 +240,7 @@ nunca la app qué hace.
 | Correo de contacto | El tuyo, público en la ficha |
 | Política de privacidad | **https://quilt.baltajmn.dev/** |
 | Anuncios | **No contiene anuncios** |
-| Compras en la aplicación | **Sí** — un producto, pago único |
+| Compras en la aplicación | **Sí**, un producto, pago único |
 | Clasificación de contenido | Cuestionario IARC: sin violencia, sin sexo, sin contenido de usuario, sin apuestas, sin datos compartidos → sale **PEGI 3 / Everyone** |
 | Público objetivo | 13+ (evita el régimen de Families, que trae requisitos extra) |
 | Aplicación gubernamental | No |
@@ -281,15 +281,15 @@ marcar tres hábitos, subir el contador de agua a 5/8, abrir el detalle con el a
 por Año/Mes/Semana en compartir y terminar marcando desde el widget en la pantalla de inicio.
 Play solo acepta el vídeo como enlace de YouTube, así que hay que subirlo primero (sin listar).
 
-## Data Safety — borrador
+## Data Safety, borrador
 
 Sin RevenueCat esta app no recogería nada. Con él sí, y hay que declararlo:
 
 | Pregunta | Respuesta |
 |---|---|
 | ¿Recoge datos? | **Sí** |
-| Tipo | *Identificadores de dispositivo u otros* — RevenueCat crea un ID anónimo por instalación |
-| Tipo | *Historial de compras* — necesario para saber si tienes Pro |
+| Tipo | *Identificadores de dispositivo u otros*. RevenueCat crea un ID anónimo por instalación |
+| Tipo | *Historial de compras*. Necesario para saber si tienes Pro |
 | Finalidad | Funcionalidad de la aplicación |
 | ¿Vinculado a la identidad? | No |
 | ¿Se usa para seguimiento publicitario? | No |

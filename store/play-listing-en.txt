@@ -6,7 +6,7 @@ THE WHOLE YEAR, NOT THE WEEK
 Every habit gets its own year grid with all twelve months labelled. Tap any past day to mark it: if you forgot Sunday, it's fixed in a second. Current streak, best streak, total days and completion rate, all counted over the days that actually asked something of you.
 
 TICK OFF WITHOUT OPENING THE APP
-Genuinely interactive home screen widgets, in three sizes. One tap on the square and the habit is done — no app, no distraction. The medium and large widgets also show each habit's streak and its last seven days, so you know where you stand without going in.
+Genuinely interactive home screen widgets, in three sizes. One tap on the square and the habit is done. No app, no distraction. The medium and large widgets also show each habit's streak and its last seven days, so you know where you stand without going in.
 
 SKIPPED DAYS BREAK NOTHING
 You were ill. You were away. You chose to rest. Press and hold a day to mark it skipped: it doesn't count as a miss, doesn't count as a win, doesn't break the streak and doesn't sink your percentage. That's the difference between an app that walks with you and one that punishes you.

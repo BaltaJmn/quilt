@@ -92,7 +92,7 @@ No se puede conectar nada hasta que Play tenga qué vender.
 
 > **Producto creado el 26 ago 2026**: `pro_lifetime`, *Quilt Pro*, activo en 173 países,
 > clasificación 13+, tipo impositivo *Ventas de apps digitales*. La opción de compra aparece como
-> `prolifetime` y marcada *Retrocompatible*: eso es normal — Play deriva el ID de la opción quitando
+> `prolifetime` y marcada *Retrocompatible*. Eso es normal: Play deriva el ID de la opción quitando
 > el guion bajo, y "retrocompatible" es justo el modo que necesita RevenueCat. El identificador que
 > se usa en todas partes sigue siendo `pro_lifetime`.
 
@@ -102,7 +102,7 @@ Es lo que permite a RevenueCat preguntarle a Google si una compra es real.
 
 El modelo mental, que es lo que se pierde entre tanto menú: **la cuenta de servicio es un robot con
 su propia dirección de correo**. Se fabrica en Google Cloud, y luego se le da de alta en Play como
-si fuera un compañero de trabajo — la misma pantalla con la que invitarías a una persona. No es
+si fuera un compañero de trabajo, en la misma pantalla con la que invitarías a una persona. No es
 "release manager": no publica nada. Solo lee pedidos.
 
 ### En Google Cloud (console.cloud.google.com)

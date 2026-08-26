@@ -1,4 +1,4 @@
-# Habit Tracker anual — spec de producto
+# Habit Tracker anual, spec de producto
 
 App Compose Multiplatform (Android + iOS) de seguimiento de hábitos con vista **anual tipo heatmap**:
 un cuadrito por día, un año entero por hábito en una sola pantalla.
@@ -35,15 +35,15 @@ pero multiplataforma desde el día uno. Una frase: *"tu año entero en una panta
 - [x] Widgets de pantalla de inicio interactivos (Glance + WidgetKit)
 - [x] Compartir / guardar imagen de semana, mes o año
 
-### v1.1 — lo que la gente pide en las reseñas
+### v1.1. Lo que la gente pide en las reseñas
 - Tres estados por día: hecho / fallado / **saltado** (enfermedad, vacaciones) para no romper rachas injustamente
 - Hábitos de cantidad ("8 vasos", "30 min") con contador y temporizador
-- Hábitos negativos ("no fumar") — se marcan al final del día
+- Hábitos negativos ("no fumar"), se marcan al final del día
 - Racha máxima histórica, no solo la actual
 - Reordenar hábitos, archivar sin perder historial
 - Exportar CSV / JSON (imprescindible para no dar sensación de secuestro de datos)
 
-### v1.2 — retención
+### v1.2. Retención
 - Notas por día
 - Apple Health / Health Connect: auto-marcar pasos, ejercicio, sueño
 - Sincronización iCloud + Google Drive (archivo cifrado, sin backend propio)
@@ -70,11 +70,11 @@ Comunidad, retos sociales, chat, IA de coaching. Aumentan soporte y coste sin mo
 4. Sin números grandes de "0%" en pantalla si no hay datos.
 
 **Paleta** (`ui/theme/Theme.kt`)
-- Fondo crema cálido `#FBF8F3` claro / `#17150F` oscuro — nunca blanco puro ni negro puro
+- Fondo crema cálido `#FBF8F3` claro / `#17150F` oscuro. Nunca blanco puro ni negro puro
 - Acento primario salvia `#6FAE9B`
 - 8 pastel para hábitos: rosa, melocotón, mantequilla, salvia, menta, cielo, pervinca, lila
-- Radios generosos (18–32 dp), bordes de 1 dp en vez de sombras
-- Tinta fija oscura `#2E2A24` sobre los pastel — los acentos son claros en ambos temas y el texto del sistema no contrastaría
+- Radios generosos (18 a 32 dp), bordes de 1 dp en vez de sombras
+- Tinta fija oscura `#2E2A24` sobre los pastel. Los acentos son claros en ambos temas y el texto del sistema no contrastaría
 
 ---
 
@@ -115,7 +115,7 @@ así que el `clickable` va en el propio cuadrado.
 
 La previsualización del selector de widgets de Android (`res/layout/widget_preview.xml`) es un dibujo
 estático, no un render del widget real: el selector infla `RemoteViews`, que solo admite una lista corta
-de vistas — `View` a secas no está en ella, hay que usar `ImageView`. Al cambiar el diseño del widget hay
+de vistas. `View` a secas no está en ella, hay que usar `ImageView`. Al cambiar el diseño del widget hay
 que acordarse de tocar también ese XML. No lleva nombres de hábito a propósito: los emoji valen igual en
 los cinco idiomas.
 
@@ -123,7 +123,7 @@ El widget interactivo de marcar es el gancho: `alarmee` no lo cubre, hay que esc
 plataforma.
 
 Recordatorios: hora por hábito, respetando los días programados, más un aviso opcional "cierra el día" a las 21:00.
-Nada de notificaciones agresivas — son la causa número uno de desinstalación en esta categoría.
+Nada de notificaciones agresivas: son la causa número uno de desinstalación en esta categoría.
 
 ---
 
@@ -138,13 +138,13 @@ después de haber "comprado" el producto, y lo dice en las reseñas.
 
 La contrapartida honesta: la venta única no compone. Un suscriptor de 3 años vale más que una compra de 9,99 €.
 Pero eso solo se cumple si la retención aguanta, y en esta categoría la gente se da de baja justo cuando deja
-de usar la app — que es pronto.
+de usar la app, que es pronto.
 
 **Decisión: pago único como único producto de pago. Nada de suscripción mientras no haya coste recurrente real.**
 
 ### Los tres niveles
 
-| | Gratis, para siempre | Pro — pago único |
+| | Gratis, para siempre | Pro, pago único |
 |---|---|---|
 | Hábitos | 5 | Ilimitados |
 | Grid anual, rachas, % del año | ✅ | ✅ |
@@ -179,7 +179,7 @@ Nada de lo que se vende es necesario para que la app cumpla su promesa.
 Es la forma real de que sea asequible para todos los públicos: 9,99 € en España, el equivalente a 3-4 € en
 Latinoamérica, India o el Sudeste Asiático. Sin esto, "asequible" es solo una palabra.
 
-El rango 2,99–9,99 € concentra la mayoría de las compras únicas del mercado, así que 9,99 € es el techo
+El rango de 2,99 a 9,99 € concentra la mayoría de las compras únicas del mercado, así que 9,99 € es el techo
 razonable y 6,99 € un lanzamiento cómodo.
 
 ### Lo que llega de verdad al bolsillo
@@ -207,7 +207,7 @@ dos escalones; el tercero ya exige que el bucle de compartir funcione de verdad.
 ### Cuándo sí tocaría una suscripción
 
 Solo cuando exista un coste recurrente que justificarla. Hoy no lo hay, y el plan de sincronización es
-**usar el iCloud y el Drive del propio usuario**, que no nos cuesta nada — así que sigue sin haberlo.
+**usar el iCloud y el Drive del propio usuario**, que no nos cuesta nada, así que sigue sin haberlo.
 
 Se replantea si algún día aparece: servidor de sincronización propio, versión web, o funciones con IA.
 En ese caso el modelo sería pago único para la app + suscripción **solo** para el servicio con coste,
@@ -332,13 +332,13 @@ Ordenado por daño real, no por esfuerzo.
 
 ### Plan de ataque, en orden
 
-1. ~~**Copia de seguridad + exportar/importar JSON**~~ — hecho. Guardar usa el guardador de ficheros del sistema, no la hoja de compartir: una copia tiene que aterrizar donde el usuario la encuentre y se la pueda devolver al importador, y ahí salen todos los discos en la nube.
-2. ~~**Días saltados**~~ — hecho. Campo aditivo `skipped`, sin migración: los ficheros viejos caen al valor por defecto. Pulsación larga sobre el día; un salto no cuenta ni en la racha ni en el denominador del cumplimiento, y apaga el recordatorio y la fila del widget de ese día.
-3. **Hábitos de cantidad y temporizador** — cierra el hueco frente a Streaks.
-4. ~~**Monetización real con RevenueCat**~~ — código hecho. Queda la configuración de tiendas, ver §8.
-5. ~~**Widgets con cara y ojos**~~ — hecho. Pequeño, mediano y grande, idénticos en iOS y Android, con racha, relleno parcial y la tira de los últimos 7 días (ver §4). Queda pendiente el widget del **grid anual completo** de un hábito, que es material de Pro.
+1. ~~**Copia de seguridad + exportar/importar JSON**~~. Hecho. Guardar usa el guardador de ficheros del sistema, no la hoja de compartir: una copia tiene que aterrizar donde el usuario la encuentre y se la pueda devolver al importador, y ahí salen todos los discos en la nube.
+2. ~~**Días saltados**~~. Hecho. Campo aditivo `skipped`, sin migración: los ficheros viejos caen al valor por defecto. Pulsación larga sobre el día; un salto no cuenta ni en la racha ni en el denominador del cumplimiento, y apaga el recordatorio y la fila del widget de ese día.
+3. **Hábitos de cantidad y temporizador.** Cierra el hueco frente a Streaks.
+4. ~~**Monetización real con RevenueCat**~~. Código hecho. Queda la configuración de tiendas, ver §8.
+5. ~~**Widgets con cara y ojos**~~. Hecho. Pequeño, mediano y grande, idénticos en iOS y Android, con racha, relleno parcial y la tira de los últimos 7 días (ver §4). Queda pendiente el widget del **grid anual completo** de un hábito, que es material de Pro.
 6. **Sincronización iCloud / Drive** sobre el fichero de copia de seguridad.
-7. ~~**Localización, 5 idiomas**~~ — hecho. Inglés, español, portugués, alemán y francés, en tabla única `S` en común más `L` en el widget de iOS. El idioma sale de las preferencias del sistema, no del bundle; cualquier idioma fuera de los cinco cae a inglés. Declarados en `CFBundleLocalizations` y en `locales_config.xml`, así que la App Store los lista y Android ofrece el selector de idioma por app. **Pendiente: repaso nativo de DE, FR y PT antes de promocionar.**
+7. ~~**Localización, 5 idiomas**~~. Hecho. Inglés, español, portugués, alemán y francés, en tabla única `S` en común más `L` en el widget de iOS. El idioma sale de las preferencias del sistema, no del bundle; cualquier idioma fuera de los cinco cae a inglés. Declarados en `CFBundleLocalizations` y en `locales_config.xml`, así que la App Store los lista y Android ofrece el selector de idioma por app. **Pendiente: repaso nativo de DE, FR y PT antes de promocionar.**
 8. **Resumen anual automático** en diciembre, con aviso: el pico de compartir del año.
 
 ---
@@ -348,7 +348,7 @@ Ordenado por daño real, no por esfuerzo.
 ### El nombre: Quilt
 
 Una colcha de retales es exactamente lo que dibuja la app: un tablero de cuadrados de colores que se
-cose de uno en uno. El nombre trae gratis el icono, la metáfora y el argumento de la ficha —
+cose de uno en uno. El nombre trae gratis el icono, la metáfora y el argumento de la ficha,
 *cada día es un retal; al final del año tienes la colcha entera*.
 
 Descartados: **Tesela** (libre, pero a una letra de Tesla: contamina la búsqueda e invita a una queja
@@ -397,7 +397,7 @@ Unas 3.100 líneas de Kotlin y Swift.
 
 ### Lo que falta, en jornadas de trabajo
 
-**Producto (bloqueante para publicar) — unas 6 jornadas**
+**Producto (bloqueante para publicar), unas 6 jornadas**
 
 | Tarea | Jornadas | Por qué bloquea |
 |---|---|---|
@@ -405,7 +405,7 @@ Unas 3.100 líneas de Kotlin y Swift.
 | Onboarding | 1 | El icono, el de notificación y la previsualización del widget ya están hechos |
 | Pulido y errores en dispositivos reales | 3 | Todo se ha probado en emulador y simulador |
 
-**Tienda (no es código) — unas 5 jornadas**
+**Tienda (no es código), unas 5 jornadas**
 
 | Tarea | Jornadas | Nota |
 |---|---|---|
@@ -437,11 +437,11 @@ app es la de la compra"**. Hay que declararlo en los formularios de privacidad d
 
 ## Fuentes
 
-- [12 best habit tracking apps in 2026 — 2sync](https://2sync.com/blog/best-habit-tracker-apps)
-- [The 10 Best Habit Tracker Apps of 2026 — Reclaim](https://reclaim.ai/blog/habit-tracker-apps)
-- [Best HabitKit Alternatives for Data-Driven Habit Tracking — Aftertone](https://www.aftertone.io/guides/best-habitkit-alternatives)
-- [Best Habit Tracker Apps 2026: Tested & Compared — loggd.life](https://loggd.life/blog/best-habit-tracker-apps-2026)
-- [State of Subscription Apps 2026 — RevenueCat](https://www.revenuecat.com/state-of-subscription-apps)
-- [App Monetization Strategies That Actually Work in 2026 — Octy](https://octy.dev/blog/app-monetization-strategies-2026/)
+- [12 best habit tracking apps in 2026, 2sync](https://2sync.com/blog/best-habit-tracker-apps)
+- [The 10 Best Habit Tracker Apps of 2026, Reclaim](https://reclaim.ai/blog/habit-tracker-apps)
+- [Best HabitKit Alternatives for Data-Driven Habit Tracking, Aftertone](https://www.aftertone.io/guides/best-habitkit-alternatives)
+- [Best Habit Tracker Apps 2026: Tested & Compared, loggd.life](https://loggd.life/blog/best-habit-tracker-apps-2026)
+- [State of Subscription Apps 2026, RevenueCat](https://www.revenuecat.com/state-of-subscription-apps)
+- [App Monetization Strategies That Actually Work in 2026, Octy](https://octy.dev/blog/app-monetization-strategies-2026/)
 - [Alarmee: alarmas y notificaciones locales en KMP](https://github.com/Tweener/alarmee)
-- [Widgets con SwiftUI y Compose sobre código KMP — John O'Reilly](https://johnoreilly.dev/posts/ios-android-widget-kmp/)
+- [Widgets con SwiftUI y Compose sobre código KMP, John O'Reilly](https://johnoreilly.dev/posts/ios-android-widget-kmp/)

@@ -40,7 +40,7 @@ no como base.
 - Grupos de Telegram y Discord de `closed testing` / `12 testers`
 
 **3. Servicios de pago.** Existen, cobran entre 30 y 100 €, y salen todos en la primera página de
-Google cuando buscas esto — de hecho casi todo lo que se lee sobre el tema son sus blogs. Míralo
+Google cuando buscas esto. De hecho casi todo lo que se lee sobre el tema son sus blogs. Míralo
 con cuidado: son cuentas alquiladas, y ese es exactamente el patrón que las comprobaciones de uso
 real de Google buscan. Si uno de esos servicios usa granjas de cuentas, el riesgo no lo corre el
 servicio, lo corres tú con tu cuenta de desarrollador. No lo recomiendo mientras la opción 1 no
@@ -107,7 +107,7 @@ móvil con otro. Que comprueben la cuenta en Play Store → foto de perfil.
 ## Post para Reddit
 
 En inglés: esos subs lo son. Está escrito para leerse como un dev pidiendo ayuda, no como un
-anuncio — en Reddit lo segundo se hunde en downvotes o lo borra un moderador.
+anuncio. En Reddit lo segundo se hunde en downvotes o lo borra un moderador.
 
 **Antes de publicarlo hace falta el Grupo de Google.** Los dos enlaces de abajo no le sirven a un
 desconocido: en una prueba **cerrada**, quien no está en la lista de probadores ve "no disponible".
@@ -120,11 +120,11 @@ Funciona, pero te obliga a estar pendiente y añade horas de retraso a cada pers
 ### Título (elige uno)
 
 ```
-[Closed testing] Quilt — a habit tracker that shows your whole year as a grid. I'll test yours back.
+[Closed testing] Quilt, a habit tracker that shows your whole year as a grid. I'll test yours back.
 ```
 
 ```
-Need 12 testers for 14 days (Quilt, habit tracker). Reciprocal — drop your link and I'll join yours today.
+Need 12 testers for 14 days (Quilt, habit tracker). Reciprocal: drop your link and I'll join yours today.
 ```
 
 ### Cuerpo
@@ -132,16 +132,16 @@ Need 12 testers for 14 days (Quilt, habit tracker). Reciprocal — drop your lin
 ```markdown
 Same wall everyone hits: 12 testers, 14 continuous days, before Google unlocks production.
 
-**Reciprocal** — drop your link in the comments and I'll opt into yours the same day and stay
+**Reciprocal.** Drop your link in the comments and I'll opt into yours the same day and stay
 installed the full 14. I won't uninstall on you.
 
-**What it is:** Quilt shows your whole year as a grid — one square per day, one grid per habit.
+**What it is:** Quilt shows your whole year as a grid. One square per day, one grid per habit.
 Tap a square to mark the day. It's built for looking back at a year rather than clearing a
 to-do list.
 
 - Interactive home screen widgets in three sizes. One tap marks the day.
 - Rest days: long-press a day to skip it. Holidays and sick days don't break the streak.
-- Counted habits — 8 glasses, 3 sets, whatever you count.
+- Counted habits: 8 glasses, 3 sets, whatever you count.
 - Per-habit reminders, only on the days you choose.
 - A share card for your year.
 - No account, no ads, no analytics, no tracking. Everything stays on the device:
@@ -156,12 +156,12 @@ nothing you need to buy to test it.
 2. Opt in: https://play.google.com/apps/testing/com.baltajmn.habit
 3. Install: https://play.google.com/store/apps/details?id=com.baltajmn.habit
 
-Step 1 isn't optional — the closed test can't see you otherwise. Use the Google account your
+Step 1 isn't optional. The closed test can't see you otherwise. Use the Google account your
 phone actually signs into Play with. That mismatch is the usual reason people get
 "item not available".
 
 **What actually helps:** set up a real habit of yours, not a test one, and mark it daily. And
-please don't uninstall for 14 days even if you lose interest — if the count drops below 12 for a
+please don't uninstall for 14 days even if you lose interest. If the count drops below 12 for a
 single day, my clock resets to zero.
 
 Feedback very welcome, especially on the widgets.
@@ -170,7 +170,7 @@ Feedback very welcome, especially on the widgets.
 ### Respuesta para los comentarios
 
 ```markdown
-Joined yours and installed — I'm in for the full 14 days. Mine's here if you're up for it:
+Joined yours and installed. I'm in for the full 14 days. Mine's here if you're up for it:
 https://play.google.com/apps/testing/com.baltajmn.habit (group first: <GRUPO>)
 ```
 

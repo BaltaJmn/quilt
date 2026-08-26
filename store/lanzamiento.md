@@ -8,7 +8,7 @@ trámites y el test cerrado de 14 días. Todo lo que sea código cabe dentro de 
 
 ---
 
-## Fase 0 — Decisiones que bloquean el resto
+## Fase 0. Decisiones que bloquean el resto
 
 - [x] ~~**El nombre de la tienda.**~~ **Quilt**, aplicado en código y ficha. El `applicationId`
       (`com.baltajmn.habit`) se queda como está: es irreversible tras la primera subida y el nombre
@@ -33,7 +33,7 @@ trámites y el test cerrado de 14 días. Todo lo que sea código cabe dentro de 
       instalación y las herramientas a otra. Los 27 tests de `:shared:testAndroidHostTest` sí pasan,
       y la app compila y arranca en el simulador. Hay que arreglarlo antes de montar CI.
 
-## Fase 1 — Infraestructura
+## Fase 1. Infraestructura
 
 - [x] ~~**[yo] `git init` y repo en GitHub.**~~ `BaltaJmn/quilt`, privado.
 - [x] ~~**[yo] Publicar desde CI.**~~ `.github/workflows/release.yml`: etiqueta `v*` compila,
@@ -56,10 +56,10 @@ trámites y el test cerrado de 14 días. Todo lo que sea código cabe dentro de 
       `keytool -list -v` peta con `MissingFormatArgumentException: Format specifier '%2$s'`. Es un fallo
       de la traducción al español del propio JDK, no del keystore. Añade `-J-Duser.language=en
       -J-Duser.country=US` y sale bien.
-- [x] **[yo] Generar el AAB firmado** — `androidApp/build/outputs/bundle/release/androidApp-release.aab`,
+- [x] **[yo] Generar el AAB firmado.** `androidApp/build/outputs/bundle/release/androidApp-release.aab`,
       7,1 MB, versionCode 1, versionName 1.0, firmado con la clave de subida. Se regenera con
       `./gradlew :androidApp:bundleRelease`.
-- [x] **[tú] Publicar la política de privacidad** — **https://quilt.baltajmn.dev/**
+- [x] **[tú] Publicar la política de privacidad.** **https://quilt.baltajmn.dev/**
       Escrita a medida contra lo que hace el código, en inglés y español, alojada en GitHub Pages
       desde el repositorio público `BaltaJmn/quilt-privacy`. El original vive en
       `store/privacy/index.html`; el repositorio público es una copia, así que un cambio hay que
@@ -76,12 +76,12 @@ que publica AndroidX ya viene *stripped*:
 ELF 64-bit LSB shared object, ARM aarch64, ..., stripped
 ```
 
-`ndk { debugSymbolLevel = "SYMBOL_TABLE" }` en el `buildType` de release no cambia nada — AGP solo
+`ndk { debugSymbolLevel = "SYMBOL_TABLE" }` en el `buildType` de release no cambia nada. AGP solo
 puede recoger símbolos que existan en el `.so`, y ahí no hay ninguno. Se probó y el AAB salió igual,
 sin `BUNDLE-METADATA/.../nativeDebugMetadata`, así que se quitó la línea en vez de dejar configuración
 que no hace nada. El día que metamos código nativo propio, se añade entonces.
 
-## Fase 2 — Google Play Console
+## Fase 2. Google Play Console
 
 - [ ] **[tú] Crear la app** en Play Console con el nombre elegido.
 - [ ] **[tú] Subir el primer AAB a un canal de prueba interna.** Manual y obligatorio: la Play
@@ -90,7 +90,7 @@ que no hace nada. El día que metamos código nativo propio, se añade entonces.
 - [ ] **[tú] Rellenar la ficha** con los textos de `play-listing.md`. Empieza por español e inglés.
 - [x] **[yo] Capturas** en español e inglés, `store/screenshots/es/` y `store/screenshots/en/`.
       Sacadas con `adb` y el modo demo de SystemUI, así que la próxima tanda sale idéntica.
-- [x] **[tú o yo] Gráfico de funciones 1024×500** — `store/graphics/feature-es.png` y `-en.png`.
+- [x] **[tú o yo] Gráfico de funciones 1024×500.** `store/graphics/feature-es.png` y `-en.png`.
 - [ ] **[tú] Subir el vídeo a YouTube** (`store/graphics/quilt-flow-es.mp4`, `-en.mp4`) como *oculto*
       y pegar el enlace en la ficha. Play no acepta el fichero, solo la URL.
 - [ ] **[tú] Data Safety.** Borrador en `play-listing.md`; contrástalo con la guía de RevenueCat.
@@ -98,7 +98,7 @@ que no hace nada. El día que metamos código nativo propio, se añade entonces.
 - [ ] **[tú] Crear el producto de compra** `pro_lifetime`, 4,99 €. Textos y pasos en
       `revenuecat.md` §1. Requiere el AAB ya subido y el perfil de pagos verificado.
 
-## Fase 3 — RevenueCat
+## Fase 3. RevenueCat
 
 - [x] ~~**[tú] Crear el proyecto** y conectarlo a Play.~~ Cuenta de servicio creada en Google Cloud
       e invitada en *Usuarios y permisos*. Credenciales subidas.
@@ -117,7 +117,7 @@ que no hace nada. El día que metamos código nativo propio, se añade entonces.
       instalada **desde el canal de prueba interna** y la cuenta añadida en *Ajustes → Monetización
       → Licencia para testing*. Es donde salen los fallos que importan.
 
-## Fase 4 — El test cerrado (el camino crítico)
+## Fase 4. El test cerrado (el camino crítico)
 
 - [ ] **[tú] Reunir 12 probadores.** Recluta **16**, no 12: siempre se cae alguno y bajar de 12 un
       solo día reinicia el contador de 14. Cómo conseguirlos, el mensaje para mandarles y las
@@ -127,7 +127,7 @@ que no hace nada. El día que metamos código nativo propio, se añade entonces.
 - [ ] **[tú] Solicitar acceso a producción** al terminar los 14 días.
 - [ ] **[tú] Publicar.**
 
-## Fase 5 — Apple (en paralelo, empieza ya)
+## Fase 5. Apple (en paralelo, empieza ya)
 
 - [ ] **[tú] Abrir la cuenta de Apple Developer**, 99 $/año. La verificación tarda. Es lo único
       que no se puede acelerar después, así que ábrela hoy aunque iOS vaya detrás.
@@ -145,8 +145,8 @@ que no hace nada. El día que metamos código nativo propio, se añade entonces.
 
 | Función | Estado | ¿En 1.0? |
 |---|---|---|
-| Todo el MVP | Hecho | — |
-| Días saltados, racha máxima, archivar, contador de cantidad, exportar JSON | Hecho | — |
+| Todo el MVP | Hecho | |
+| Días saltados, racha máxima, archivar, contador de cantidad, exportar JSON | Hecho | |
 | Onboarding | Falta | **Sí.** Primera impresión, 1 jornada |
 | Vista previa del widget en el selector de Android | Falta | **Sí.** Sin ella sale una caja gris |
 | Reordenar hábitos | Falta | **Sí.** Con 5 hábitos gratis, querrás el importante arriba. Medio día |
