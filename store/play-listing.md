@@ -233,10 +233,10 @@ nunca la app qué hace.
 | Campo | Valor |
 |---|---|
 | Nombre del paquete | `com.baltajmn.habit` |
-| Categoría | **Salud y bienestar** (más volumen que Productividad en esta categoría) |
-| Etiquetas | Seguimiento de hábitos, Productividad personal, Estilo de vida |
+| Categoría | **Productividad**. La app es agnóstica al hábito (leer, idiomas, agua, correr): Salud y fitness promete métricas corporales que no existen, y Estilo de vida no da grupo de comparación. Reversible en cualquier momento desde la ficha. |
+| Etiquetas | **Productividad**, **Autoayuda**, **Monitores de actividad**. La lista de Play es cerrada, no se escriben a mano. Tres buenas antes que cinco: cada etiqueta elige contra qué apps te comparan. Fuera Entrenamiento, Meditación, Sueño y Dietas, que te ponen a competir con Strava y Calm. |
 | Correo de contacto | El tuyo, público en la ficha |
-| Política de privacidad | **https://baltajmn.github.io/quilt-privacy/** |
+| Política de privacidad | **https://quilt.baltajmn.dev/** |
 | Anuncios | **No contiene anuncios** |
 | Compras en la aplicación | **Sí** — un producto, pago único |
 | Clasificación de contenido | Cuestionario IARC: sin violencia, sin sexo, sin contenido de usuario, sin apuestas, sin datos compartidos → sale **PEGI 3 / Everyone** |

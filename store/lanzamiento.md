@@ -53,7 +53,7 @@ trámites y el test cerrado de 14 días. Todo lo que sea código cabe dentro de 
 - [x] **[yo] Generar el AAB firmado** — `androidApp/build/outputs/bundle/release/androidApp-release.aab`,
       7,1 MB, versionCode 1, versionName 1.0, firmado con la clave de subida. Se regenera con
       `./gradlew :androidApp:bundleRelease`.
-- [x] **[tú] Publicar la política de privacidad** — **https://baltajmn.github.io/quilt-privacy/**
+- [x] **[tú] Publicar la política de privacidad** — **https://quilt.baltajmn.dev/**
       Escrita a medida contra lo que hace el código, en inglés y español, alojada en GitHub Pages
       desde el repositorio público `BaltaJmn/quilt-privacy`. El original vive en
       `store/privacy/index.html`; el repositorio público es una copia, así que un cambio hay que

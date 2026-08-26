@@ -5,7 +5,10 @@ dependencias externas: se abre igual en local que alojado.
 
 ## Dónde está publicada
 
-**https://baltajmn.github.io/quilt-privacy/**
+**https://quilt.baltajmn.dev/**
+
+`baltajmn.dev` está en Porkbun y renueva el 2027-08-26. Si el dominio caduca, esta URL muere y con
+ella la ficha de Play: deja el auto-renew puesto.
 
 El correo de contacto que aparece en la página es `baltajmn@gmail.com`. Tiene que ser el mismo
 que pongas de contacto en la ficha de Play, o los revisores lo marcan como incoherencia.
@@ -23,14 +26,24 @@ donde un script puede borrarla.
 1. Crea un repositorio **público** nuevo, por ejemplo `quilt-privacy`.
 2. Sube `index.html` a la raíz.
 3. En el repositorio: *Settings → Pages → Build and deployment → Deploy from a branch*, rama `main`,
-   carpeta `/ (root)`.
-4. A los pocos minutos queda en `https://<tu-usuario>.github.io/quilt-privacy/`.
+   carpeta `/ (root)`. Queda en `https://<tu-usuario>.github.io/quilt-privacy/`.
+4. Dominio propio, en Porkbun: registro `CNAME`, host `quilt`, respuesta `baltajmn.github.io`.
+5. Con el DNS ya resolviendo, custom domain en Pages y HTTPS forzado:
+
+   ```bash
+   gh api -X PUT repos/BaltaJmn/quilt-privacy/pages -f cname=quilt.baltajmn.dev
+   gh api -X PUT repos/BaltaJmn/quilt-privacy/pages -F https_enforced=true
+   ```
+
+El orden importa: si pones el custom domain antes de que el DNS resuelva, Pages redirige la URL de
+`github.io` a un dominio que todavía no existe y la política se queda inaccesible. Es justo la URL
+de la que depende la publicación en Play.
 
 Esa URL es la que va en Play Console, en *Contenido de la aplicación → Política de privacidad*.
 Tiene HTTPS, es pública y no pide iniciar sesión, que es exactamente lo que Play exige.
 
-Si ya tienes dominio propio por tus otras apps, mejor ahí: `tudominio.com/quilt/privacidad`. Un
-dominio tuyo sobrevive a que GitHub cambie de política; una URL de `github.io`, no del todo.
+La antigua `https://baltajmn.github.io/quilt-privacy/` sigue viva y redirige con un 301, así que
+cualquier sitio donde ya estuviera pegada sigue funcionando.
 
 ## Qué dice, y por qué dice eso
 
