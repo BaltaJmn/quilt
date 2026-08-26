@@ -134,13 +134,12 @@ móvil con otro. Que comprueben la cuenta en Play Store → foto de perfil.
 En inglés: esos subs lo son. Está escrito para leerse como un dev pidiendo ayuda, no como un
 anuncio. En Reddit lo segundo se hunde en downvotes o lo borra un moderador.
 
-**Antes de publicarlo hace falta el Grupo de Google.** Los dos enlaces de abajo no le sirven a un
-desconocido: en una prueba **cerrada**, quien no está en la lista de probadores ve "no disponible".
-El grupo es lo que deja que se apunten solos, sin que tú vayas recogiendo correos por DM. Créalo y
-sustituye `<GRUPO>` por su dirección (`quilt-testers@googlegroups.com` o como lo llames).
+El grupo ya existe: **quilt-testers@googlegroups.com**. Está puesto en el post. Es lo que deja que
+se apunten solos, sin que vayas recogiendo correos por DM. Sin él, en una prueba **cerrada** quien
+no está en la lista de probadores ve "no disponible".
 
-Sin grupo, cambia el paso 1 por: *"comment or DM me the Gmail your phone uses and I'll add you"*.
-Funciona, pero te obliga a estar pendiente y añade horas de retraso a cada persona.
+Comprueba que está pegado en Play Console antes de publicar nada:
+*Probar y publicar → Pruebas → Pruebas cerradas → Probadores → Grupos de Google*.
 
 ### Título (elige uno)
 
@@ -177,7 +176,7 @@ nothing you need to buy to test it.
 
 **To join:**
 
-1. Join the group: <GRUPO>
+1. Join the group: quilt-testers@googlegroups.com
 2. Opt in: https://play.google.com/apps/testing/com.baltajmn.habit
 3. Install: https://play.google.com/store/apps/details?id=com.baltajmn.habit
 
@@ -196,7 +195,7 @@ Feedback very welcome, especially on the widgets.
 
 ```markdown
 Joined yours and installed. I'm in for the full 14 days. Mine's here if you're up for it:
-https://play.google.com/apps/testing/com.baltajmn.habit (group first: <GRUPO>)
+https://play.google.com/apps/testing/com.baltajmn.habit (group first: quilt-testers@googlegroups.com)
 ```
 
 ### Al publicar
