@@ -159,13 +159,13 @@ not a subscription and never will be.
 
 ---
 
-## Notas de la versión — 1.0
+## Notas de la versión — 1.1
 
 Play las pide en un solo campo, con una etiqueta por idioma. El tope de **500 caracteres es por
 idioma**, no del bloque entero, y las etiquetas no cuentan. Los códigos tienen que coincidir con los
 idiomas dados de alta en la ficha, o Play rechaza el bloque.
 
-Pegable tal cual — también está suelto en `store/release-notes-1.0.txt`:
+Pegable tal cual — también está suelto en `store/release-notes-1.1.txt`:
 
 ```
 <en-US>
