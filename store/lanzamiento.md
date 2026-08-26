@@ -105,8 +105,9 @@ que no hace nada. El día que metamos código nativo propio, se añade entonces.
 
 ## Fase 4 — El test cerrado (el camino crítico)
 
-- [ ] **[tú] Reunir 12 probadores.** Necesitas 12 cuentas de Google distintas, y desde 2026 Google
-      mira que usen la app de verdad, no solo que la instalen.
+- [ ] **[tú] Reunir 12 probadores.** Recluta **16**, no 12: siempre se cae alguno y bajar de 12 un
+      solo día reinicia el contador de 14. Cómo conseguirlos, el mensaje para mandarles y las
+      trampas: `store/testers.md`.
 - [ ] **[tú] Arrancar el test cerrado.** **Hazlo lo antes posible**: son 14 días seguidos y es el
       plazo más largo de todo el proyecto. Arráncalo mientras se hace el resto, no después.
 - [ ] **[tú] Solicitar acceso a producción** al terminar los 14 días.
