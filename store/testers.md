@@ -56,8 +56,33 @@ En Play Console puedes pegar correos sueltos o apuntar a un Grupo de Google. Usa
 - Añadir o quitar gente se hace en el grupo, sin tocar Play Console ni publicar release nueva.
 - No expones la lista de correos de tus amigos dentro de la consola.
 
-`groups.google.com` → crear grupo, por ejemplo `quilt-testers`. En Play Console:
-*Pruebas → Pruebas cerradas → Probadores → Grupos de Google*, y pegas la dirección del grupo.
+### Crearlo
+
+1. [groups.google.com](https://groups.google.com) → **Crear grupo**.
+2. Nombre `Quilt testers`, correo `quilt-testers`. Queda como
+   `quilt-testers@googlegroups.com`.
+3. Ajustes de privacidad, que es donde se decide si esto funciona o no:
+
+| Ajuste | Valor | Por qué |
+|---|---|---|
+| Quién puede unirse | **Cualquiera puede pedir unirse** | Tú apruebas. Un bot que entra solo ocupa una plaza sin usar la app, y Google mira el uso real |
+| Quién puede publicar | **Solo los administradores** | Si no, cualquiera puede escribir a los doce y el grupo acaba siendo un relé de spam |
+| Quién puede ver los miembros | **Solo administradores** | No expones los correos de tus amigos a desconocidos que se apunten por Reddit |
+| Quién puede ver las conversaciones | **Solo administradores** | El grupo es una lista de acceso, no un foro |
+
+4. Play Console → *Probar y publicar → Pruebas → Pruebas cerradas → **Probadores*** →
+   **Grupos de Google**, y pega `quilt-testers@googlegroups.com`.
+
+**Aprueba las solicitudes a mano, en tandas.** Vas a estar contestando comentarios de todas formas.
+Y así sabes a quién chasqueas el día 7 cuando alguien desinstale.
+
+Si prefieres cero fricción, pon *Cualquiera puede unirse* y te ahorras aprobar. Convierte mejor en
+Reddit, pero te llenas de cuentas que no abren la app, que es justo el patrón por el que Google
+rechaza la solicitud de producción.
+
+**El correo tiene que ser el de la cuenta de Google del móvil.** Alguien que se une al grupo con un
+correo y tiene el Play Store con otro sigue viendo "no disponible". Es el fallo número uno y no da
+ningún mensaje de error útil.
 
 ## Quilt juega a favor aquí
 
