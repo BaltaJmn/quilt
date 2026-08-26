@@ -32,22 +32,45 @@ directamente en vez de poner un mensaje en un grupo y esperar.
 Pide el correo **de la cuenta de Google del móvil**, que a menudo no es el que usan a diario. Es el
 fallo número uno: aceptan con un correo y tienen el móvil con otro, y no les aparece la app.
 
-**2. Comunidades de testeo recíproco.** Tú pruebas la suya, ellos la tuya. Gratis y funciona, pero
-la rotación es alta y son justo los que se caen el día 9. Sirven para rellenar los últimos huecos,
-no como base.
+**2. Comunidades donde está tu público, no otros desarrolladores.**
 
-- r/AndroidClosedTesting, r/androidtesting y r/androiddev en Reddit
-- Grupos de Telegram y Discord de `closed testing` / `12 testers`
+`r/androiddev` prohíbe estos posts, y da una razón que conviene leer entera:
 
-**3. Servicios de pago.** Existen, cobran entre 30 y 100 €, y salen todos en la primera página de
-Google cuando buscas esto. De hecho casi todo lo que se lee sobre el tema son sus blogs. Míralo
-con cuidado: son cuentas alquiladas, y ese es exactamente el patrón que las comprobaciones de uso
-real de Google buscan. Si uno de esos servicios usa granjas de cuentas, el riesgo no lo corre el
-servicio, lo corres tú con tu cuenta de desarrollador. No lo recomiendo mientras la opción 1 no
-esté agotada de verdad.
+> Google associate Play Store accounts in mysterious ways, but it looks like one of the way they
+> can associate accounts is the testing. Therefore if you look for testers amongst other developers
+> you put your Play Account at risk of termination by association.
 
-**Lo que no se hace nunca:** crear tus propias cuentas de Google para llegar a 12. Es la vía rápida
-a que te cierren la cuenta de desarrollador, y son 25 $ y todo el trabajo hecho hasta aquí.
+Es decir: los grupos de intercambio (`r/AndroidClosedTesting`, los Telegram de "12 testers", "yo
+pruebo la tuya y tú la mía") no solo dan probadores malos que se caen el día 9. Te asocian la
+cuenta con decenas de cuentas de desarrollador desconocidas, y si alguna de ellas acaba baneada,
+el parecido lo pagas tú. Son 25 $ y todo el trabajo hecho hasta aquí.
+
+**No lo hagas.** Ni recíproco, ni grupos de intercambio, ni servicios de pago (que son lo mismo
+con factura).
+
+Lo que sí, en dos niveles:
+
+*Sitios donde pedir probadores es el tema del sub:*
+
+- **r/alphaandbetausers** (~88k). Existe para esto. Usa el flair `[Beta]`.
+- **r/androidapps**. Permite publicar tu propia app si sigues el formato y dices que eres el autor.
+  Son usuarios de Android, no desarrolladores.
+
+*Sitios donde está la gente que quiere un seguidor de hábitos:*
+
+- **r/theXeffect**, seguimiento de hábitos con cuadrículas. Es literalmente Quilt en papel.
+- **r/QuantifiedSelf**, gente que registra su vida en datos. El argumento del año entero les toca.
+- **r/getdisciplined**, **r/decidingtobebetter**, **r/selfimprovement**, **r/habits**
+- **r/productivity**
+- **r/bulletjournal**, trackers analógicos, público exacto aunque prefieran el papel
+- **r/degoogle** y comunidades de privacidad, por el "sin cuenta, sin nube, sin analítica"
+
+En este segundo grupo casi todos prohíben la autopromoción por defecto. **Escribe al moderador
+antes**, no publiques y reces. Un mensaje corto diciendo qué es y que buscas probadores suele
+bastar, y te evita el borrado y la marca en el historial.
+
+**Lo que no se hace nunca:** crear tus propias cuentas de Google para llegar a 12. Es la vía más
+rápida a que te cierren la cuenta.
 
 ## Móntalo con un Grupo de Google
 
@@ -131,82 +154,115 @@ móvil con otro. Que comprueben la cuenta en Play Store → foto de perfil.
 
 ## Post para Reddit
 
-En inglés: esos subs lo son. Está escrito para leerse como un dev pidiendo ayuda, no como un
-anuncio. En Reddit lo segundo se hunde en downvotes o lo borra un moderador.
+En inglés: esos subs lo son. **Nada de intercambio recíproco**, por lo que dice `r/androiddev` más
+arriba. Hay dos versiones porque son dos públicos distintos, y el mismo texto en los dos sitios
+funciona mal en ambos.
 
-El grupo ya existe: **quilt-testers@googlegroups.com**. Está puesto en el post. Es lo que deja que
-se apunten solos, sin que vayas recogiendo correos por DM. Sin él, en una prueba **cerrada** quien
-no está en la lista de probadores ve "no disponible".
+### Versión A, para r/alphaandbetausers y r/androidapps
 
-Comprueba que está pegado en Play Console antes de publicar nada:
-*Probar y publicar → Pruebas → Pruebas cerradas → Probadores → Grupos de Google*.
+Ahí buscar probadores es el tema, así que se puede decir de frente.
 
-### Título (elige uno)
+**Título:**
 
 ```
-[Closed testing] Quilt, a habit tracker that shows your whole year as a grid. I'll test yours back.
+[Beta] Quilt: a habit tracker that shows your whole year as one grid. No account, no ads.
 ```
 
-```
-Need 12 testers for 14 days (Quilt, habit tracker). Reciprocal: drop your link and I'll join yours today.
-```
-
-### Cuerpo
+**Cuerpo:**
 
 ```markdown
-Same wall everyone hits: 12 testers, 14 continuous days, before Google unlocks production.
+I built Quilt because every habit app I tried showed me this week. I wanted to see the year.
 
-**Reciprocal.** Drop your link in the comments and I'll opt into yours the same day and stay
-installed the full 14. I won't uninstall on you.
+One square per day, one grid per habit, twelve months on screen at once. You can see the month
+you slipped and the seven straight weeks you didn't, in the same glance. That view is the whole
+point of the app.
 
-**What it is:** Quilt shows your whole year as a grid. One square per day, one grid per habit.
-Tap a square to mark the day. It's built for looking back at a year rather than clearing a
-to-do list.
+- Interactive home screen widgets in three sizes. One tap marks the day, no need to open the app.
+- Rest days: long-press a day to skip it. Being ill or away doesn't break the streak or sink
+  your completion rate.
+- Counted habits: 8 glasses, 3 sets, 30 minutes, whatever you count.
+- Per-habit reminders, only on the days you scheduled.
+- A share card for your week, month or year.
+- No account, no sign-up, no ads, no analytics. Everything is a file on your phone that you can
+  export and take with you: https://quilt.baltajmn.dev/
 
-- Interactive home screen widgets in three sizes. One tap marks the day.
-- Rest days: long-press a day to skip it. Holidays and sick days don't break the streak.
-- Counted habits: 8 glasses, 3 sets, whatever you count.
-- Per-habit reminders, only on the days you choose.
-- A share card for your year.
-- No account, no ads, no analytics, no tracking. Everything stays on the device:
-  https://quilt.baltajmn.dev/
+Android 7.0+. English, Spanish, Portuguese, German and French. There is a paid tier, but nothing
+you need to buy to use it or to test it.
 
-Android 7.0+. English, Spanish, Portuguese, German, French. There's a paid tier, but there is
-nothing you need to buy to test it.
-
-**To join:**
+It is in closed testing, so joining takes two steps:
 
 1. Join the group: quilt-testers@googlegroups.com
 2. Opt in: https://play.google.com/apps/testing/com.baltajmn.habit
-3. Install: https://play.google.com/store/apps/details?id=com.baltajmn.habit
 
-Step 1 isn't optional. The closed test can't see you otherwise. Use the Google account your
-phone actually signs into Play with. That mismatch is the usual reason people get
-"item not available".
+Step 1 isn't optional, the test can't see you otherwise. Use the Google account your phone
+actually signs into Play with. That mismatch is why people get "item not available".
 
-**What actually helps:** set up a real habit of yours, not a test one, and mark it daily. And
-please don't uninstall for 14 days even if you lose interest. If the count drops below 12 for a
-single day, my clock resets to zero.
-
-Feedback very welcome, especially on the widgets.
+I'd rather hear that something is wrong than be polite about it. The widgets are the part I am
+least sure about.
 ```
 
-### Respuesta para los comentarios
+### Versión B, para r/theXeffect, r/QuantifiedSelf, r/getdisciplined y similares
+
+Ahí eres una persona enseñando algo que ha hecho, no un anuncio. **Pide permiso al moderador
+antes.** Y si el sub tiene hilo semanal de autopromoción, va ahí y no al feed.
+
+**Título:**
+
+```
+I got tired of habit apps that only show you this week, so I built one that shows the whole year
+```
+
+**Cuerpo:**
 
 ```markdown
-Joined yours and installed. I'm in for the full 14 days. Mine's here if you're up for it:
-https://play.google.com/apps/testing/com.baltajmn.habit (group first: quilt-testers@googlegroups.com)
+I've been tracking habits on paper for years, in a grid, one box a day. Every app I tried
+replaced that with a checklist for today and a streak number, and I always went back to paper.
+
+So I built the paper version. One square per day, one grid per habit, the twelve months on
+screen at once. Tap any past day to fill it in, including one you forgot.
+
+Two things I wanted that most apps get wrong:
+
+Skipped days. Long-press a day and it's marked as skipped. It doesn't count as a miss, doesn't
+break the streak and doesn't drag your percentage down. Being ill shouldn't cost you 40 days.
+
+The widget. Three sizes, on the home screen, and tapping a square marks the day without opening
+anything. The app I want is the one I don't have to open.
+
+There's no account and no sign-up, it doesn't collect anything, and there are no ads. Your data
+is a file on your phone you can export whenever you want.
+
+It's free for three habits, and there's a one-off unlock if you want more. Nothing to buy to
+try it.
+
+I need people actually using it before Google will let me publish, so it's in closed testing for
+now. If you want in:
+
+1. Join quilt-testers@googlegroups.com
+2. Opt in at https://play.google.com/apps/testing/com.baltajmn.habit
+
+Use the Google account your phone signs into the Play Store with, or it won't show up.
+
+Genuinely after criticism, not compliments. If the year grid doesn't land for you I'd like to
+know why.
+```
+
+### Si alguien comenta
+
+```markdown
+Thanks for trying it. If it doesn't show up after joining the group, it's almost always the
+account: the one you joined with has to be the one your phone uses in the Play Store. You can
+check it in Play Store, tap your profile picture.
 ```
 
 ### Al publicar
 
-- **Lee las reglas del sub primero.** `r/androiddev` no admite estos posts en el feed: van a un
-  hilo fijado. Publicarlo suelto es que te lo borren y te ganes una marca.
+- **Lee las reglas del sub primero.** `r/androiddev` prohíbe estos posts del todo, no es que vayan
+  a otro sitio. En los subs de hábitos, escribe al moderador antes de publicar.
 - **No pegues el mismo texto en cinco sitios el mismo día.** Reddit lo detecta como spam y te
   puede caer un shadowban, que es peor que no publicar: sigues viendo tus posts y nadie más.
   Reescribe la primera frase en cada uno y espárcelo en varios días.
-- **Contesta a todo el que comente.** Es la mitad del trato; el que no recibe respuesta se
-  desinstala.
-- **Apunta a quién aceptaste tú.** Vas a tener 15 apps ajenas en el móvil 14 días, y desinstalar
-  antes de tiempo le rompe el contador a otro igual que a ti.
+- **Contesta a todo el que comente.** El que no recibe respuesta se desinstala a los tres días.
+- **Lleva la cuenta de quién se apunta y cuándo.** El día 7 se cae alguien, siempre, y necesitas
+  saber a quién escribir antes de que el contador baje de 12.
 - Los DM que te vendan "12 testers garantizados" aparecen a los minutos. Ignóralos.
