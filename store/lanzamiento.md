@@ -96,15 +96,22 @@ que no hace nada. El día que metamos código nativo propio, se añade entonces.
 
 ## Fase 3 — RevenueCat
 
-- [ ] **[tú] Crear el proyecto** y conectarlo a Play. Necesita una cuenta de servicio de Google
-      Cloud con permisos en Play Console.
-- [ ] **[tú] Crear el derecho (`entitlement`) llamado `pro`**, la oferta y asociarle el producto.
-      El código ya espera exactamente ese nombre.
-- [ ] **[tú] Pasarme la clave pública de Android** (`goog_...`). Esa sí se puede compartir: es
-      pública y va compilada dentro de la app. La secreta nunca.
-- [ ] **[yo] Pegarla** en `revenueCatApiKey` y verificar compra y restauración.
-- [ ] **[tú] Probar una compra real** con una cuenta de tester con licencia. Es donde salen los
-      fallos de verdad.
+- [x] ~~**[tú] Crear el proyecto** y conectarlo a Play.~~ Cuenta de servicio creada en Google Cloud
+      e invitada en *Usuarios y permisos*. Credenciales subidas.
+- [x] ~~**[tú] Crear el derecho `pro`**, la oferta y asociarle el producto.~~ Derecho `pro` con
+      `pro_lifetime` adjunto; oferta `default` con un paquete *Lifetime* (`$rc_lifetime`).
+- [x] ~~**[tú] Pasarme la clave pública de Android.**~~ En `Billing.android.kt`. Es pública: viaja
+      dentro del APK.
+- [x] ~~**[yo] Pegarla y comprobar que arranca.**~~ El SDK configura y la app degrada bien: cuando
+      no hay tienda enseña "La tienda no está disponible ahora mismo" y deja el botón apagado, sin
+      romperse.
+- [ ] **[tú] Confirmar el correo de RevenueCat.** Sigue sin confirmar.
+- [ ] **[tú] Comprobar que la oferta `default` está marcada como *Current*.** Si no lo está, el
+      paywall sale sin precio aunque todo lo demás esté bien.
+- [ ] **[tú] Probar una compra real.** **No se puede en el emulador**: la imagen no trae Play
+      Billing y el SDK devuelve `BILLING_UNAVAILABLE`. Hace falta un móvil de verdad, con la app
+      instalada **desde el canal de prueba interna** y la cuenta añadida en *Ajustes → Monetización
+      → Licencia para testing*. Es donde salen los fallos que importan.
 
 ## Fase 4 — El test cerrado (el camino crítico)
 
