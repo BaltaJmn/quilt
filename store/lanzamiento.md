@@ -35,7 +35,11 @@ trámites y el test cerrado de 14 días. Todo lo que sea código cabe dentro de 
 
 ## Fase 1 — Infraestructura
 
-- [ ] **[yo] `git init`, repo en GitHub y CI** que compile las dos plataformas y corra los tests.
+- [x] ~~**[yo] `git init` y repo en GitHub.**~~ `BaltaJmn/quilt`, privado.
+- [x] ~~**[yo] Publicar desde CI.**~~ `.github/workflows/release.yml`: etiqueta `v*` compila,
+      verifica la firma y sube a prueba interna. Pasos y secretos en `ci.md`.
+- [ ] **[yo] CI de tests en cada push.** Bloqueado por el `xcode-select`: compilar las dos
+      plataformas saldría rojo desde el primer día.
 - [x] **[tú] Crear el keystore de subida.** `~/keys/quilt-upload.jks`, alias `upload`, RSA 2048,
       válido hasta enero de 2054. Huella SHA-256 del certificado:
       `20:85:91:D4:76:99:6C:FC:3A:52:6C:C0:A0:A3:B1:8B:C7:C1:D0:32:B7:9B:87:E7:11:BC:07:9D:E3:BD:75:D5`.
