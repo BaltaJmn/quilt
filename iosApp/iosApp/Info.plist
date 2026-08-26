@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Compose Multiplatform refuses to start without this: it caps the display link at 60 Hz
+	     on ProMotion iPhones. See androidx.compose.ui.uikit.PlistSanityCheck. -->
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Para guardar la imagen de tus hábitos en tu carrete.</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>es</string>
+		<string>pt</string>
+		<string>de</string>
+		<string>fr</string>
+	</array>
+</dict>
+</plist>

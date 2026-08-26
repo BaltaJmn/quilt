@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="widget_surface">#FBF8F3</color>
+    <color name="widget_on_surface">#39352E</color>
+    <color name="widget_muted">#8B8479</color>
+    <color name="widget_empty">#F0EBE2</color>
+    <!-- A day excused on purpose: greyer than an empty slot, never mistaken for a miss. -->
+    <color name="widget_skipped">#D5CEC1</color>
+    <!-- A day the habit never asked about. -->
+    <color name="widget_off">#F7F4EE</color>
+</resources>

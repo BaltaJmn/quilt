@@ -1,0 +1,55 @@
+<en-US>
+First release.
+
+• Your whole year on one screen: one colour grid per habit, 365 squares.
+• Interactive home-screen widgets in three sizes. One tap marks the day.
+• Rest days: hold a day to skip it. Holidays and illness never break your streak.
+• Counted habits: 8 glasses, 3 sets, whatever you count.
+• Reminders per habit, only on the days you pick.
+• Everything stays on your phone. No account, no cloud.
+• Export and import your data, plus CSV for spreadsheets.
+</en-US>
+<es-ES>
+Primera versión.
+
+• Tu año entero en una pantalla: una cuadrícula de color por hábito, 365 cuadritos.
+• Widgets interactivos en tres tamaños. Un toque marca el día.
+• Días de descanso: mantén pulsado un día para saltarlo. Vacaciones o enfermedad no rompen la racha.
+• Hábitos de cantidad: 8 vasos, 3 series, lo que cuentes.
+• Recordatorios por hábito, solo los días que elijas.
+• Todo se queda en tu móvil. Sin cuenta y sin nube.
+• Exporta e importa tus datos, y CSV para hojas de cálculo.
+</es-ES>
+<pt-BR>
+Primeira versão.
+
+• O ano inteiro em uma tela: uma grade colorida por hábito, 365 quadradinhos.
+• Widgets interativos em três tamanhos. Um toque marca o dia.
+• Dias de descanso: segure um dia para pulá-lo. Férias e doença não quebram a sequência.
+• Hábitos com contagem: 8 copos, 3 séries, o que você contar.
+• Lembretes por hábito, só nos dias que você escolher.
+• Tudo fica no seu celular. Sem conta e sem nuvem.
+• Exporte e importe seus dados, e CSV para planilhas.
+</pt-BR>
+<de-DE>
+Erste Version.
+
+• Dein ganzes Jahr auf einem Bildschirm: ein Farbraster pro Gewohnheit, 365 Kästchen.
+• Interaktive Homescreen-Widgets in drei Größen. Ein Tippen hakt den Tag ab.
+• Ruhetage: Tag lange drücken zum Überspringen. Urlaub und Krankheit brechen die Serie nicht.
+• Gewohnheiten mit Zähler: 8 Gläser, 3 Sätze, was du zählst.
+• Erinnerungen pro Gewohnheit, nur an gewählten Tagen.
+• Alles bleibt auf deinem Gerät. Kein Konto, keine Cloud.
+• Export und Import deiner Daten, plus CSV.
+</de-DE>
+<fr-FR>
+Première version.
+
+• Toute votre année sur un écran : une grille de couleur par habitude, 365 carrés.
+• Widgets interactifs en trois tailles. Un appui coche la journée.
+• Jours de repos : appui long sur un jour. Vacances et maladie ne cassent pas la série.
+• Habitudes à compter : 8 verres, 3 séries, ce que vous voulez.
+• Rappels par habitude, seulement les jours choisis.
+• Tout reste sur votre téléphone. Aucun compte, aucun cloud.
+• Export et import de vos données, et CSV pour les tableurs.
+</fr-FR>

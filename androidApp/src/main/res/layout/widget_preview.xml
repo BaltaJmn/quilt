@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Static stand-in shown in the launcher's widget picker. It is hand-drawn rather than a render
+  of the real widget, so keep it in step with HabitWidget.kt when the layout changes. No habit
+  names: emoji read the same in every language the app ships.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_preview_card"
+    android:orientation="vertical"
+    android:paddingHorizontal="14dp"
+    android:paddingVertical="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/widget_title"
+            android:textColor="@color/widget_muted"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3/5"
+            android:textColor="@color/widget_on_surface"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="@color/widget_on_surface" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/widget_empty" />
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@drawable/widget_preview_square"
+                android:backgroundTint="#F0AFBE"
+                android:gravity="center"
+                android:text="✓"
+                android:textColor="@color/widget_on_surface"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:text="📚"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="77"
+                android:textColor="#F0AFBE"
+                android:textSize="12sp" />
+
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#F0AFBE" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#F0AFBE" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#F0AFBE" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#F0AFBE" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#F0AFBE" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#F0AFBE" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#F0AFBE" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@drawable/widget_preview_square"
+                android:backgroundTint="#D9AFE6"
+                android:gravity="center"
+                android:text="✓"
+                android:textColor="@color/widget_on_surface"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:text="🧘"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="14"
+                android:textColor="#D9AFE6"
+                android:textSize="12sp" />
+
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#D9AFE6" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#D9AFE6" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#D9AFE6" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#D9AFE6" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#D9AFE6" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#D9AFE6" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#D9AFE6" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@drawable/widget_preview_square"
+                android:backgroundTint="#B6D6AB"
+                android:gravity="center"
+                android:text="✓"
+                android:textColor="@color/widget_on_surface"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:text="🏃"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="6"
+                android:textColor="#B6D6AB"
+                android:textSize="12sp" />
+
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#B6D6AB" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#B6D6AB" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="@color/widget_empty" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="@color/widget_empty" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#B6D6AB" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#B6D6AB" />
+            <ImageView android:layout_width="10dp" android:layout_height="10dp" android:layout_marginStart="3dp" android:background="@drawable/widget_preview_dot" android:backgroundTint="#B6D6AB" />
+        </LinearLayout>
+</LinearLayout>

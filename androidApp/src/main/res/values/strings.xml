@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Quilt</string>
+    <string name="widget_description">Tick off today\'s habits</string>
+    <string name="widget_title">Today</string>
+</resources>
