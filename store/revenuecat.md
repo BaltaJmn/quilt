@@ -25,11 +25,11 @@ estos menús "no aparecen": estás dentro de la app y viven fuera, o al revés.
 | Perfil de pagos | Cuenta | *Ajustes → Monetización → Perfil de pagos* |
 | Probadores que compran sin pagar | Cuenta | *Ajustes → Monetización → Licencia para testing* |
 | Invitar la cuenta de servicio | Cuenta | *Usuarios y permisos → Invitar usuario* |
-| Vincular Google Cloud y crear la cuenta de servicio | Cuenta | **https://play.google.com/console/api-access** |
+| Crear la cuenta de servicio | **Fuera de Play** | console.cloud.google.com |
 
-**Acceso a la API no está en *Ajustes*.** Buscarla por el menú es perder el rato: entra por la URL
-directa de arriba. Solo puede hacerlo el **propietario** de la cuenta de desarrollador; un usuario
-invitado, aunque tenga todos los permisos, no ve esa página.
+**No busques "Acceso a la API" en Play Console: no hace falta para esto.** Esa página sirve para
+vincular un proyecto de Cloud y llamar a la API tú mismo. RevenueCat no la usa. La cuenta de
+servicio se crea entera en Google Cloud y luego se **invita como un usuario más** en Play.
 
 Y dos cosas que no son un menú escondido sino una precondición:
 
@@ -98,24 +98,29 @@ No se puede conectar nada hasta que Play tenga qué vender.
 
 ## 2. La cuenta de servicio de Google Cloud
 
-Es lo que permite a RevenueCat preguntarle a Google si una compra es real. Todo este paso es de
-**nivel de cuenta**: si estás dentro de Quilt no vas a ver ninguno de estos menús.
+Es lo que permite a RevenueCat preguntarle a Google si una compra es real.
 
-1. Abre **https://play.google.com/console/api-access** (no la busques en *Ajustes*, no está ahí).
-   Acepta los términos y, si nunca lo has usado, deja que **cree un proyecto de Google Cloud
-   nuevo**.
-2. En esa misma página → **Crear cuenta de servicio**. Te manda a Google Cloud.
-3. Google Cloud → *IAM y administración → Cuentas de servicio → Crear*. Nombre: `revenuecat`.
-4. **Roles**, en el paso 2 del asistente. Hacen falta dos:
-   - **Editor de Pub/Sub** — para las notificaciones en tiempo real de compras.
-   - **Visualizador de Monitoring** — para la API de informes.
-5. Google Cloud → *APIs y servicios → Biblioteca*. Activa **tres**:
+El modelo mental, que es lo que se pierde entre tanto menú: **la cuenta de servicio es un robot con
+su propia dirección de correo**. Se fabrica en Google Cloud, y luego se le da de alta en Play como
+si fuera un compañero de trabajo — la misma pantalla con la que invitarías a una persona. No es
+"release manager": no publica nada. Solo lee pedidos.
+
+### En Google Cloud (console.cloud.google.com)
+
+1. Crea un proyecto, o usa uno que ya tengas. Da igual cuál.
+2. **APIs y servicios → Biblioteca**. Activa tres:
    - Google Play Android Developer API
    - Google Play Developer Reporting API
    - Cloud Pub/Sub API
-6. Vuelve a la cuenta de servicio → **Claves → Agregar clave → Crear nueva → JSON**. Se descarga.
-7. Play Console → **Usuarios y permisos → Invitar usuario** → pega el correo de la cuenta de
-   servicio (`...@....iam.gserviceaccount.com`). Concede estos cuatro permisos:
+3. **IAM y administración → Cuentas de servicio → Crear cuenta de servicio**. Nombre: `revenuecat`.
+4. En el paso de roles, dale dos: **Editor de Pub/Sub** y **Visualizador de Monitoring**.
+5. Termina, entra en la cuenta creada → **Claves → Agregar clave → Crear nueva → JSON**. Se descarga.
+6. Copia su correo, que es de la forma `revenuecat@<proyecto>.iam.gserviceaccount.com`.
+
+### En Play Console (nivel de cuenta)
+
+7. **Usuarios y permisos → Invitar usuario**. Pega ese correo como si invitaras a una persona.
+8. Permisos. Son cuatro, y **ninguno es de publicar**:
    - Ver información de la aplicación y descargar informes masivos
    - Ver datos financieros, pedidos y respuestas de encuestas de cancelación
    - Gestionar pedidos y suscripciones
