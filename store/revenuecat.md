@@ -9,6 +9,32 @@ actual, el paywall aparece vacío.
 
 ---
 
+## Dónde está cada cosa en Play Console
+
+Play Console tiene **dos niveles de navegación distintos**, y es la razón por la que la mitad de
+estos menús "no aparecen": estás dentro de la app y viven fuera, o al revés.
+
+- **Nivel de cuenta.** Sal de Quilt: arriba a la izquierda, *Todas las aplicaciones*. El menú
+  cambia entero. Aquí están **Configuración → Acceso a la API**, **Configuración → Pruebas de
+  licencia**, **Configuración de pagos** y **Usuarios y permisos**.
+- **Nivel de app.** Entra en Quilt. Aquí están **Monetizar con Play → Productos**, la ficha, las
+  versiones y todo lo demás.
+
+| Lo que buscas | Nivel | Ruta |
+|---|---|---|
+| Crear el producto de pago | App | *Monetizar con Play → Productos → Productos integrados en la aplicación* |
+| Perfil de pagos | Cuenta | *Configuración de pagos* |
+| Cuenta de servicio para RevenueCat | Cuenta | *Configuración → Acceso a la API* |
+| Invitar la cuenta de servicio | Cuenta | *Usuarios y permisos → Invitar usuario* |
+| Probadores con licencia | Cuenta | *Configuración → Pruebas de licencia* |
+
+Y dos cosas que no son un menú escondido sino una precondición:
+
+- **Sin un AAB subido a algún canal, `Productos` sale vacío y no deja crear nada.** No hay atajo.
+- Sin **perfil de pagos verificado**, tampoco. Es el paso con más latencia: tarda días.
+
+---
+
 ## 0. Qué se vende, decidido
 
 | | |
@@ -40,8 +66,9 @@ nada: pedirle a alguien que elija cuáles de sus hábitos sobreviven es peor que
 
 No se puede conectar nada hasta que Play tenga qué vender.
 
-1. Play Console → tu app → **Monetizar → Productos → Productos de una sola compra**.
-2. Crear producto. Tipo: **compra única**, no suscripción.
+1. Play Console → **dentro de Quilt** → **Monetizar con Play → Productos → Productos integrados
+   en la aplicación**. (No se llama "productos de una sola compra": ese menú es *Suscripciones*.)
+2. **Crear producto.**
 3. Identificador: `pro_lifetime`.
 4. Nombre y descripción por idioma, los de la tabla de abajo.
 5. Precio 4,99 €, convierte al resto y pulsa **Redondear precios**: sin eso salen 5,37 zł y
@@ -56,28 +83,40 @@ No se puede conectar nada hasta que Play tenga qué vender.
 | de-DE | Quilt Pro | Hebt das Gewohnheiten-Limit dauerhaft auf und schaltet die komplette Farbpalette frei. Einmalzahlung, kein Abo. |
 | fr-FR | Quilt Pro | Supprime la limite d'habitudes pour toujours et débloque la palette complète. Paiement unique, pas d'abonnement. |
 
-> Requisito previo: haber subido ya un AAB a un canal de prueba. Sin binario, Play no deja crear
-> productos.
+> Requisito previo: **un AAB ya subido a un canal de prueba** y el **perfil de pagos verificado**.
+> Sin las dos cosas la pantalla sale vacía y el botón de crear no hace nada. No es que el menú no
+> exista: es que todavía no tienes qué vender ni cómo cobrarlo.
 
 ## 2. La cuenta de servicio de Google Cloud
 
-Es lo que permite a RevenueCat preguntarle a Google si una compra es real.
+Es lo que permite a RevenueCat preguntarle a Google si una compra es real. Todo este paso es de
+**nivel de cuenta**: si estás dentro de Quilt no vas a ver ninguno de estos menús.
 
-Camino corto: se empieza en Play, que crea el proyecto de Google Cloud por ti. No hace falta tener
-uno antes.
-
-1. Play Console → **Configuración → Acceso a la API** → *Vincular un proyecto de Google Cloud* →
-   **Crear un proyecto nuevo**.
-2. En esa misma página → **Crear cuenta de servicio**. Te lleva a Google Cloud.
-3. Google Cloud → *Crear cuenta de servicio*. Nombre: `revenuecat`. **Sin roles**: los permisos se
-   dan en Play, no aquí.
-4. Sobre la cuenta creada → **Claves → Agregar clave → Crear nueva → JSON**. Se descarga.
-5. Vuelta a Play Console → *Acceso a la API* → aparece la cuenta → **Conceder acceso**. Permisos
-   sobre Quilt: **ver información de la app**, **ver datos financieros**, **gestionar pedidos y
-   suscripciones**. Nada más.
+1. Play Console, **fuera de la app** → **Configuración → Acceso a la API**. Si nunca lo has usado,
+   te ofrece *Vincular un proyecto de Google Cloud*: deja que **cree uno nuevo**.
+2. En esa misma página → **Crear cuenta de servicio**. Te manda a Google Cloud.
+3. Google Cloud → *IAM y administración → Cuentas de servicio → Crear*. Nombre: `revenuecat`.
+4. **Roles**, en el paso 2 del asistente. Hacen falta dos:
+   - **Editor de Pub/Sub** — para las notificaciones en tiempo real de compras.
+   - **Visualizador de Monitoring** — para la API de informes.
+5. Google Cloud → *APIs y servicios → Biblioteca*. Activa **tres**:
+   - Google Play Android Developer API
+   - Google Play Developer Reporting API
+   - Cloud Pub/Sub API
+6. Vuelve a la cuenta de servicio → **Claves → Agregar clave → Crear nueva → JSON**. Se descarga.
+7. Play Console → **Usuarios y permisos → Invitar usuario** → pega el correo de la cuenta de
+   servicio (`...@....iam.gserviceaccount.com`). Concede estos cuatro permisos:
+   - Ver información de la aplicación y descargar informes masivos
+   - Ver datos financieros, pedidos y respuestas de encuestas de cancelación
+   - Gestionar pedidos y suscripciones
+   - Gestionar la presencia en la tienda
 
 > Ese JSON es una credencial. No lo pegues en un chat ni lo subas al repositorio: se sube
 > directamente en el formulario de RevenueCat.
+
+> **Hasta 36 horas** para que las credenciales funcionen contra la API de Google. Mientras tanto
+> RevenueCat da errores de validación y no significa que esté mal montado. Truco que a veces lo
+> acelera: edita y guarda la descripción del producto en *Monetizar*.
 
 ## 3. El proyecto en RevenueCat
 
