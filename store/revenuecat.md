@@ -15,18 +15,21 @@ Play Console tiene **dos niveles de navegación distintos**, y es la razón por 
 estos menús "no aparecen": estás dentro de la app y viven fuera, o al revés.
 
 - **Nivel de cuenta.** Sal de Quilt: arriba a la izquierda, *Todas las aplicaciones*. El menú
-  cambia entero. Aquí están **Configuración → Acceso a la API**, **Configuración → Pruebas de
-  licencia**, **Configuración de pagos** y **Usuarios y permisos**.
+  cambia entero.
 - **Nivel de app.** Entra en Quilt. Aquí están **Monetizar con Play → Productos**, la ficha, las
   versiones y todo lo demás.
 
 | Lo que buscas | Nivel | Ruta |
 |---|---|---|
 | Crear el producto de pago | App | *Monetizar con Play → Productos → Productos integrados en la aplicación* |
-| Perfil de pagos | Cuenta | *Configuración de pagos* |
-| Cuenta de servicio para RevenueCat | Cuenta | *Configuración → Acceso a la API* |
+| Perfil de pagos | Cuenta | *Ajustes → Monetización → Perfil de pagos* |
+| Probadores que compran sin pagar | Cuenta | *Ajustes → Monetización → Licencia para testing* |
 | Invitar la cuenta de servicio | Cuenta | *Usuarios y permisos → Invitar usuario* |
-| Probadores con licencia | Cuenta | *Configuración → Pruebas de licencia* |
+| Vincular Google Cloud y crear la cuenta de servicio | Cuenta | **https://play.google.com/console/api-access** |
+
+**Acceso a la API no está en *Ajustes*.** Buscarla por el menú es perder el rato: entra por la URL
+directa de arriba. Solo puede hacerlo el **propietario** de la cuenta de desarrollador; un usuario
+invitado, aunque tenga todos los permisos, no ve esa página.
 
 Y dos cosas que no son un menú escondido sino una precondición:
 
@@ -87,13 +90,20 @@ No se puede conectar nada hasta que Play tenga qué vender.
 > Sin las dos cosas la pantalla sale vacía y el botón de crear no hace nada. No es que el menú no
 > exista: es que todavía no tienes qué vender ni cómo cobrarlo.
 
+> **Producto creado el 26 ago 2026**: `pro_lifetime`, *Quilt Pro*, activo en 173 países,
+> clasificación 13+, tipo impositivo *Ventas de apps digitales*. La opción de compra aparece como
+> `prolifetime` y marcada *Retrocompatible*: eso es normal — Play deriva el ID de la opción quitando
+> el guion bajo, y "retrocompatible" es justo el modo que necesita RevenueCat. El identificador que
+> se usa en todas partes sigue siendo `pro_lifetime`.
+
 ## 2. La cuenta de servicio de Google Cloud
 
 Es lo que permite a RevenueCat preguntarle a Google si una compra es real. Todo este paso es de
 **nivel de cuenta**: si estás dentro de Quilt no vas a ver ninguno de estos menús.
 
-1. Play Console, **fuera de la app** → **Configuración → Acceso a la API**. Si nunca lo has usado,
-   te ofrece *Vincular un proyecto de Google Cloud*: deja que **cree uno nuevo**.
+1. Abre **https://play.google.com/console/api-access** (no la busques en *Ajustes*, no está ahí).
+   Acepta los términos y, si nunca lo has usado, deja que **cree un proyecto de Google Cloud
+   nuevo**.
 2. En esa misma página → **Crear cuenta de servicio**. Te manda a Google Cloud.
 3. Google Cloud → *IAM y administración → Cuentas de servicio → Crear*. Nombre: `revenuecat`.
 4. **Roles**, en el paso 2 del asistente. Hacen falta dos:
@@ -152,8 +162,8 @@ Yo la pego en `revenueCatApiKey` (el `actual` de Android) y verifico compra y re
 
 ## 6. Probar una compra de verdad
 
-1. Play Console → **Configuración → Pruebas de licencia** → añade el correo de Google que vayas a
-   usar. Ese correo compra sin que se le cobre.
+1. Play Console, nivel de cuenta → **Ajustes → Monetización → Licencia para testing** → añade el
+   correo de Google que vayas a usar. Ese correo compra de verdad, con diálogo real, sin cargo.
 2. Instala la app desde el canal de prueba, no por `adb`. Una compra solo funciona si el binario
    viene de Play.
 3. Compra, y comprueba en RevenueCat → **Customer History** que aparece el evento y que el derecho
