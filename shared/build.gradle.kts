@@ -8,6 +8,19 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
 }
 
+// purchases-kmp 3.2.1 ships an absolute path in its cinterop manifest:
+//   linkerOpts.ios_simulator_arm64=-L/Applications/Xcode-16.4.app/.../usr/lib/swift/iphonesimulator/
+// That is the Xcode on RevenueCat's build machine. Nobody else has it, so the Swift
+// back-deployment libraries the RevenueCat binary force-loads (swiftCompatibility56 and
+// friends) are never found and the link dies on undefined symbols. Point the linker at
+// whatever Xcode is actually selected here.
+//
+// Only the test binaries need it. The framework is static, so the app's real link happens
+// inside Xcode, which already searches its own toolchain and never notices the dead path.
+val swiftToolchainLibs =
+    providers.exec { commandLine("xcode-select", "-p") }
+        .standardOutput.asText.map { "${it.trim()}/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift" }
+
 kotlin {
     listOf(
         iosArm64(),
@@ -17,6 +30,9 @@ kotlin {
             baseName = "Shared"
             isStatic = true
         }
+        val sdk = if (iosTarget.konanTarget.name.contains("simulator")) "iphonesimulator" else "iphoneos"
+        iosTarget.binaries.withType<org.jetbrains.kotlin.gradle.plugin.mpp.TestExecutable>()
+            .configureEach { linkerOpts("-L${swiftToolchainLibs.get()}/$sdk") }
     }
     
     android {

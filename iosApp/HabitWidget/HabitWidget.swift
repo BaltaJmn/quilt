@@ -61,15 +61,53 @@ struct HabitProvider: TimelineProvider {
         return HabitEntry(date: now, rows: rows, today: HabitFile.dayKey(now))
     }
 
-    func placeholder(in context: Context) -> HabitEntry { entry() }
+    /// The widget gallery renders this before the user has picked anything, and at that point the
+    /// real store is usually empty, so the entry that sells the widget is the "nothing scheduled"
+    /// one. Sample rows instead, only ever on a preview.
+    private func sampleEntry() -> HabitEntry {
+        let today = HabitFile.todayKey
+        let emojis = ["\u{1F4A7}", "\u{1F4D6}", "\u{1F6B6}"]
+        let colors: [Int64] = [0xFF9CD3C7, 0xFFB4B8EC, 0xFFB6D6AB]
+        let weeks: [[DayState]] = [
+            [.done, .done, .done, .skipped, .done, .done, .done],
+            [.done, .pending, .done, .done, .off, .done, .pending],
+            [.done, .done, .skipped, .done, .done, .done, .done],
+        ]
+        let rows = L.sampleHabits.enumerated().map { index, name in
+            HabitRow(
+                habit: Habit(
+                    id: "sample-\(index)",
+                    name: name,
+                    emoji: emojis[index],
+                    colorArgb: colors[index],
+                    target: 1,
+                    scheduleDays: [1, 2, 3, 4, 5, 6, 7],
+                    reminderMinute: nil,
+                    createdAt: "2000-01-01",
+                    archived: false,
+                    log: index == 1 ? [:] : [today: 1],
+                    skipped: nil
+                ),
+                streak: [12, 3, 7][index],
+                week: weeks[index]
+            )
+        }
+        return HabitEntry(date: Date(), rows: rows, today: today)
+    }
+
+    func placeholder(in context: Context) -> HabitEntry { sampleEntry() }
 
     func getSnapshot(in context: Context, completion: @escaping (HabitEntry) -> Void) {
-        completion(entry())
+        completion(context.isPreview ? sampleEntry() : entry())
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<HabitEntry>) -> Void) {
-        // Nothing changes on its own until the day rolls over.
-        let midnight = Calendar.current.startOfDay(for: Date().addingTimeInterval(86_400))
+        // Nothing changes on its own until the day rolls over. Added through the calendar rather
+        // than 86_400 seconds: a DST day is 23 or 25 hours long, and the fixed arithmetic either
+        // refreshes an hour early or sits an hour past the rollover showing yesterday.
+        let calendar = Calendar.current
+        let midnight = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: Date()))
+            ?? Date().addingTimeInterval(86_400)
         completion(Timeline(entries: [entry()], policy: .after(midnight)))
     }
 }
@@ -350,6 +388,12 @@ enum L {
         "Für heute nichts geplant",
         "Rien de prévu aujourd'hui"
     )
+    /// Only the gallery preview ever shows these.
+    static let sampleHabits = [
+        t("Water", "Agua", "\u{00C1}gua", "Wasser", "Eau"),
+        t("Read", "Leer", "Ler", "Lesen", "Lire"),
+        t("Walk", "Caminar", "Caminhar", "Spazieren", "Marcher"),
+    ]
     static let widgetDescription = t(
         "Tick off today's habits",
         "Marca tus hábitos de hoy",

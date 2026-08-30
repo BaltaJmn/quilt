@@ -6,8 +6,13 @@
 	     on ProMotion iPhones. See androidx.compose.ui.uikit.PlistSanityCheck. -->
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<!-- Fallback en ingles. Las traducciones viven en <lang>.lproj/InfoPlist.strings. -->
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Para guardar la imagen de tus hábitos en tu carrete.</string>
+	<string>To save the image of your habits to your camera roll.</string>
+	<!-- La app no usa cifrado propio, solo HTTPS del sistema. Sin esta clave App Store Connect
+	     pregunta por el cumplimiento de exportacion en cada build y la retiene hasta responder. -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>en</string>

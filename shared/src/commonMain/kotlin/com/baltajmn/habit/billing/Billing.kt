@@ -56,6 +56,9 @@ object Billing {
     }
 
     suspend fun purchase(pack: Package): PurchaseOutcome = try {
+        // Same guard as every other entry point. Without a key the SDK is not configured and
+        // `sharedInstance` throws, which would surface as a crash instead of a failed purchase.
+        if (!configured) return PurchaseOutcome.Failed
         val purchase = Purchases.sharedInstance.awaitPurchase(packageToPurchase = pack)
         HabitRepository.updatePro(purchase.customerInfo.entitlements[ENTITLEMENT]?.isActive == true)
         PurchaseOutcome.Success

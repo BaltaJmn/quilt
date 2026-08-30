@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.baltajmn.habit.billing.Billing
@@ -181,6 +182,18 @@ fun SettingsSheet(onOpenPro: () -> Unit) {
         ) { Text(S.exportCsv) }
         Caption(S.csvHint)
         backupNote?.let { Caption(it) }
+
+        HorizontalDivider(
+            Modifier.padding(vertical = 12.dp),
+            color = MaterialTheme.colorScheme.outlineVariant,
+        )
+
+        // App Review 5.1.1(i): an app that sells anything has to reach its privacy policy from
+        // inside itself, not only from the store listing.
+        val uriHandler = LocalUriHandler.current
+        TextButton(
+            onClick = { uriHandler.openUri("https://quilt.baltajmn.dev/") },
+        ) { Text(S.privacyPolicy) }
     }
 
     if (confirmImport) {

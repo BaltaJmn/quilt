@@ -177,6 +177,13 @@ object S {
         "Speichern fehlgeschlagen, versuche es mit Teilen",
         "Échec de l'enregistrement, essayez Partager",
     )
+    val privacyPolicy = t(
+        "Privacy policy",
+        "Politica de privacidad",
+        "Politica de privacidade",
+        "Datenschutzerklarung",
+        "Politique de confidentialite",
+    )
     val week = t("Week", "Semana", "Semana", "Woche", "Semaine")
     val month = t("Month", "Mes", "Mês", "Monat", "Mois")
     val year = t("Year", "Año", "Ano", "Jahr", "Année")

@@ -1,7 +1,15 @@
+// Team ID de la cuenta de Apple Developer (App Store Connect > Membership > Team ID).
+// Vacio hasta que exista la cuenta: sin el, Xcode no puede firmar ni archivar.
 TEAM_ID=
 
 PRODUCT_NAME=HabitTracker
-PRODUCT_BUNDLE_IDENTIFIER=com.baltajmn.habit.HabitTracker$(TEAM_ID)
 
+// El identificador es irreversible en cuanto se sube la primera build a App Store Connect,
+// igual que el applicationId de Android. Se deja igual que Android a proposito.
+APP_BUNDLE_ID=com.baltajmn.habit
+PRODUCT_BUNDLE_IDENTIFIER=$(APP_BUNDLE_ID)
+
+// MARKETING_VERSION va en paralelo con versionName de Android.
+// CURRENT_PROJECT_VERSION solo tiene que subir en cada build enviada a App Store Connect.
 CURRENT_PROJECT_VERSION=1
-MARKETING_VERSION=1.0
+MARKETING_VERSION=1.2

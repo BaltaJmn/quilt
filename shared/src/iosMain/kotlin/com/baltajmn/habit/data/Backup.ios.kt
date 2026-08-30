@@ -10,10 +10,8 @@ import platform.Foundation.NSUTF8StringEncoding
 import platform.Foundation.create
 import platform.Foundation.stringWithContentsOfFile
 import platform.Foundation.writeToFile
-import platform.UIKit.UIActivityViewController
 import platform.UIKit.UIDocumentPickerDelegateProtocol
 import platform.UIKit.UIDocumentPickerViewController
-import platform.UIKit.popoverPresentationController
 import platform.UniformTypeIdentifiers.UTTypeData
 import platform.UniformTypeIdentifiers.UTTypeJSON
 import platform.UniformTypeIdentifiers.UTTypePlainText
@@ -29,13 +27,14 @@ actual object Backup {
         val path = NSTemporaryDirectory() + filename
         NSString.create(string = text).writeToFile(path, true, NSUTF8StringEncoding, null)
         val host = topViewController() ?: return
-        val sheet = UIActivityViewController(
-            activityItems = listOf(NSURL.fileURLWithPath(path)),
-            applicationActivities = null,
+        // The file saver, not the share sheet, for the reason the Android actual gives: a backup
+        // has to land somewhere the user can find it again and hand back to the importer. The
+        // share sheet leads with AirDrop and Messages and buries Save to Files.
+        val saver = UIDocumentPickerViewController(
+            forExportingURLs = listOf(NSURL.fileURLWithPath(path)),
+            asCopy = true,
         )
-        // iPad presents this as a popover and needs an anchor.
-        sheet.popoverPresentationController?.sourceView = host.view
-        host.presentViewController(sheet, animated = true, completion = null)
+        host.presentViewController(saver, animated = true, completion = null)
     }
 
     actual fun pickFile(onResult: (String?) -> Unit) {

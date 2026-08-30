@@ -9,6 +9,8 @@ import platform.UserNotifications.UNMutableNotificationContent
 import platform.UserNotifications.UNNotificationRequest
 import platform.UserNotifications.UNNotificationSound
 import platform.UserNotifications.UNUserNotificationCenter
+import platform.darwin.dispatch_async
+import platform.darwin.dispatch_get_main_queue
 import com.baltajmn.habit.i18n.S
 
 /**
@@ -21,6 +23,13 @@ actual object Reminders {
 
     private val center get() = UNUserNotificationCenter.currentNotificationCenter()
 
+    /**
+     * Same hook as the Android actual: the UI decides what to do when the OS will not deliver.
+     * iOS only ever shows its alert once per install, so after a Don't Allow the only way back is
+     * Settings and the app has to say so.
+     */
+    var onNeedsPermission: (() -> Unit)? = null
+
     actual fun sync(habits: List<Habit>) {
         center.removeAllPendingNotificationRequests()
         val scheduled = habits.filter { !it.archived && it.reminderMinute != null }
@@ -28,13 +37,20 @@ actual object Reminders {
         center.requestAuthorizationWithOptions(
             UNAuthorizationOptionAlert or UNAuthorizationOptionSound
         ) { granted, _ ->
-            if (granted) scheduled.forEach { schedule(it) }
+            // Both callbacks arrive off the main thread and the handler touches Compose state.
+            dispatch_async(dispatch_get_main_queue()) {
+                if (granted) scheduled.forEach { schedule(it) } else onNeedsPermission?.invoke()
+            }
         }
     }
 
     actual fun cancel(habitId: String) {
         // 0 is the daily trigger, 1..7 the per-weekday ones.
-        center.removePendingNotificationRequestsWithIdentifiers((0..7).map { "$habitId-$it" })
+        val ids = (0..7).map { "$habitId-$it" }
+        center.removePendingNotificationRequestsWithIdentifiers(ids)
+        // Pending and delivered are two different stores. Without this a reminder that already
+        // fired keeps sitting in Notification Center naming a habit that no longer exists.
+        center.removeDeliveredNotificationsWithIdentifiers(ids)
     }
 
     private fun schedule(habit: Habit) {

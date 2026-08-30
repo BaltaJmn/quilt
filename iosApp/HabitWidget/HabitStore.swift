@@ -91,6 +91,12 @@ enum HabitFile {
             .appendingPathComponent("habits.json")
     }
 
+    /// Kept in step with `Storage.ios.kt`: a widget write must not be the mutation that drops the
+    /// recoverable copy of a user's history.
+    private static var backupURL: URL? {
+        url?.appendingPathExtension("bak")
+    }
+
     /// yyyy-MM-dd in the device's own time zone, matching kotlinx-datetime's `LocalDate.toString()`.
     private static let isoFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -122,13 +128,28 @@ enum HabitFile {
     }
 
     static func read() -> HabitStore? {
-        guard let url, let data = try? Data(contentsOf: url) else { return nil }
-        return try? JSONDecoder().decode(HabitStore.self, from: data)
+        for file in [url, backupURL].compactMap({ $0 }) {
+            if let store = decodedStore(at: file) { return store }
+        }
+        return nil
     }
 
     static func write(_ store: HabitStore) {
         guard let url, let data = try? JSONEncoder().encode(store) else { return }
+        // Do not replace a good backup with a corrupt primary file. The Kotlin repository makes
+        // the same distinction while repairing a damaged store.
+        // Write the bytes rather than remove-then-copy: a crash between the two left no backup
+        // at all, which is the exact case the backup exists for.
+        if let backupURL, decodedStore(at: url) != nil,
+           let current = try? Data(contentsOf: url) {
+            try? current.write(to: backupURL, options: .atomic)
+        }
         try? data.write(to: url, options: .atomic)
+    }
+
+    private static func decodedStore(at url: URL) -> HabitStore? {
+        guard let data = try? Data(contentsOf: url) else { return nil }
+        return try? JSONDecoder().decode(HabitStore.self, from: data)
     }
 
     /// Habits that actually ask something today, in the order the app shows them.
