@@ -20,6 +20,24 @@ trámites y el test cerrado de 14 días. Todo lo que sea código cabe dentro de 
 - [x] ~~**El precio de Pro.**~~ **4,99 €** de base, conversión automática con redondeo, todos los
       países, sin prueba gratuita.
 
+## Bloqueo actual: la facturación de GitHub Actions
+
+La etiqueta `v1.2` está subida y los tres workflows se dispararon el 31 de agosto de 2026. Los tres
+murieron en tres segundos, antes de arrancar ninguna máquina, con este aviso de GitHub:
+
+> The job was not started because recent account payments have failed or your spending limit needs to
+> be increased.
+
+No es el código ni los workflows: el repositorio es privado, así que cada minuto de Actions se
+factura, y la cuenta tiene el pago rechazado o el límite de gasto a cero. Se arregla en
+*Settings > Billing and plans* de la cuenta de GitHub, y después basta con `gh run rerun <id>` o
+volver a empujar la etiqueta.
+
+Mientras tanto, el AAB de la 1.2 está construido y firmado con la clave de subida real en
+`androidApp/build/outputs/bundle/release/androidApp-release.aab` (`versionCode` 3, `versionName`
+1.2), y se puede subir a mano a la prueba interna desde Play Console. Las notas de la versión, en los
+cinco idiomas, están en `store/whatsnew/`.
+
 ## Deudas conocidas antes de publicar
 
 - [x] ~~**[yo] El texto del permiso de fotos en iOS está solo en español**~~ Hay un
