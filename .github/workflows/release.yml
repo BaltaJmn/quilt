@@ -74,6 +74,9 @@ jobs:
           releaseFiles: androidApp/build/outputs/bundle/release/androidApp-release.aab
           track: ${{ inputs.track || 'internal' }}
           status: completed
+          # One file per locale, named whatsnew-<locale>. Without this the release lands with
+          # empty release notes and the only way to add them is by hand in Play Console.
+          whatsNewDirectory: store/whatsnew
 
       - name: Make sure the key is gone even on failure
         if: always()

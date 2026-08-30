@@ -64,8 +64,33 @@ de prueba**. Nada de datos financieros: no los necesita.
 4. **Borra la clave del disco antes** de ejecutar la acción de terceros que sube a Play.
 5. Sube al canal, con el estado `completed`.
 
-## Lo que no hay, y por qué
+## Los otros dos workflows
 
-No hay CI de tests en cada push. `:shared:iosSimulatorArm64Test` no enlaza en esta máquina
-(`swiftCompatibility56`, ver `lanzamiento.md`), así que un workflow que compile las dos plataformas
-saldría rojo desde el primer día. Cuando se arregle el `xcode-select`, es añadir un fichero.
+`.github/workflows/tests.yml` corre en cada push a `main` y en cada pull request. Dos trabajos:
+`:shared:testAndroidHostTest` sobre Ubuntu, que es el rápido, y `:shared:iosSimulatorArm64Test`
+sobre macOS, que es lo único que demuestra que `iosMain` sigue compilando y enlazando. El de macOS
+cuesta diez veces más por minuto, y por eso el disparador no incluye ramas sueltas.
+
+`.github/workflows/release-ios.yml` se dispara con la misma etiqueta `v*`, así que una etiqueta
+publica en las dos tiendas. Archiva, exporta y sube a TestFlight en un solo `xcodebuild`
+(`destination: upload` en el `ExportOptions.plist`, que evita tener que pasar el ipa por `altool`).
+
+Mientras no existan los secretos de Apple el trabajo se salta solo y deja un aviso, en vez de salir
+rojo en cada etiqueta y acostumbrarte a ignorar la marca roja de al lado, que sí importa.
+
+El número de build de iOS lo pone el workflow desde `github.run_number`, no `Config.xcconfig`. App
+Store Connect solo exige que suba, y así no hay que acordarse.
+
+### Secretos de Apple
+
+| Secreto | Qué es |
+|---|---|
+| `APPSTORE_KEY_ID` | El Key ID de la clave de la App Store Connect API |
+| `APPSTORE_ISSUER_ID` | El Issuer ID, el mismo para todas las claves de la cuenta |
+| `APPSTORE_PRIVATE_KEY` | El contenido del `.p8`, entero, con sus líneas `BEGIN`/`END` |
+| `APPLE_TEAM_ID` | El Team ID de la cuenta de desarrollador |
+
+La clave `.p8` se descarga **una sola vez** desde App Store Connect. Si se pierde, se revoca y se
+crea otra. Necesita rol *App Manager* o superior para que `-allowProvisioningUpdates` pueda crear
+el certificado y los perfiles por su cuenta: es lo que evita tener que meter un `.p12` en un
+secreto.

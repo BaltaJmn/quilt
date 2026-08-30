@@ -22,24 +22,30 @@ trámites y el test cerrado de 14 días. Todo lo que sea código cabe dentro de 
 
 ## Deudas conocidas antes de publicar
 
-- [ ] **[yo] El texto del permiso de fotos en iOS está solo en español**
-      (`NSPhotoLibraryAddUsageDescription`). Un usuario alemán o francés verá castellano al guardar
-      una imagen. Se arregla con un `InfoPlist.strings` por idioma dentro de carpetas `.lproj`, lo
-      que además obliga a tocar el proyecto de Xcode.
+- [x] ~~**[yo] El texto del permiso de fotos en iOS está solo en español**~~ Hay un
+      `InfoPlist.strings` por idioma en `iosApp/iosApp/<lang>.lproj/`, y el `Info.plist` se queda con
+      el inglés de reserva. No hizo falta tocar el `.pbxproj`: el target usa un grupo sincronizado
+      con la carpeta, así que los ficheros nuevos entran solos. Sí hubo que añadir los idiomas a
+      `knownRegions`.
 - [x] ~~**El paywall promete lo que no limita.**~~ Resuelto en Fase 0.
-- [ ] **[yo] `:shared:iosSimulatorArm64Test` no enlaza en esta máquina.** El linker busca
-      `swiftCompatibility56` para RevenueCat y no lo encuentra; en el log aparecen dos rutas de Xcode
-      distintas (`Xcode.app` y `Xcode-16.4.app`), así que huele a `xcode-select` apuntando a una
-      instalación y las herramientas a otra. Los 27 tests de `:shared:testAndroidHostTest` sí pasan,
-      y la app compila y arranca en el simulador. Hay que arreglarlo antes de montar CI.
+- [x] ~~**[yo] `:shared:iosSimulatorArm64Test` no enlaza en esta máquina.**~~ No era el
+      `xcode-select`, que apunta donde debe y siempre lo hizo. `purchases-kmp` publica su manifiesto
+      de cinterop con una ruta absoluta a la máquina de compilación de RevenueCat
+      (`/Applications/Xcode-16.4.app/...`), que aquí no existe, y por eso no aparecen las librerías
+      de compatibilidad de Swift que su binario carga a la fuerza. `shared/build.gradle.kts` añade
+      ahora un `-L` al toolchain que devuelve `xcode-select -p`, solo en los binarios de test: el
+      framework es estático, así que el enlazado real de la app lo hace Xcode y nunca vio el
+      problema.
 
 ## Fase 1. Infraestructura
 
 - [x] ~~**[yo] `git init` y repo en GitHub.**~~ `BaltaJmn/quilt`, privado.
 - [x] ~~**[yo] Publicar desde CI.**~~ `.github/workflows/release.yml`: etiqueta `v*` compila,
       verifica la firma y sube a prueba interna. Pasos y secretos en `ci.md`.
-- [ ] **[yo] CI de tests en cada push.** Bloqueado por el `xcode-select`: compilar las dos
-      plataformas saldría rojo desde el primer día.
+- [x] ~~**[yo] CI de tests en cada push.**~~ `.github/workflows/tests.yml`: los tests comunes
+      sobre JVM en Ubuntu y sobre Kotlin/Native en macOS.
+- [x] ~~**[yo] Publicar iOS desde CI.**~~ `.github/workflows/release-ios.yml`, misma etiqueta `v*`
+      que Android. Se salta solo mientras no existan los secretos de Apple. Pasos en `ci.md`.
 - [x] **[tú] Crear el keystore de subida.** `~/keys/quilt-upload.jks`, alias `upload`, RSA 2048,
       válido hasta enero de 2054. Huella SHA-256 del certificado:
       `20:85:91:D4:76:99:6C:FC:3A:52:6C:C0:A0:A3:B1:8B:C7:C1:D0:32:B7:9B:87:E7:11:BC:07:9D:E3:BD:75:D5`.
