@@ -1,6 +1,9 @@
 package com.baltajmn.habit
 
 import com.baltajmn.habit.data.HabitRepository
+import com.baltajmn.habit.data.backupFilename
+import com.baltajmn.habit.data.csvFilename
+import com.baltajmn.habit.data.today
 import com.baltajmn.habit.data.csvField
 import com.baltajmn.habit.data.reorder
 import com.baltajmn.habit.i18n.SUPPORTED
@@ -16,6 +19,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class HabitTest {
 
@@ -107,13 +111,6 @@ class HabitTest {
             .copy(skipped = setOf("2026-01-12", "2026-01-14"))
         // 2 done out of the 2 days that still asked something.
         assertEquals(1f, h.completionRate(2026, LocalDate.parse("2026-01-14")))
-    }
-
-    @Test
-    fun a_skipped_day_is_not_a_done_day() {
-        val h = habit().copy(skipped = setOf("2026-03-10"))
-        assertEquals(0, h.totalDone())
-        assertEquals(0, h.streak(LocalDate.parse("2026-03-10")))
     }
 
     @Test
@@ -210,6 +207,136 @@ class HabitTest {
     @Test
     fun a_habit_without_a_reminder_has_no_next_time() {
         assertNull(habit().nextReminderAt(LocalDateTime.parse("2026-03-10T08:00")))
+    }
+
+    @Test
+    fun the_streak_walks_across_the_year_boundary() {
+        val h = habit(created = "2025-12-30", done = arrayOf("2025-12-30", "2025-12-31", "2026-01-01"))
+        assertEquals(3, h.streak(LocalDate.parse("2026-01-01")))
+    }
+
+    @Test
+    fun the_completion_rate_is_clamped_to_the_year_it_was_asked_for() {
+        val h = habit(created = "2025-12-30", done = arrayOf("2025-12-30", "2025-12-31"))
+        assertEquals(1f, h.completionRate(2025, LocalDate.parse("2026-01-02")))
+        // The same two days are nothing at all in 2026, where two days were owed and none done.
+        assertEquals(0f, h.completionRate(2026, LocalDate.parse("2026-01-02")))
+    }
+
+    @Test
+    fun the_leap_day_is_a_day_the_rate_counts() {
+        // 29 February 2028 exists. Missing it has to cost, or February is worth 28 days in a leap
+        // year and 28 in a normal one.
+        val h = habit(created = "2028-02-28", done = arrayOf("2028-02-28", "2028-03-01"))
+        assertEquals(2f / 3f, h.completionRate(2028, LocalDate.parse("2028-03-01")))
+    }
+
+    @Test
+    fun a_rate_over_nothing_owed_is_zero_and_not_a_nan() {
+        // Mondays only, asked before the first Monday: the denominator is zero. NaN would paint a
+        // ring of nothing and read as 0% anyway, so pin the zero.
+        val h = habit(days = setOf(1))
+        assertEquals(0f, h.completionRate(2026, LocalDate.parse("2026-01-03")))
+    }
+
+    @Test
+    fun a_count_above_the_target_is_still_one_done_day() {
+        val h = habit(target = 2).copy(log = mapOf("2026-03-10" to 5))
+        assertEquals(1, h.totalDone())
+        assertEquals(1, h.streak(LocalDate.parse("2026-03-10")))
+    }
+
+    @Test
+    fun a_day_off_lends_its_grace_to_the_last_scheduled_day() {
+        // Mondays only, the 16th not marked yet and today is the 17th. The streak holds until the
+        // Monday closes, which is what the daily grace means for a habit that is not daily.
+        val h = habit(days = setOf(1), done = arrayOf("2026-03-02", "2026-03-09"))
+        assertEquals(2, h.streak(LocalDate.parse("2026-03-17")))
+        // Two Mondays later, with the 16th still empty, it is gone.
+        assertEquals(0, h.streak(LocalDate.parse("2026-03-24")))
+    }
+
+    @Test
+    fun a_missed_week_breaks_the_weekly_streak() {
+        // Weeks of 2 and 16 March met, the week of the 9th empty.
+        val h = habit(
+            created = "2026-03-02",
+            weekly = 2,
+            done = arrayOf("2026-03-02", "2026-03-03", "2026-03-16", "2026-03-17"),
+        )
+        assertEquals(1, h.streak(LocalDate.parse("2026-03-22")))
+    }
+
+    @Test
+    fun weekly_best_streak_counts_the_longest_run_of_weeks() {
+        val h = habit(
+            created = "2026-01-05",
+            weekly = 1,
+            done = arrayOf("2026-01-05", "2026-01-12", "2026-01-19", "2026-02-02"),
+        )
+        assertEquals(3, h.bestStreak(LocalDate.parse("2026-02-08")))
+    }
+
+    @Test
+    fun the_week_in_progress_is_forgiven_by_the_streak_and_charged_by_the_rate() {
+        // Deliberate asymmetry, pinned because it looks like a bug from the screen: on a Monday
+        // the streak still reads 1 while the percentage has already halved.
+        val h = habit(created = "2026-03-02", weekly = 2, done = arrayOf("2026-03-02", "2026-03-03"))
+        assertEquals(1, h.streak(LocalDate.parse("2026-03-09")))
+        assertEquals(0.5f, h.completionRate(2026, LocalDate.parse("2026-03-09")))
+    }
+
+    @Test
+    fun an_excused_day_does_not_lower_a_weekly_quota() {
+        // The daily branch excuses the day; the weekly branch does not know about excuses at all,
+        // so a week of illness still misses its quota. Pinned, not endorsed.
+        val h = habit(created = "2026-03-02", weekly = 3, done = arrayOf("2026-03-02", "2026-03-03"))
+            .copy(skipped = setOf("2026-03-04", "2026-03-05", "2026-03-06"))
+        assertEquals(2, h.doneInWeek(LocalDate.parse("2026-03-04")))
+        assertEquals(0f, h.completionRate(2026, LocalDate.parse("2026-03-09")))
+    }
+
+    @Test
+    fun a_week_that_straddles_new_year_belongs_to_the_year_of_its_monday() {
+        // The week of Monday 29 December 2025 holds 1 January 2026. It is judged in 2025.
+        val h = habit(created = "2025-12-29", weekly = 1, done = arrayOf("2026-01-01"))
+        assertEquals(1f, h.completionRate(2025, LocalDate.parse("2026-01-04")))
+        assertEquals(0f, h.completionRate(2026, LocalDate.parse("2026-01-04")))
+    }
+
+    @Test
+    fun a_reminder_at_midnight_is_a_real_reminder() {
+        // Minute 0 is falsy in the two languages the widgets are written in. Here it is a time.
+        val h = habit(reminderMinute = 0)
+        assertEquals(
+            LocalDateTime.parse("2026-03-11T00:00"),
+            h.nextReminderAt(LocalDateTime.parse("2026-03-10T08:00")),
+        )
+    }
+
+    @Test
+    fun a_reminder_at_the_last_minute_of_the_day_stays_on_that_day() {
+        val h = habit(reminderMinute = 23 * 60 + 59)
+        assertEquals(
+            LocalDateTime.parse("2026-03-10T23:59"),
+            h.nextReminderAt(LocalDateTime.parse("2026-03-10T08:00")),
+        )
+    }
+
+    @Test
+    fun a_habit_scheduled_on_no_day_has_no_next_reminder() {
+        // Reachable from the form: unticking the seven days leaves the set empty.
+        val h = habit(days = emptySet(), reminderMinute = 9 * 60)
+        assertNull(h.nextReminderAt(LocalDateTime.parse("2026-03-10T08:00")))
+    }
+
+    @Test
+    fun the_export_filenames_carry_a_date_and_the_right_extension() {
+        assertTrue(backupFilename().endsWith(".json"), backupFilename())
+        assertTrue(csvFilename().endsWith(".csv"), csvFilename())
+        // quilt-YYYY-MM-DD.ext, so the files sort by date in any downloads folder.
+        assertEquals(today().toString(), backupFilename().removePrefix("quilt-").removeSuffix(".json"))
+        assertEquals(today().toString(), csvFilename().removePrefix("quilt-").removeSuffix(".csv"))
     }
 }
 
