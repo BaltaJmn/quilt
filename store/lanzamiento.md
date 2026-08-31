@@ -22,21 +22,34 @@ trámites y el test cerrado de 14 días. Todo lo que sea código cabe dentro de 
 
 ## Bloqueo actual: la facturación de GitHub Actions
 
-La etiqueta `v1.2` está subida y los tres workflows se dispararon el 31 de agosto de 2026. Los tres
-murieron en tres segundos, antes de arrancar ninguna máquina, con este aviso de GitHub:
+Sigue bloqueado a 31 de agosto de 2026. La ejecución `33365836179`, del empujón de `574b718` a las
+06:50 de ese día, murió en tres segundos, antes de arrancar ninguna máquina, con este aviso de
+GitHub:
 
 > The job was not started because recent account payments have failed or your spending limit needs to
 > be increased.
 
 No es el código ni los workflows: el repositorio es privado, así que cada minuto de Actions se
 factura, y la cuenta tiene el pago rechazado o el límite de gasto a cero. Se arregla en
-*Settings > Billing and plans* de la cuenta de GitHub, y después basta con `gh run rerun <id>` o
-volver a empujar la etiqueta.
+*Settings > Billing and plans* de la cuenta de GitHub, y después basta con `gh run rerun <id>`,
+`gh workflow run release.yml --ref main -f track=alpha` o volver a empujar la etiqueta.
 
-Mientras tanto, el AAB de la 1.2 está construido y firmado con la clave de subida real en
-`androidApp/build/outputs/bundle/release/androidApp-release.aab` (`versionCode` 3, `versionName`
-1.2), y se puede subir a mano a la prueba interna desde Play Console. Las notas de la versión, en los
-cinco idiomas, están en `store/whatsnew/`.
+Mientras tanto, el AAB de la 1.3 está construido y firmado con la clave de subida real en
+`androidApp/build/outputs/bundle/release/androidApp-release.aab` (`versionCode` 4, `versionName`
+1.3), y se puede subir a mano al canal de prueba cerrada desde Play Console. Las notas de la versión,
+en los cinco idiomas, están en `store/whatsnew/`.
+
+## Los 14 días de la prueba cerrada
+
+Play exige, para una cuenta personal nueva, **12 testers dados de alta y la prueba cerrada corriendo
+14 días seguidos** antes de dejar pedir acceso a producción. La consola no enseña ningún contador:
+el tercer requisito de *Producción > Solicitar acceso a producción* se queda con el círculo vacío
+hasta que se cumple, y entonces se tacha solo. Que no cambie nada durante esos días es lo esperado.
+
+Los 12 testers se completaron el sábado 29 de agosto de 2026, así que la ventana termina alrededor
+del 12 de septiembre de 2026. Lo único que hay que mantener vivo mientras tanto: la versión de la
+prueba cerrada publicada y activa, y el número de testers que han aceptado por encima de 12. Subir
+versiones nuevas al canal durante la ventana es normal y no reinicia la cuenta.
 
 ## Deudas conocidas antes de publicar
 
@@ -107,10 +120,10 @@ que no hace nada. El día que metamos código nativo propio, se añade entonces.
 
 ## Fase 2. Google Play Console
 
-- [ ] **[tú] Crear la app** en Play Console con el nombre elegido.
-- [ ] **[tú] Subir el primer AAB a un canal de prueba interna.** Manual y obligatorio: la Play
-      Developer API no se puede usar hasta que hayas subido un binario a mano. Esto desbloquea
-      todo lo automático de después.
+- [x] **[tú] Crear la app** en Play Console con el nombre elegido.
+- [x] **[tú] Subir el primer AAB a un canal de prueba.** Manual y obligatorio: la Play
+      Developer API no se puede usar hasta que hayas subido un binario a mano. Hecho, y encima ya
+      hay una prueba cerrada con 12 testers corriendo.
 - [ ] **[tú] Rellenar la ficha** con los textos de `play-listing.md`. Empieza por español e inglés.
 - [x] **[yo] Capturas** en español e inglés, `store/screenshots/es/` y `store/screenshots/en/`.
       Sacadas con `adb` y el modo demo de SystemUI, así que la próxima tanda sale idéntica.
