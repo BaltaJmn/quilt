@@ -18,6 +18,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
@@ -284,6 +285,27 @@ class HabitTest {
         val h = habit(created = "2026-03-02", weekly = 2, done = arrayOf("2026-03-02", "2026-03-03"))
         assertEquals(1, h.streak(LocalDate.parse("2026-03-09")))
         assertEquals(0.5f, h.completionRate(2026, LocalDate.parse("2026-03-09")))
+    }
+
+    @Test
+    fun yesterday_is_offered_for_excuse_only_where_the_excuse_repairs_something() {
+        // Thursday missed, Friday today. Excusing Thursday is what the offer on the card does,
+        // and it has to bridge the streak instead of just hiding a square.
+        val yesterday = LocalDate.parse("2026-03-05")
+        val today = LocalDate.parse("2026-03-06")
+        val missed = habit(created = "2026-03-02", done = arrayOf("2026-03-03", "2026-03-04"))
+        assertTrue(missed.canExcuse(yesterday))
+        assertEquals(0, missed.streak(today))
+        assertEquals(2, missed.copy(skipped = setOf("2026-03-05")).streak(today))
+
+        // Nothing to repair, so nothing to offer.
+        assertFalse(missed.copy(log = missed.log + ("2026-03-05" to 1)).canExcuse(yesterday))
+        assertFalse(missed.copy(skipped = setOf("2026-03-05")).canExcuse(yesterday))
+        assertFalse(missed.canExcuse(LocalDate.parse("2026-03-01")))
+        assertFalse(habit(created = "2026-03-02", days = setOf(1)).canExcuse(yesterday))
+
+        // A weekly quota ignores excuses, so the offer would be a button that does nothing.
+        assertFalse(habit(created = "2026-03-02", weekly = 3).canExcuse(yesterday))
     }
 
     @Test

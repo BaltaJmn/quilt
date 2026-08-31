@@ -19,6 +19,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
@@ -85,6 +86,47 @@ class MutationTest {
         val twice = skipToggled(once, march10)
         assertEquals(emptyMap(), twice.log)
         assertEquals(emptySet(), twice.skipped)
+    }
+
+    @Test
+    fun the_offer_to_excuse_yesterday_disappears_once_it_is_taken() {
+        // The row vanishing is the only confirmation the card gives, so the predicate has to answer
+        // no through the very mutation the row triggers.
+        val yesterday = LocalDate.parse("2026-03-09")
+        val h = habit(log = mapOf("2026-03-07" to 1, "2026-03-08" to 1))
+        assertTrue(h.canExcuse(yesterday))
+        assertEquals(0, h.streak(march10))
+
+        val excused = skipToggled(h, yesterday)
+        assertFalse(excused.canExcuse(yesterday))
+        assertEquals(2, excused.streak(march10))
+        // An excuse forgives the streak. It must not pad the count of days actually done.
+        assertEquals(2, excused.totalDone())
+    }
+
+    @Test
+    fun a_yesterday_left_half_done_is_offered_and_loses_the_half() {
+        // Below the target is not done, so the offer stands. Taking it drops what was logged, the
+        // same as excusing from the grid: no day is ever both counted and excused.
+        val yesterday = LocalDate.parse("2026-03-09")
+        val h = habit(target = 3, log = mapOf("2026-03-09" to 1))
+        assertTrue(h.canExcuse(yesterday))
+
+        val excused = skipToggled(h, yesterday)
+        assertEquals(0, excused.countOn(yesterday))
+        assertTrue(excused.isSkippedOn(yesterday))
+    }
+
+    @Test
+    fun taking_the_excuse_back_from_the_grid_brings_the_offer_back() {
+        // The card has no undo on purpose: the square for yesterday is right below it and a long
+        // press is the way back. That return trip has to leave the habit exactly where it started.
+        val yesterday = LocalDate.parse("2026-03-09")
+        val h = habit(log = mapOf("2026-03-07" to 1, "2026-03-08" to 1))
+        val back = skipToggled(skipToggled(h, yesterday), yesterday)
+        assertEquals(h, back)
+        assertTrue(back.canExcuse(yesterday))
+        assertEquals(0, back.streak(march10))
     }
 
     @Test

@@ -65,6 +65,16 @@ data class Habit(
     /** True when the week, not the day, is the unit of success. */
     val isWeekly: Boolean get() = weeklyTarget != null
 
+    /**
+     * Whether [date] is still a day the user can excuse to save the streak: it exists, it was
+     * asked for, and it is neither done nor already excused.
+     *
+     * False for a weekly habit on purpose. An excused day does not come out of a weekly quota, so
+     * the same offer there would change nothing and promise something it cannot deliver.
+     */
+    fun canExcuse(date: LocalDate): Boolean =
+        !isWeekly && date >= created && countsOn(date) && !isDoneOn(date)
+
     /** Monday of the ISO week [date] falls in. */
     private fun weekStart(date: LocalDate): LocalDate =
         date.minus(DatePeriod(days = date.dayOfWeek.isoDayNumber - 1))

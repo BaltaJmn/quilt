@@ -142,6 +142,13 @@ object S {
         "Halte einen Tag gedrückt, um ihn zu überspringen. Urlaub oder Krankheit brechen die Serie nicht.",
         "Maintenez un jour appuyé pour le passer. Vacances ou maladie ne cassent pas la série.",
     )
+    val skipYesterday = t(
+        "Yesterday didn't count",
+        "Ayer no contaba",
+        "Ontem não contava",
+        "Gestern zählte nicht",
+        "Hier ne comptait pas",
+    )
     val archive = t("Archive", "Archivar", "Arquivar", "Archivieren", "Archiver")
     val unarchive = t("Unarchive", "Desarchivar", "Desarquivar", "Wiederherstellen", "Désarchiver")
     val archiveHint = t(
