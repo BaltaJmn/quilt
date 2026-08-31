@@ -9,7 +9,10 @@ PRODUCT_NAME=HabitTracker
 APP_BUNDLE_ID=com.baltajmn.habit
 PRODUCT_BUNDLE_IDENTIFIER=$(APP_BUNDLE_ID)
 
-// MARKETING_VERSION va en paralelo con versionName de Android.
-// CURRENT_PROJECT_VERSION solo tiene que subir en cada build enviada a App Store Connect.
+// MARKETING_VERSION va en paralelo con versionName de Android. Es el numero que se ve en la ficha.
+// CURRENT_PROJECT_VERSION no hay que tocarlo para publicar: release-ios.yml lo pisa con
+// github.run_number al archivar, que es lo unico que garantiza que no se repita dentro de una misma
+// MARKETING_VERSION. El valor de aqui solo lo usa un archivado a mano desde Xcode, y ese si hay que
+// subirlo, porque App Store Connect rechaza un build repetido.
 CURRENT_PROJECT_VERSION=1
-MARKETING_VERSION=1.2
+MARKETING_VERSION=1.4

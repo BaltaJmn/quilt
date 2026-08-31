@@ -34,10 +34,11 @@ factura, y la cuenta tiene el pago rechazado o el límite de gasto a cero. Se ar
 *Settings > Billing and plans* de la cuenta de GitHub, y después basta con `gh run rerun <id>`,
 `gh workflow run release.yml --ref main -f track=alpha` o volver a empujar la etiqueta.
 
-Mientras tanto, el AAB de la 1.3 está construido y firmado con la clave de subida real en
-`androidApp/build/outputs/bundle/release/androidApp-release.aab` (`versionCode` 4, `versionName`
-1.3), y se puede subir a mano al canal de prueba cerrada desde Play Console. Las notas de la versión,
-en los cinco idiomas, están en `store/whatsnew/`.
+Mientras tanto se puede subir el AAB a mano al canal de prueba cerrada desde Play Console. La
+versión en curso es `versionCode` 5, `versionName` 1.4, y hay que regenerarla con
+`./gradlew :androidApp:bundleRelease` porque el `.aab` que hay en
+`androidApp/build/outputs/bundle/release/` es el de la 1.3. Las notas de la versión, en los cinco
+idiomas, están en `store/whatsnew/`.
 
 ## Los 14 días de la prueba cerrada
 
