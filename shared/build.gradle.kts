@@ -17,6 +17,11 @@ plugins {
 //
 // Only the test binaries need it. The framework is static, so the app's real link happens
 // inside Xcode, which already searches its own toolchain and never notices the dead path.
+//
+// Asked only on a Mac. The Linux job configures the iOS targets too, it just never links them,
+// and asking a machine with no Xcode where Xcode is brings down the configuration of the whole
+// project, not only the iOS half of it.
+val isMacHost = System.getProperty("os.name").startsWith("Mac")
 val swiftToolchainLibs =
     providers.exec { commandLine("xcode-select", "-p") }
         .standardOutput.asText.map { "${it.trim()}/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift" }
@@ -31,8 +36,10 @@ kotlin {
             isStatic = true
         }
         val sdk = if (iosTarget.konanTarget.name.contains("simulator")) "iphonesimulator" else "iphoneos"
-        iosTarget.binaries.withType<org.jetbrains.kotlin.gradle.plugin.mpp.TestExecutable>()
-            .configureEach { linkerOpts("-L${swiftToolchainLibs.get()}/$sdk") }
+        if (isMacHost) {
+            iosTarget.binaries.withType<org.jetbrains.kotlin.gradle.plugin.mpp.TestExecutable>()
+                .configureEach { linkerOpts("-L${swiftToolchainLibs.get()}/$sdk") }
+        }
     }
     
     android {
