@@ -40,11 +40,12 @@ import com.baltajmn.habit.data.today
 import com.baltajmn.habit.i18n.S
 import com.baltajmn.habit.model.Habit
 import com.baltajmn.habit.shared.R
+import com.baltajmn.habit.ui.daysInYear
+import com.baltajmn.habit.ui.firstOffset
+import com.baltajmn.habit.ui.yearColumns
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.isoDayNumber
 import kotlinx.datetime.plus
-import kotlin.math.ceil
 import kotlin.math.min
 
 /** Which habit this instance shows. Written by the configuration screen, one value per widget. */
@@ -119,8 +120,6 @@ private fun Habit.doneDaysIn(year: Int): Int {
     return (0 until daysInYear(year)).count { isDoneOn(first.plus(DatePeriod(days = it))) }
 }
 
-private fun daysInYear(year: Int): Int = LocalDate(year, 12, 31).dayOfYear
-
 private fun yearBitmap(context: Context, habit: Habit, size: DpSize, year: Int): Bitmap {
     val density = context.resources.displayMetrics.density
     // The widget's own padding and the header row are outside the image.
@@ -129,8 +128,8 @@ private fun yearBitmap(context: Context, habit: Habit, size: DpSize, year: Int):
 
     val first = LocalDate(year, 1, 1)
     val days = daysInYear(year)
-    val firstRow = first.dayOfWeek.isoDayNumber - 1
-    val columns = ceil((firstRow + days) / 7f).toInt()
+    val firstRow = firstOffset(year)
+    val columns = yearColumns(year)
     val cell = min(width / columns.toFloat(), height / 7f)
     val gap = (cell * 0.16f).coerceAtLeast(0.5f)
     val side = cell - gap

@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import com.baltajmn.habit.model.Habit
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.isoDayNumber
 import kotlinx.datetime.plus
 import com.baltajmn.habit.i18n.S
 
@@ -39,9 +38,7 @@ fun YearGrid(
     onDayLongClick: (LocalDate) -> Unit = {},
 ) {
     val jan1 = LocalDate(year, 1, 1)
-    val daysInYear = LocalDate(year, 12, 31).dayOfYear
-    val firstOffset = jan1.dayOfWeek.isoDayNumber - 1
-    val columns = (firstOffset + daysInYear + 6) / 7
+    val columns = yearColumns(year)
 
     val accent = Color(habit.colorArgb)
     val empty = MaterialTheme.colorScheme.surfaceVariant
@@ -57,15 +54,14 @@ fun YearGrid(
             Modifier
                 .fillMaxWidth()
                 .height(labelHeight + unit * 7)
-                .pointerInput(habit.id, year) {
+                .pointerInput(habit.id, year, today) {
                     fun dateAt(offset: Offset): LocalDate? {
                         val cell = size.width / columns.toFloat()
                         val top = labelHeight.toPx()
                         if (offset.y < top) return null
                         val column = (offset.x / cell).toInt()
                         val row = ((offset.y - top) / cell).toInt()
-                        val index = column * 7 + row - firstOffset
-                        if (index !in 0 until daysInYear) return null
+                        val index = indexAt(year, column, row) ?: return null
                         return jan1.plus(DatePeriod(days = index)).takeIf { it <= today }
                     }
                     detectTapGestures(
@@ -79,9 +75,9 @@ fun YearGrid(
             val top = labelHeight.toPx()
             val radius = CornerRadius(box * 0.32f)
 
-            for (index in 0 until daysInYear) {
+            for (index in 0 until daysInYear(year)) {
                 val date = jan1.plus(DatePeriod(days = index))
-                val slot = firstOffset + index
+                val slot = slotOf(year, index)
                 val x = (slot / 7) * cell
                 val y = top + (slot % 7) * cell
                 val count = habit.countOn(date)
@@ -126,7 +122,7 @@ fun YearGrid(
             }
 
             for (month in 1..12) {
-                val slot = firstOffset + LocalDate(year, month, 1).dayOfYear - 1
+                val slot = slotOf(year, LocalDate(year, month, 1).dayOfYear - 1)
                 val x = (slot / 7) * cell
                 drawText(
                     textMeasurer = measurer,

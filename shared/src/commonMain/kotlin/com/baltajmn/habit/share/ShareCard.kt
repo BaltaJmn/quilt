@@ -16,6 +16,9 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.sp
 import com.baltajmn.habit.model.Habit
+import com.baltajmn.habit.ui.daysInYear
+import com.baltajmn.habit.ui.slotOf
+import com.baltajmn.habit.ui.yearColumns
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.isoDayNumber
@@ -115,7 +118,7 @@ private fun gridRows(period: SharePeriod, today: LocalDate): Int = when (period)
 
 private fun gridColumns(period: SharePeriod, today: LocalDate): Int = when (period) {
     SharePeriod.WEEK, SharePeriod.MONTH -> 7
-    SharePeriod.YEAR -> yearColumns(today)
+    SharePeriod.YEAR -> yearColumns(today.year)
 }
 
 /**
@@ -218,13 +221,11 @@ private fun DrawScope.drawMonthGrid(habit: Habit, today: LocalDate, top: Float, 
 /** The full year, seven rows of weeks. */
 private fun DrawScope.drawYearGrid(habit: Habit, today: LocalDate, top: Float, left: Float, cell: Float) {
     val jan1 = LocalDate(today.year, 1, 1)
-    val daysInYear = LocalDate(today.year, 12, 31).dayOfYear
-    val offset = jan1.dayOfWeek.isoDayNumber - 1
     val box = cell * 0.82f
 
-    repeat(daysInYear) { index ->
+    repeat(daysInYear(today.year)) { index ->
         val date = jan1.plus(DatePeriod(days = index))
-        val slot = offset + index
+        val slot = slotOf(today.year, index)
         drawRoundRect(
             color = cellColor(habit, date, today),
             topLeft = Offset(left + (slot / 7) * cell, top + (slot % 7) * cell),
@@ -285,11 +286,6 @@ private fun daysInMonth(date: LocalDate): Int =
 private fun monthRows(date: LocalDate): Int {
     val offset = LocalDate(date.year, date.month, 1).dayOfWeek.isoDayNumber - 1
     return (offset + daysInMonth(date) + 6) / 7
-}
-
-private fun yearColumns(date: LocalDate): Int {
-    val offset = LocalDate(date.year, 1, 1).dayOfWeek.isoDayNumber - 1
-    return (offset + LocalDate(date.year, 12, 31).dayOfYear + 6) / 7
 }
 
 private fun startOfWeek(date: LocalDate): LocalDate =
