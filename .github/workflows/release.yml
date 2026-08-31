@@ -55,7 +55,10 @@ jobs:
           set -euo pipefail
           # Written to a file rather than piped into grep: grep -q exits early, jarsigner takes
           # SIGPIPE, and pipefail would turn a passing check into a failing build.
-          jarsigner -verify -certs \
+          # `-verbose:summary` and not `-certs` a secas: sin verbose, jarsigner imprime "jar
+          # verified" y ni una linea de certificado, asi que el grep de abajo no encontraba nada y
+          # la comprobacion fallaba con el paquete bien firmado.
+          jarsigner -verify -verbose:summary -certs \
             androidApp/build/outputs/bundle/release/androidApp-release.aab > signature.txt
           grep -q 'CN=Baltasar' signature.txt \
             || { echo "::error::bundle is not signed with the upload key"; exit 1; }
