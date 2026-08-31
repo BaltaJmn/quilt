@@ -174,6 +174,24 @@ class BackupGuardTest {
     }
 
     @Test
+    fun a_created_date_already_in_the_file_degrades_instead_of_crashing() {
+        // The guard above keeps this out of new files, but one that got in before the guard existed
+        // is read again at every start, so the model itself cannot be the thing that throws.
+        val broken = habit(log = mapOf("2026-02-05" to 1)).copy(createdAt = "ayer")
+        assertEquals(LocalDate.parse("2026-02-05"), broken.created)
+        assertEquals(1, broken.streak(LocalDate.parse("2026-02-05")))
+        assertEquals(1, broken.bestStreak(LocalDate.parse("2026-02-06")))
+        assertEquals(0.5f, broken.completionRate(2026, LocalDate.parse("2026-02-06")))
+    }
+
+    @Test
+    fun a_broken_date_with_no_history_at_all_still_answers() {
+        val empty = habit().copy(createdAt = "")
+        assertEquals(0, empty.streak(LocalDate.parse("2026-02-05")))
+        assertEquals(0, empty.bestStreak(LocalDate.parse("2026-02-05")))
+    }
+
+    @Test
     fun a_backup_cannot_grant_pro() {
         val before = HabitRepository.isPro
         assertNotNull(HabitRepository.parseBackup(backup(sane, isPro = true)))

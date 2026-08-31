@@ -39,7 +39,17 @@ data class Habit(
      */
     val skipped: Set<String> = emptySet(),
 ) {
-    val created: LocalDate get() = LocalDate.parse(createdAt)
+    /**
+     * The day the history starts. [createdAt] comes out of a file that can arrive hand-edited and
+     * is re-read on every draw, so a value the parser rejects has to degrade instead of throwing:
+     * an exception here is not one bad screen, it is a crash on every launch, because the same file
+     * is read again at each start. The earliest day with something on it is the honest stand-in,
+     * and a habit with neither a date nor a history draws the same whatever this returns.
+     */
+    val created: LocalDate
+        get() = parseDate(createdAt)
+            ?: (log.keys + skipped).mapNotNull(::parseDate).minOrNull()
+            ?: FALLBACK_CREATED
 
     fun countOn(date: LocalDate): Int = log[date.toString()] ?: 0
 
@@ -193,5 +203,15 @@ data class Habit(
 
     companion object {
         val ALL_DAYS = setOf(1, 2, 3, 4, 5, 6, 7)
+
+        /** Only reachable with a broken date and an empty history, which has nothing to draw. */
+        private val FALLBACK_CREATED = LocalDate(1970, 1, 1)
     }
 }
+
+/**
+ * An ISO date, or null when the text is not one. The import guard asks this directly, because
+ * [Habit.created] no longer says no to anything.
+ */
+internal fun parseDate(value: String): LocalDate? =
+    runCatching { LocalDate.parse(value) }.getOrNull()

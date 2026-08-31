@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.baltajmn.habit.model.Habit
+import com.baltajmn.habit.model.parseDate
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
@@ -293,13 +294,13 @@ internal fun csvOf(habits: List<Habit>): String {
  * Whether a habit out of a backup file is one the app can live with. The file is a trust boundary:
  * it can be edited by hand between the export and the import.
  *
- * `createdAt` is re-parsed on every draw, so a date the parser rejects is not a failed import, it
- * is a crash on every launch from then on, because the same file is read again at each start. A
- * target below one makes every day done by definition, and a weekly quota outside 1..7 hands out a
- * perfect rate and an endless streak over an empty log, which is the same shape of hole `isPro` is
- * kept out of a backup for.
+ * `Habit.created` degrades rather than throwing, so it cannot be the one asked here: the point of
+ * this gate is to keep a date nobody can read out of the file in the first place, not to find out
+ * afterwards. A target below one makes every day done by definition, and a weekly quota outside
+ * 1..7 hands out a perfect rate and an endless streak over an empty log, which is the same shape of
+ * hole `isPro` is kept out of a backup for.
  */
 internal fun isRestorable(habit: Habit): Boolean =
-    runCatching { habit.created }.isSuccess &&
+    parseDate(habit.createdAt) != null &&
         habit.target >= 1 &&
         (habit.weeklyTarget == null || habit.weeklyTarget in 1..7)
