@@ -93,7 +93,8 @@ fun YearGrid(
                     count > 0 -> accent.copy(alpha = 0.45f)
                     skipped -> empty.copy(alpha = 0.5f)
                     date > today || date < habit.created -> empty.copy(alpha = 0.35f)
-                    scheduled -> empty
+                    // A weekly habit owes no particular day, so an undone one is not a gap.
+                    scheduled && !habit.isWeekly -> empty
                     else -> empty.copy(alpha = 0.5f)
                 }
                 drawRoundRect(

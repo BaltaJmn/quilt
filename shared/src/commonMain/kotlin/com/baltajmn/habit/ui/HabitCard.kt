@@ -42,7 +42,7 @@ fun HabitCard(
     val accent = Color(habit.colorArgb)
     val streak = habit.streak(today)
     val rate = (habit.completionRate(today.year, today) * 100).roundToInt()
-    val streakLabel = S.streak(streak)
+    val streakLabel = S.streak(streak, habit.isWeekly)
 
     Surface(
         modifier = modifier.fillMaxWidth(),

@@ -53,6 +53,7 @@ fun HabitForm(
         color: Long,
         target: Int,
         days: Set<Int>,
+        weeklyTarget: Int?,
         reminderMinute: Int?,
     ) -> Unit,
 ) {
@@ -61,10 +62,11 @@ fun HabitForm(
     var color by remember { mutableStateOf(initial?.colorArgb ?: HabitPalette.first()) }
     var target by remember { mutableStateOf(initial?.target ?: 1) }
     var days by remember { mutableStateOf(initial?.scheduleDays ?: Habit.ALL_DAYS) }
+    var weekly by remember { mutableStateOf(initial?.weeklyTarget) }
     var reminder by remember { mutableStateOf(initial?.reminderMinute) }
     var pickingTime by remember { mutableStateOf(false) }
     var showPaywall by remember { mutableStateOf(false) }
-    val valid = name.isNotBlank() && days.isNotEmpty()
+    val valid = name.isNotBlank() && (weekly != null || days.isNotEmpty())
 
     Column(
         Modifier.padding(horizontal = 24.dp).padding(bottom = 32.dp),
@@ -111,7 +113,9 @@ fun HabitForm(
             }
         }
 
-        PickerRow(label = S.daysLabel) {
+        // Fixed days and a weekly quota are alternatives, not layers: showing both would let a
+        // user pick three days and then ask for four a week.
+        if (weekly == null) PickerRow(label = S.daysLabel) {
             S.dayInitials.forEachIndexed { index, label ->
                 val iso = index + 1
                 val on = iso in days
@@ -131,6 +135,15 @@ fun HabitForm(
         }
 
         Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(S.daysAWeek, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
+            Stepper(
+                value = weekly ?: 0,
+                onChange = { weekly = it.coerceIn(0, 7).takeIf { n -> n > 0 } },
+                label = weekly?.toString() ?: S.none,
+            )
+        }
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Text(S.timesADay, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
             Stepper(value = target, onChange = { target = it.coerceIn(1, 20) })
         }
@@ -143,7 +156,16 @@ fun HabitForm(
         }
 
         TextButton(
-            onClick = { if (valid) onSubmit(name, emoji, color, target, days, reminder) },
+            onClick = {
+                // A weekly quota can be filled on any day, so the day picker stops applying.
+                if (valid) {
+                    onSubmit(
+                        name, emoji, color, target,
+                        if (weekly != null) Habit.ALL_DAYS else days,
+                        weekly, reminder,
+                    )
+                }
+            },
             enabled = valid,
             modifier = Modifier
                 .fillMaxWidth()
@@ -219,14 +241,14 @@ private fun SelectableCircle(
 }
 
 @Composable
-private fun Stepper(value: Int, onChange: (Int) -> Unit) {
+private fun Stepper(value: Int, onChange: (Int) -> Unit, label: String = "$value") {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         modifier = Modifier.background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(14.dp)),
     ) {
         StepperButton("−") { onChange(value - 1) }
-        Text("$value", style = MaterialTheme.typography.titleSmall)
+        Text(label, style = MaterialTheme.typography.titleSmall)
         StepperButton("+") { onChange(value + 1) }
     }
 }

@@ -120,7 +120,7 @@ fun HabitDetailScreen(habitId: String, onBack: () -> Unit) {
         ) {
             HabitForm(
                 initial = habit,
-                onSubmit = { name, emoji, color, target, days, reminder ->
+                onSubmit = { name, emoji, color, target, days, weekly, reminder ->
                     HabitRepository.update(
                         habit.copy(
                             name = name.trim(),
@@ -128,6 +128,7 @@ fun HabitDetailScreen(habitId: String, onBack: () -> Unit) {
                             colorArgb = color,
                             target = target,
                             scheduleDays = days,
+                            weeklyTarget = weekly,
                             reminderMinute = reminder,
                         )
                     )
@@ -186,6 +187,7 @@ private fun Header(habit: Habit, accent: Color, onBack: () -> Unit, onEdit: () -
 
 private fun scheduleSummary(habit: Habit): String {
     val days = when {
+        habit.weeklyTarget != null -> S.perWeek(habit.weeklyTarget)
         habit.scheduleDays.size == 7 -> S.everyDay
         habit.scheduleDays == setOf(1, 2, 3, 4, 5) -> S.weekdays
         habit.scheduleDays == setOf(6, 7) -> S.weekends
@@ -248,8 +250,8 @@ private fun Stats(habit: Habit, year: Int, today: kotlinx.datetime.LocalDate) {
     val best = habit.bestStreak(today)
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            StatTile(S.currentStreak, "$streak", S.days(streak), Modifier.weight(1f))
-            StatTile(S.bestStreak, "$best", S.days(best), Modifier.weight(1f))
+            StatTile(S.currentStreak, "$streak", S.days(streak, habit.isWeekly), Modifier.weight(1f))
+            StatTile(S.bestStreak, "$best", S.days(best, habit.isWeekly), Modifier.weight(1f))
         }
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             StatTile(S.totalDays, "${habit.totalDone()}", S.sinceStart, Modifier.weight(1f))

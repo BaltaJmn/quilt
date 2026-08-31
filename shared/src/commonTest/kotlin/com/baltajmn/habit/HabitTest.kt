@@ -24,6 +24,7 @@ class HabitTest {
         target: Int = 1,
         days: Set<Int> = Habit.ALL_DAYS,
         reminderMinute: Int? = null,
+        weekly: Int? = null,
         vararg done: String,
     ) = Habit(
         id = "t",
@@ -31,10 +32,52 @@ class HabitTest {
         colorArgb = 0xFFFFFFFF,
         target = target,
         scheduleDays = days,
+        weeklyTarget = weekly,
         reminderMinute = reminderMinute,
         createdAt = created,
         log = done.associateWith { target },
     )
+
+    @Test
+    fun a_weekly_streak_counts_weeks_not_days() {
+        // Three a week, met in the week of 2 March and again in the week of 9 March.
+        val h = habit(
+            weekly = 3,
+            done = arrayOf(
+                "2026-03-02", "2026-03-03", "2026-03-04",
+                "2026-03-09", "2026-03-10", "2026-03-11",
+            ),
+        )
+        assertEquals(2, h.streak(LocalDate.parse("2026-03-12")))
+    }
+
+    @Test
+    fun the_week_in_progress_does_not_break_a_weekly_streak() {
+        // Monday of a new week with nothing done yet: the finished week still counts.
+        val h = habit(weekly = 3, done = arrayOf("2026-03-02", "2026-03-03", "2026-03-04"))
+        assertEquals(1, h.streak(LocalDate.parse("2026-03-09")))
+    }
+
+    @Test
+    fun a_weekly_habit_owes_no_particular_day() {
+        // Three days in a row missed, quota still met over the week.
+        val h = habit(weekly = 2, done = arrayOf("2026-03-02", "2026-03-08"))
+        assertEquals(1, h.streak(LocalDate.parse("2026-03-08")))
+        assertEquals(2, h.doneInWeek(LocalDate.parse("2026-03-05")))
+    }
+
+    @Test
+    fun weekly_completion_rate_counts_weeks() {
+        val h = habit(created = "2026-03-02", weekly = 2, done = arrayOf("2026-03-02", "2026-03-03"))
+        assertEquals(1f, h.completionRate(2026, LocalDate.parse("2026-03-08")))
+    }
+
+    @Test
+    fun the_week_a_weekly_habit_was_created_in_is_not_judged() {
+        // Created on a Wednesday: a quota of three was never reachable in what was left.
+        val h = habit(created = "2026-03-04", weekly = 3, done = arrayOf("2026-03-04"))
+        assertEquals(0f, h.completionRate(2026, LocalDate.parse("2026-03-08")))
+    }
 
     @Test
     fun a_skipped_day_does_not_break_the_streak() {

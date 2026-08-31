@@ -86,6 +86,7 @@ object HabitRepository {
         colorArgb: Long,
         target: Int = 1,
         scheduleDays: Set<Int> = Habit.ALL_DAYS,
+        weeklyTarget: Int? = null,
         reminderMinute: Int? = null,
     ): Habit? {
         if (!canAddHabit()) return null
@@ -96,6 +97,7 @@ object HabitRepository {
             colorArgb = colorArgb,
             target = target,
             scheduleDays = scheduleDays,
+            weeklyTarget = weeklyTarget,
             reminderMinute = reminderMinute,
             createdAt = today().toString(),
         )

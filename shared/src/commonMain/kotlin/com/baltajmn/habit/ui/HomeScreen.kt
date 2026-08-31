@@ -96,8 +96,8 @@ fun HomeScreen(onOpenHabit: (String) -> Unit, onShare: () -> Unit) {
             containerColor = MaterialTheme.colorScheme.surface,
         ) {
             HabitForm(
-                onSubmit = { name, emoji, color, target, days, reminder ->
-                    HabitRepository.add(name, emoji, color, target, days, reminder)
+                onSubmit = { name, emoji, color, target, days, weekly, reminder ->
+                    HabitRepository.add(name, emoji, color, target, days, weekly, reminder)
                     showSheet = false
                 },
             )

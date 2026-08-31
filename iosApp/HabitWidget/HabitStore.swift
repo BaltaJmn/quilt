@@ -9,6 +9,10 @@ struct Habit: Codable, Identifiable {
     var colorArgb: Int64
     var target: Int
     var scheduleDays: Set<Int>
+    /// Days per week that count as success, or nil for the fixed `scheduleDays` schedule.
+    /// Optional for the same reason as `skipped`, and mandatory here: this file re-encodes the
+    /// whole store on every tap, so a field it does not declare is erased from the user's data.
+    var weeklyTarget: Int?
     var reminderMinute: Int?
     var createdAt: String
     var archived: Bool
@@ -50,9 +54,51 @@ extension Habit {
         return isDone(on: key) ? .done : .pending
     }
 
+    /// Monday of the ISO week [date] falls in.
+    private func weekStart(_ date: Date) -> Date {
+        let calendar = Calendar.current
+        let start = calendar.startOfDay(for: date)
+        return calendar.date(byAdding: .day, value: -(HabitFile.isoWeekday(start) - 1), to: start) ?? start
+    }
+
+    /// Days completed in the week [date] belongs to.
+    private func doneInWeek(_ date: Date) -> Int {
+        let calendar = Calendar.current
+        let monday = weekStart(date)
+        return (0..<7).reduce(0) { total, offset in
+            guard let day = calendar.date(byAdding: .day, value: offset, to: monday) else { return total }
+            return total + (isDone(on: HabitFile.dayKey(day)) ? 1 : 0)
+        }
+    }
+
+    /// Mirrors Kotlin `Habit.weeklyStreak`: consecutive weeks that met the quota, counting back
+    /// from the week [today] is in. The week in progress gets the grace today gets in the daily
+    /// streak: falling short does not break a run that is not over yet.
+    private func weeklyStreak(target: Int, today: Date) -> Int {
+        let calendar = Calendar.current
+        var monday = weekStart(today)
+        var streak = 0
+        var isCurrentWeek = true
+        // Stop once the whole week predates the habit. Capped anyway so a corrupt date cannot spin.
+        for _ in 0..<3_000 {
+            guard let sunday = calendar.date(byAdding: .day, value: 6, to: monday),
+                  HabitFile.dayKey(sunday) >= createdAt else { break }
+            if doneInWeek(monday) >= target {
+                streak += 1
+            } else if !isCurrentWeek {
+                break
+            }
+            isCurrentWeek = false
+            guard let previous = calendar.date(byAdding: .day, value: -7, to: monday) else { break }
+            monday = previous
+        }
+        return streak
+    }
+
     /// Mirrors Kotlin `Habit.streak`: consecutive scheduled days completed counting back from
     /// [today]; today still pending does not break it, skipped days are stepped over.
     func streak(today: Date) -> Int {
+        if let weeklyTarget { return weeklyStreak(target: weeklyTarget, today: today) }
         let calendar = Calendar.current
         var date = calendar.startOfDay(for: today)
         var streak = 0

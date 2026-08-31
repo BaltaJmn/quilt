@@ -55,13 +55,22 @@ object S {
     )
 
     // Habit card and stats
-    fun streak(n: Int) = streakText(n, lang)
-    fun days(n: Int) = t(
+    /** [weekly] habits count their run in weeks, so the unit has to follow. */
+    fun streak(n: Int, weekly: Boolean = false) =
+        if (weekly) weekStreakText(n, lang) else streakText(n, lang)
+    fun days(n: Int, weekly: Boolean = false) = if (weekly) weeks(n) else t(
         if (n == 1) "day" else "days",
         if (n == 1) "día" else "días",
         if (n == 1) "dia" else "dias",
         if (n == 1) "Tag" else "Tage",
         if (n == 1) "jour" else "jours",
+    )
+    fun weeks(n: Int) = t(
+        if (n == 1) "week" else "weeks",
+        if (n == 1) "semana" else "semanas",
+        if (n == 1) "semana" else "semanas",
+        if (n == 1) "Woche" else "Wochen",
+        if (n == 1) "semaine" else "semaines",
     )
     fun rateThisYear(rate: Int) = t(
         "$rate% this year",
@@ -89,6 +98,20 @@ object S {
     val weekends = t("Weekends", "Fines de semana", "Fins de semana", "Wochenenden", "Week-ends")
     /** Monday first, matching ISO day numbers. */
     val dayInitials = dayInitialsFor(lang)
+    val daysAWeek = t(
+        "Days a week",
+        "Días por semana",
+        "Dias por semana",
+        "Tage pro Woche",
+        "Jours par semaine",
+    )
+    fun perWeek(n: Int) = t(
+        if (n == 1) "1 day a week" else "$n days a week",
+        if (n == 1) "1 día por semana" else "$n días por semana",
+        if (n == 1) "1 dia por semana" else "$n dias por semana",
+        if (n == 1) "1 Tag pro Woche" else "$n Tage pro Woche",
+        if (n == 1) "1 jour par semaine" else "$n jours par semaine",
+    )
     fun timesPerDay(n: Int) = t(
         "$n times a day",
         "$n veces al día",
@@ -451,6 +474,15 @@ internal fun streakText(n: Int, lang: String): String = when (lang) {
     "de" -> if (n == 1) "1 Tag in Folge" else "$n Tage in Folge"
     "fr" -> if (n == 1) "1 jour d'affilée" else "$n jours d'affilée"
     else -> "$n day streak"
+}
+
+/** The weekly-target twin of [streakText]: the unit is the week, not the day. */
+internal fun weekStreakText(n: Int, lang: String): String = when (lang) {
+    "es" -> if (n == 1) "1 semana seguida" else "$n semanas seguidas"
+    "pt" -> if (n == 1) "1 semana seguida" else "$n semanas seguidas"
+    "de" -> if (n == 1) "1 Woche in Folge" else "$n Wochen in Folge"
+    "fr" -> if (n == 1) "1 semaine d'affilée" else "$n semaines d'affilée"
+    else -> "$n week streak"
 }
 
 /** English expects 12-hour time with a meridiem; the other four all read 24-hour. */
