@@ -3,6 +3,7 @@ package com.baltajmn.habit
 import com.baltajmn.habit.data.HabitRepository
 import com.baltajmn.habit.data.csvOf
 import com.baltajmn.habit.data.cycled
+import com.baltajmn.habit.data.millisUntilTomorrow
 import com.baltajmn.habit.data.skipToggled
 import com.baltajmn.habit.i18n.normalizeLanguage
 import com.baltajmn.habit.model.Habit
@@ -12,6 +13,8 @@ import com.baltajmn.habit.ui.indexAt
 import com.baltajmn.habit.ui.slotOf
 import com.baltajmn.habit.ui.yearColumns
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlin.test.Test
@@ -19,6 +22,9 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Instant
 
 private fun habit(
     name: String = "test",
@@ -284,6 +290,26 @@ class YearGridMathTest {
                 assertTrue(column > previous, "month $month of $year lands on column $column")
                 previous = column
             }
+        }
+    }
+}
+
+/** The wake-up that moves the painted day forward under an app nobody put away. */
+class MidnightTest {
+
+    @Test
+    fun the_wait_is_the_smallest_one_that_reaches_a_new_local_day() {
+        val zone = TimeZone.currentSystemDefault()
+        // Four days from a Friday, so every hour of the day is a starting point, and in a zone
+        // that moves its clocks this weekend a 23 hour day is one of them.
+        var now = Instant.parse("2026-03-27T00:03:00Z")
+        repeat(96) {
+            val wait = millisUntilTomorrow(now)
+            val date = now.toLocalDateTime(zone).date
+            assertTrue(wait in 1..26 * 60 * 60 * 1000L, "$now waits $wait")
+            assertTrue(now.plus(wait.milliseconds).toLocalDateTime(zone).date > date, "$now fires late")
+            assertEquals(date, now.plus((wait - 1).milliseconds).toLocalDateTime(zone).date, "$now fires early")
+            now = now.plus(1.hours)
         }
     }
 }

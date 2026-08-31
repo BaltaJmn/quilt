@@ -11,10 +11,12 @@ import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.tooling.preview.Preview
 import com.baltajmn.habit.billing.Billing
 import com.baltajmn.habit.data.HabitRepository
+import com.baltajmn.habit.data.millisUntilTomorrow
 import com.baltajmn.habit.ui.HabitDetailScreen
 import com.baltajmn.habit.ui.HomeScreen
 import com.baltajmn.habit.ui.ShareScreen
 import com.baltajmn.habit.ui.theme.HabitTheme
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -26,6 +28,15 @@ fun App() {
     }
     // Catches a purchase made on another device, and a refund.
     LaunchedEffect(Unit) { Billing.refresh() }
+    // The day has to roll over under an app that was left open. Coming back to the foreground is
+    // already covered, on Android by onResume and on iOS by scenePhase, but neither of those
+    // happens to a screen nobody put away at 23:58.
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(millisUntilTomorrow())
+            HabitRepository.refreshToday()
+        }
+    }
     // Two screens do not justify a navigation library.
     var openHabitId by remember { mutableStateOf<String?>(null) }
     var sharing by remember { mutableStateOf(false) }

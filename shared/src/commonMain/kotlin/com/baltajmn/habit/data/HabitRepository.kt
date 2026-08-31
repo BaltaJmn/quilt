@@ -6,8 +6,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.baltajmn.habit.model.Habit
 import com.baltajmn.habit.model.parseDate
+import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.plus
+import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.todayIn
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -16,6 +20,7 @@ import kotlinx.serialization.json.JsonObject
 import kotlin.random.Random
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 @Serializable
 private data class Store(
@@ -84,8 +89,17 @@ object HabitRepository {
     fun reload() {
         loaded = false
         _habits.clear()
-        today = today()
+        refreshToday()
         load()
+    }
+
+    /**
+     * Moves the painted day forward. Coming back to the foreground is one way across midnight;
+     * the other is an app that was never sent away, which is the usual one, because the last habit
+     * of the day gets marked just before midnight and not just after it.
+     */
+    fun refreshToday() {
+        today = today()
     }
 
     fun canAddHabit(): Boolean = isPro || activeHabits.size < FREE_HABIT_LIMIT
@@ -219,6 +233,18 @@ object HabitRepository {
 
 @OptIn(ExperimentalTime::class)
 fun today(): LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault())
+
+/**
+ * Milliseconds from [now] to the next local midnight. Through the calendar and not a fixed 86.4
+ * million, because a DST day is 23 or 25 hours long. Never zero, so a caller that loops on it
+ * cannot spin.
+ */
+@OptIn(ExperimentalTime::class)
+internal fun millisUntilTomorrow(now: Instant = Clock.System.now()): Long {
+    val zone = TimeZone.currentSystemDefault()
+    val tomorrow = now.toLocalDateTime(zone).date.plus(DatePeriod(days = 1)).atStartOfDayIn(zone)
+    return (tomorrow - now).inWholeMilliseconds.coerceAtLeast(1)
+}
 
 /**
  * A habit name with a comma, a quote or a newline would otherwise shift every column after it.
