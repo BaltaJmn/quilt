@@ -97,7 +97,12 @@ struct YearProvider: AppIntentTimelineProvider {
 
     func timeline(for configuration: SelectYearHabitIntent, in context: Context) async -> Timeline<YearEntry> {
         let now = Date()
-        let midnight = Calendar.current.startOfDay(for: now.addingTimeInterval(86_400))
+        // Through the calendar and not 86_400 seconds, as HabitWidget.swift already does: a DST
+        // day is 23 or 25 hours long, and the fixed arithmetic either refreshes an hour early or
+        // sits an hour past the rollover showing yesterday.
+        let calendar = Calendar.current
+        let midnight = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: now))
+            ?? now.addingTimeInterval(86_400)
         return Timeline(entries: [entry(for: configuration.habit, now: now)], policy: .after(midnight))
     }
 }
