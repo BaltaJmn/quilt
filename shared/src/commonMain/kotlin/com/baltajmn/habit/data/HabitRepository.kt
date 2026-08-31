@@ -52,6 +52,14 @@ object HabitRepository {
     var isPro by mutableStateOf(false)
         private set
 
+    /**
+     * The day the UI paints. It used to be frozen in each screen's own `remember`, so an app that
+     * spent the night in the background kept ticking yesterday's square. Refreshed when the file is
+     * re-read, which is what coming back to the foreground does.
+     */
+    var today by mutableStateOf(today())
+        private set
+
     private var loaded = false
     private var repairPrimary = false
 
@@ -75,6 +83,7 @@ object HabitRepository {
     fun reload() {
         loaded = false
         _habits.clear()
+        today = today()
         load()
     }
 

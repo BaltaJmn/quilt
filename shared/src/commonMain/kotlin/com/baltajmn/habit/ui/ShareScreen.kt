@@ -34,7 +34,6 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.baltajmn.habit.data.HabitRepository
-import com.baltajmn.habit.data.today
 import com.baltajmn.habit.share.SharePeriod
 import com.baltajmn.habit.share.Sharing
 import com.baltajmn.habit.share.encodeToPng
@@ -43,7 +42,7 @@ import com.baltajmn.habit.i18n.S
 
 @Composable
 fun ShareScreen(onBack: () -> Unit) {
-    val today = remember { today() }
+    val today = HabitRepository.today
     val habits = HabitRepository.activeHabits
     var period by remember { mutableStateOf(SharePeriod.YEAR) }
     var status by remember { mutableStateOf<String?>(null) }

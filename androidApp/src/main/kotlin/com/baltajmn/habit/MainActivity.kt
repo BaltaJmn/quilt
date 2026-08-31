@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import com.baltajmn.habit.data.AndroidContext
 import com.baltajmn.habit.data.Backup
+import com.baltajmn.habit.data.HabitRepository
 import com.baltajmn.habit.data.Reminders
 
 class MainActivity : ComponentActivity() {
@@ -72,6 +73,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             App()
         }
+    }
+
+    /**
+     * The widget and the quick settings tile write the file from their own processes, and the date
+     * stays on yesterday if the app spends the night in the background. `iOSApp.swift` does the
+     * same on `scenePhase`; Android has no equivalent, so it lives here.
+     */
+    override fun onResume() {
+        super.onResume()
+        HabitRepository.reload()
     }
 
     override fun onDestroy() {

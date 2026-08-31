@@ -36,7 +36,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.baltajmn.habit.data.HabitRepository
-import com.baltajmn.habit.data.today
 import com.baltajmn.habit.model.Habit
 import kotlin.math.roundToInt
 import com.baltajmn.habit.i18n.S
@@ -46,7 +45,7 @@ import com.baltajmn.habit.i18n.S
 @Composable
 fun HabitDetailScreen(habitId: String, onBack: () -> Unit) {
     val habit = HabitRepository.habits.firstOrNull { it.id == habitId } ?: return
-    val today = remember { today() }
+    val today = HabitRepository.today
     var year by remember { mutableStateOf(today.year) }
     var showEdit by remember { mutableStateOf(false) }
     var confirmDelete by remember { mutableStateOf(false) }
