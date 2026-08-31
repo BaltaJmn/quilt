@@ -71,15 +71,11 @@ data class Habit(
         return (0..6).count { isDoneOn(monday.plus(DatePeriod(days = it))) }
     }
 
-    /** True once the week [date] belongs to has met its quota. Always false without one. */
-    fun weekMet(date: LocalDate): Boolean {
-        val target = weeklyTarget ?: return false
-        return doneInWeek(date) >= target
-    }
-
     /**
      * Consecutive scheduled days completed, counting back from [today].
-     * Today still pending does not break the streak; any earlier missed scheduled day does.
+     * The grace belongs to the most recent scheduled day, not to today: a habit scheduled only on
+     * Mondays keeps its streak all week and loses it when the next Monday closes unmarked. Any
+     * earlier missed scheduled day breaks it.
      * Skipped days are stepped over as if they were not scheduled at all.
      */
     fun streak(today: LocalDate): Int {

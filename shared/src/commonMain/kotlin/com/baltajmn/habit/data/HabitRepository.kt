@@ -132,12 +132,7 @@ object HabitRepository {
     fun cycle(habitId: String, date: LocalDate) {
         val index = _habits.indexOfFirst { it.id == habitId }
         if (index < 0) return
-        val habit = _habits[index]
-        val next = (habit.countOn(date) + 1).takeIf { it <= habit.target } ?: 0
-        val log = habit.log.toMutableMap()
-        if (next == 0) log.remove(date.toString()) else log[date.toString()] = next
-        // Logging a day un-excuses it: a day cannot be both done and skipped.
-        _habits[index] = habit.copy(log = log, skipped = habit.skipped - date.toString())
+        _habits[index] = cycled(_habits[index], date)
         // Ticking a box cannot change a reminder, so skip the reschedule.
         save(syncReminders = false)
     }
@@ -149,17 +144,7 @@ object HabitRepository {
     fun toggleSkip(habitId: String, date: LocalDate) {
         val index = _habits.indexOfFirst { it.id == habitId }
         if (index < 0) return
-        val habit = _habits[index]
-        val key = date.toString()
-        val skipped = habit.skipped.toMutableSet()
-        val log = habit.log.toMutableMap()
-        if (key in skipped) {
-            skipped.remove(key)
-        } else {
-            skipped.add(key)
-            log.remove(key)
-        }
-        _habits[index] = habit.copy(log = log, skipped = skipped)
+        _habits[index] = skipToggled(_habits[index], date)
         save(syncReminders = false)
     }
 
@@ -194,29 +179,7 @@ object HabitRepository {
         save(syncReminders = false)
     }
 
-    /**
-     * One row per day that has something to say, archived habits included: an export that quietly
-     * dropped them would not be the user's data.
-     */
-    fun exportCsv(): String {
-        val out = StringBuilder("habit,date,count,target,status\n")
-        for (habit in _habits) {
-            for (date in (habit.log.keys + habit.skipped).sorted()) {
-                val count = habit.log[date] ?: 0
-                val status = when {
-                    date in habit.skipped -> "skipped"
-                    count >= habit.target -> "done"
-                    else -> "partial"
-                }
-                out.append(csvField(habit.name)).append(',')
-                    .append(date).append(',')
-                    .append(count).append(',')
-                    .append(habit.target).append(',')
-                    .append(status).append('\n')
-            }
-        }
-        return out.toString()
-    }
+    fun exportCsv(): String = csvOf(_habits)
 
     fun exportJson(): String = json.encodeToString(Store(habits = _habits.toList(), isPro = isPro))
 
@@ -232,7 +195,7 @@ object HabitRepository {
         val root = runCatching { json.parseToJsonElement(text) }.getOrNull() as? JsonObject
             ?: return null
         if (root["habits"] !is JsonArray) return null
-        return decode(text)?.habits
+        return decode(text)?.habits?.takeIf { habits -> habits.all(::isRestorable) }
     }
 
     /**
@@ -278,3 +241,65 @@ internal fun reorder(ids: List<String>, archived: Set<String>, id: String, delta
     out.add(to, out.removeAt(from))
     return out
 }
+
+/**
+ * [habit] with the count on [date] stepped once round, 0 -> 1 -> .. -> target -> 0.
+ * Logging a day un-excuses it: a day cannot be both done and skipped.
+ */
+internal fun cycled(habit: Habit, date: LocalDate): Habit {
+    val key = date.toString()
+    val next = (habit.countOn(date) + 1).takeIf { it <= habit.target } ?: 0
+    val log = habit.log.toMutableMap()
+    if (next == 0) log.remove(key) else log[key] = next
+    return habit.copy(log = log, skipped = habit.skipped - key)
+}
+
+/**
+ * [habit] with [date] excused, or with the excuse taken back. Excusing a day drops whatever was
+ * logged on it, and taking the excuse back does not bring it back: the same invariant as [cycled],
+ * from the other side.
+ */
+internal fun skipToggled(habit: Habit, date: LocalDate): Habit {
+    val key = date.toString()
+    return if (key in habit.skipped) habit.copy(skipped = habit.skipped - key)
+    else habit.copy(log = habit.log - key, skipped = habit.skipped + key)
+}
+
+/**
+ * One row per day that has something to say, archived habits included: an export that quietly
+ * dropped them would not be the user's data.
+ */
+internal fun csvOf(habits: List<Habit>): String {
+    val out = StringBuilder("habit,date,count,target,status\n")
+    for (habit in habits) {
+        for (date in (habit.log.keys + habit.skipped).sorted()) {
+            val count = habit.log[date] ?: 0
+            val status = when {
+                date in habit.skipped -> "skipped"
+                count >= habit.target -> "done"
+                else -> "partial"
+            }
+            out.append(csvField(habit.name)).append(',')
+                .append(date).append(',')
+                .append(count).append(',')
+                .append(habit.target).append(',')
+                .append(status).append('\n')
+        }
+    }
+    return out.toString()
+}
+
+/**
+ * Whether a habit out of a backup file is one the app can live with. The file is a trust boundary:
+ * it can be edited by hand between the export and the import.
+ *
+ * `createdAt` is re-parsed on every draw, so a date the parser rejects is not a failed import, it
+ * is a crash on every launch from then on, because the same file is read again at each start. A
+ * target below one makes every day done by definition, and a weekly quota outside 1..7 hands out a
+ * perfect rate and an endless streak over an empty log, which is the same shape of hole `isPro` is
+ * kept out of a backup for.
+ */
+internal fun isRestorable(habit: Habit): Boolean =
+    runCatching { habit.created }.isSuccess &&
+        habit.target >= 1 &&
+        (habit.weeklyTarget == null || habit.weeklyTarget in 1..7)

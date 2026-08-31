@@ -19,9 +19,7 @@ internal val SUPPORTED = listOf("en", "es", "pt", "de", "fr")
  */
 object S {
 
-    /** English is the fallback: every language outside [SUPPORTED] lands there. */
-    private val lang = systemLanguage().take(2).lowercase()
-        .takeIf { it in SUPPORTED } ?: "en"
+    private val lang = normalizeLanguage(systemLanguage())
 
     private fun t(en: String, es: String, pt: String, de: String, fr: String): String = when (lang) {
         "es" -> es
@@ -515,3 +513,10 @@ internal fun formatTime(minutes: Int, lang: String): String {
     val twelve = if (hour % 12 == 0) 12 else hour % 12
     return "$twelve:$minute ${if (hour < 12) "AM" else "PM"}"
 }
+
+/**
+ * The language table to read for a system tag. The region is dropped, so "es-419" and "es_ES" are
+ * both Spanish, and anything outside [SUPPORTED] lands in English.
+ */
+internal fun normalizeLanguage(raw: String): String =
+    raw.take(2).lowercase().takeIf { it in SUPPORTED } ?: "en"
