@@ -2,4 +2,5 @@
 <resources>
     <string name="widget_description">Hake deine heutigen Gewohnheiten ab</string>
     <string name="widget_title">Heute</string>
+    <string name="year_widget_description">Eine Gewohnheit, das ganze Jahr</string>
 </resources>

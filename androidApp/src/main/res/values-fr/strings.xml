@@ -2,4 +2,5 @@
 <resources>
     <string name="widget_description">Cochez vos habitudes du jour</string>
     <string name="widget_title">Aujourd\'hui</string>
+    <string name="year_widget_description">Une habitude, toute l\'année</string>
 </resources>

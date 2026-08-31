@@ -29,10 +29,34 @@ no en el chat.
 
 - `habits.json` en el App Group `group.com.baltajmn.habit` (iOS) y en el directorio de la app
   (Android) es el contrato entre app y widget. Se escribe de forma atómica y con copia `.bak`.
+- Un campo nuevo en `Habit` se añade en `HabitStore.swift` en el mismo cambio. El widget de iOS
+  reescribe el fichero entero en cada toque, así que un campo que su `struct` no declare desaparece
+  del historial del usuario. `weeklyTarget` y `skipped` son opcionales por eso.
 - `Strings.kt` obliga a los cinco idiomas (en, es, pt, de, fr) por firma de función. La tabla `L`
   del widget de iOS es su espejo en Swift y hay que tocarla a la vez.
 - El `expect object` mínimo permite miembros extra en los `actual`. Los ganchos que la UI necesita
   (`Reminders.onNeedsPermission`, `Backup.onPickFile`) viven ahí, no en el común.
+
+## Superficies del sistema
+
+Todo lo que se ve fuera de la app lee y escribe por `HabitRepository`, nunca por su cuenta.
+
+| Superficie | Dónde | Nota |
+|---|---|---|
+| Widget de hoy | `HabitWidget.kt` (Glance), `HabitWidget.swift` | Varias filas, una por hábito. |
+| Widget de pantalla de bloqueo | `HabitWidget.swift` | `accessoryCircular` y `accessoryRectangular`. Solo iOS. |
+| Widget de un año | `YearWidget.kt`, `HabitYearWidget.swift` | Un hábito. Se elige al colocarlo. |
+| Baldosa de ajustes rápidos | `QuickToggleTileService.kt` | Marca el siguiente pendiente. Solo Android. |
+| Siri y Atajos | `Shortcuts.swift` sobre `Shortcuts.ios.kt` | Solo iOS. |
+
+Dos reglas que cuestan una tarde si se olvidan:
+
+- Los textos de `AppIntents` (`LocalizedStringResource`, `TypeDisplayRepresentation`) se extraen en
+  tiempo de compilación, así que tienen que ser literales. Un valor de `L` ahí rompe el build con
+  `No AppIntents metadata have been exported`.
+- La rejilla del año no se puede reutilizar de Compose. En iOS se dibuja con `Canvas` de SwiftUI y
+  en Android con un `Bitmap`, porque Glance no tiene lienzo y 365 cajas agotan el presupuesto de
+  elementos de `RemoteViews`.
 
 ## Seguridad, sin excepciones
 

@@ -2,4 +2,5 @@
 <resources>
     <string name="widget_description">Marque seus hábitos de hoje</string>
     <string name="widget_title">Hoje</string>
+    <string name="year_widget_description">Um hábito, o ano inteiro</string>
 </resources>

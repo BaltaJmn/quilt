@@ -255,6 +255,28 @@ object S {
         "Vous l'avez fait aujourd'hui ?",
     )
     val widgetTitle = t("Today", "Hoy", "Hoje", "Heute", "Aujourd'hui")
+    val pickHabit = t(
+        "Choose a habit",
+        "Elige un hábito",
+        "Escolha um hábito",
+        "Gewohnheit wählen",
+        "Choisissez une habitude",
+    )
+    val quickTile = t(
+        "Mark habit",
+        "Marcar hábito",
+        "Marcar hábito",
+        "Gewohnheit abhaken",
+        "Cocher une habitude",
+    )
+    val allDoneToday = t("All done", "Todo hecho", "Tudo feito", "Alles erledigt", "Tout est fait")
+    fun pendingToday(n: Int) = t(
+        if (n == 1) "1 left today" else "$n left today",
+        if (n == 1) "1 pendiente hoy" else "$n pendientes hoy",
+        if (n == 1) "1 pendente hoje" else "$n pendentes hoje",
+        if (n == 1) "1 offen heute" else "$n offen heute",
+        if (n == 1) "1 restante aujourd'hui" else "$n restantes aujourd'hui",
+    )
     val widgetEmpty = t(
         "Nothing scheduled for today",
         "Nada programado para hoy",

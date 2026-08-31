@@ -50,12 +50,12 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.minus
 
 // Day/night through Android colour resources: Glance 1.1 has no two-tone ColorProvider.
-private val Surface = ColorProvider(R.color.widget_surface)
-private val OnSurface = ColorProvider(R.color.widget_on_surface)
-private val Muted = ColorProvider(R.color.widget_muted)
-private val Empty = ColorProvider(R.color.widget_empty)
-private val Skipped = ColorProvider(R.color.widget_skipped)
-private val Off = ColorProvider(R.color.widget_off)
+internal val Surface = ColorProvider(R.color.widget_surface)
+internal val OnSurface = ColorProvider(R.color.widget_on_surface)
+internal val Muted = ColorProvider(R.color.widget_muted)
+internal val Empty = ColorProvider(R.color.widget_empty)
+internal val Skipped = ColorProvider(R.color.widget_skipped)
+internal val Off = ColorProvider(R.color.widget_off)
 
 /** The pastel accents stay light in both themes, so the tick keeps a fixed dark ink. */
 private val Ink = ColorProvider(Color(0xFF2E2A24))
@@ -91,9 +91,9 @@ class HabitWidgetReceiver : GlanceAppWidgetReceiver() {
 }
 
 /** What one day looks like in the history strip. */
-private enum class DayState { Done, Skipped, Pending, Off }
+internal enum class DayState { Done, Skipped, Pending, Off }
 
-private fun Habit.stateOn(date: LocalDate): DayState = when {
+internal fun Habit.stateOn(date: LocalDate): DayState = when {
     date < created -> DayState.Off
     isSkippedOn(date) -> DayState.Skipped
     !isScheduledOn(date) -> DayState.Off

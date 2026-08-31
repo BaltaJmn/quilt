@@ -5,11 +5,13 @@ tres pantallas (lista, detalle, formulario) mas dos hojas (ajustes y compartir).
 sexta pantalla o a una pestana nueva se queda fuera aunque sea buena idea, porque el minimalismo es
 la caracteristica, no el estilo.
 
-Ordenadas por valor dividido entre coste, la primera es la que yo haria antes.
+Ordenadas por valor dividido entre coste, la primera es la que yo haria antes. Las cuatro primeras
+ya estan hechas; se quedan aqui con la nota de donde vive cada una, porque el porque de cada una
+sigue valiendo.
 
 ---
 
-## 1. Atajos del sistema. Coste bajo, ninguna pantalla nueva
+## 1. Atajos del sistema. Hecha
 
 El `AppIntent` que ya usa el boton del widget de iOS sirve tal cual para Siri y Spotlight: basta un
 `AppShortcutsProvider` que lo declare. A partir de ahi "Oye Siri, marca Agua en Quilt" funciona sin
@@ -21,16 +23,25 @@ cortina, un toque, hecho.
 
 Es la mejor relacion de todas: la logica ya existe y esta probada, solo esta sin exponer.
 
-## 2. Widget de un hábito con el año entero. Coste medio, ninguna pantalla nueva
+Hecha. iOS en `iosApp/iosApp/Shortcuts.swift` sobre el puente `Shortcuts.ios.kt`, con las cinco
+frases de invocacion, una por idioma. Android en `QuickToggleTileService.kt`: la baldosa marca el
+siguiente habito pendiente y el subtitulo dice cuantos quedan, sin nombrarlos, porque se lee desde
+la pantalla de bloqueo.
+
+## 2. Widget de un habito con el año entero. Hecha
 
 Hoy el widget ensena varias filas con la semana. Falta el que ensena **un** habito con sus 365
 cuadritos, que es justamente la imagen que vende la app. En iOS es una `Widget` nueva con
-`AppIntentConfiguration` para elegir cual, y en Android otro `GlanceAppWidget`. El dibujado ya
-existe en `YearGrid.kt`.
+`AppIntentConfiguration` para elegir cual, y en Android otro `GlanceAppWidget`.
 
-Ademas resuelve de paso la deuda anotada de que el widget pequeno deja media caja vacia.
+Hecha. iOS en `HabitYearWidget.swift`, Android en `YearWidget.kt` mas el dialogo de eleccion
+`YearWidgetConfigActivity`.
 
-## 3. Widget de pantalla de bloqueo, iOS. Coste bajo, solo iOS
+El dibujado no se pudo reutilizar: `YearGrid.kt` es Compose y ninguno de los dos sistemas de widget
+lo admite. En iOS se redibuja con `Canvas` de SwiftUI; en Android se pinta un `Bitmap`, porque Glance
+no tiene lienzo y 365 cajas se comen el presupuesto de elementos de `RemoteViews`.
+
+## 3. Widget de pantalla de bloqueo, iOS. Hecha
 
 Anadir las familias `accessoryCircular` y `accessoryRectangular` al `TimelineProvider` que ya hay:
 un anillo con los habitos de hoy hechos sobre el total. Son unas pocas decenas de lineas y el mismo
@@ -39,7 +50,10 @@ un anillo con los habitos de hoy hechos sobre el total. Son unas pocas decenas d
 Android no tiene equivalente, asi que rompe la paridad. Se puede asumir: es una ventaja de la
 plataforma, no una funcion que falte en la otra.
 
-## 4. Objetivo semanal: "N dias por semana". Coste alto, pero es lo que mas piden
+Hecha, en el mismo `HabitWidget.swift`: `CircularView` es un `Gauge` con estilo
+`accessoryCircularCapacity` y `RectangularView` una barra con la cuenta del dia.
+
+## 4. Objetivo semanal: "N dias por semana". Hecha
 
 Hoy un habito se programa con dias fijos (`scheduleDays`). Falta lo otro: "correr tres veces por
 semana, me da igual cuales". Es la peticion numero uno en cualquier app de habitos, porque los dias
@@ -51,6 +65,9 @@ poder decidirse mirando un solo dia: hay que mirar la semana entera. Y `habits.j
 compartido, asi que el `Habit` de Swift del widget tiene que reflejar el campo el mismo dia.
 
 Merece la pena, pero es la unica de la lista que no cabe en una tarde.
+
+Hecha. `Habit.weeklyTarget: Int?` en el modelo comun y su espejo en `HabitStore.swift` el mismo dia,
+como pedia el contrato.
 
 ## 5. El recordatorio se calla si ya lo hiciste. Coste medio, invisible
 

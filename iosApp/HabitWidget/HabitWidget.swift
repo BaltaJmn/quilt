@@ -2,16 +2,16 @@ import AppIntents
 import SwiftUI
 import WidgetKit
 
-private let surface = Color(UIColor { $0.userInterfaceStyle == .dark
+let surface = Color(UIColor { $0.userInterfaceStyle == .dark
     ? UIColor(red: 0.125, green: 0.114, blue: 0.086, alpha: 1)
     : UIColor(red: 0.984, green: 0.973, blue: 0.953, alpha: 1) })
-private let onSurface = Color(UIColor { $0.userInterfaceStyle == .dark
+let onSurface = Color(UIColor { $0.userInterfaceStyle == .dark
     ? UIColor(red: 0.925, green: 0.898, blue: 0.851, alpha: 1)
     : UIColor(red: 0.224, green: 0.208, blue: 0.180, alpha: 1) })
-private let muted = Color(UIColor { $0.userInterfaceStyle == .dark
+let muted = Color(UIColor { $0.userInterfaceStyle == .dark
     ? UIColor(red: 0.612, green: 0.580, blue: 0.525, alpha: 1)
     : UIColor(red: 0.545, green: 0.518, blue: 0.475, alpha: 1) })
-private let emptySlot = Color(UIColor { $0.userInterfaceStyle == .dark
+let emptySlot = Color(UIColor { $0.userInterfaceStyle == .dark
     ? UIColor(red: 0.173, green: 0.157, blue: 0.125, alpha: 1)
     : UIColor(red: 0.941, green: 0.922, blue: 0.886, alpha: 1) })
 /// Pastel accents stay light in both themes, so the tick keeps a fixed dark ink.
@@ -19,7 +19,7 @@ private let ink = Color(red: 0.180, green: 0.165, blue: 0.141)
 /// The palette's green, reserved for "everything done today".
 private let allDone = Color(red: 0.714, green: 0.839, blue: 0.671)
 
-private func accent(_ argb: Int64) -> Color {
+func accent(_ argb: Int64) -> Color {
     Color(
         red: Double((argb >> 16) & 0xFF) / 255,
         green: Double((argb >> 8) & 0xFF) / 255,
@@ -82,6 +82,7 @@ struct HabitProvider: TimelineProvider {
                     colorArgb: colors[index],
                     target: 1,
                     scheduleDays: [1, 2, 3, 4, 5, 6, 7],
+                    weeklyTarget: nil,
                     reminderMinute: nil,
                     createdAt: "2000-01-01",
                     archived: false,
@@ -329,19 +330,59 @@ private struct EmptyToday: View {
     }
 }
 
+/// Lock screen: the day's progress, no habit names. A lock screen is readable without unlocking,
+/// so what shows there is a count, never what the user is tracking.
+private struct CircularView: View {
+    let entry: HabitEntry
+
+    var body: some View {
+        Gauge(value: Double(entry.doneCount), in: 0...Double(max(entry.rows.count, 1))) {
+            Image(systemName: entry.isAllDone ? "checkmark" : "square.grid.2x2")
+        } currentValueLabel: {
+            Text("\(entry.doneCount)")
+        }
+        .gaugeStyle(.accessoryCircularCapacity)
+    }
+}
+
+private struct RectangularView: View {
+    let entry: HabitEntry
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(L.today).font(.headline)
+            if entry.rows.isEmpty {
+                Text(L.nothingToday).font(.caption).lineLimit(2)
+            } else {
+                Text("\(entry.doneCount)/\(entry.rows.count)").font(.caption).monospacedDigit()
+                ProgressView(value: Double(entry.doneCount), total: Double(entry.rows.count))
+                    .progressViewStyle(.linear)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
 struct HabitWidgetView: View {
     @Environment(\.widgetFamily) private var family
     let entry: HabitEntry
 
+    private var isAccessory: Bool {
+        family == .accessoryCircular || family == .accessoryRectangular
+    }
+
     var body: some View {
         Group {
             switch family {
+            case .accessoryCircular: CircularView(entry: entry)
+            case .accessoryRectangular: RectangularView(entry: entry)
             case .systemSmall: SmallView(entry: entry)
             case .systemLarge: ListView(entry: entry, maxRows: 7, side: 34, box: 10)
             default: ListView(entry: entry, maxRows: 3, side: 28, box: 8)
             }
         }
-        .containerBackground(surface, for: .widget)
+        // The lock screen tints and masks what it draws, so the app's surface would only fight it.
+        .containerBackground(for: .widget) { isAccessory ? Color.clear : surface }
     }
 }
 
@@ -352,13 +393,19 @@ struct HabitTodayWidget: Widget {
         }
         .configurationDisplayName(L.today)
         .description(L.widgetDescription)
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .supportedFamilies([
+            .systemSmall, .systemMedium, .systemLarge,
+            .accessoryCircular, .accessoryRectangular,
+        ])
     }
 }
 
 @main
 struct HabitWidgetBundle: WidgetBundle {
-    var body: some Widget { HabitTodayWidget() }
+    var body: some Widget {
+        HabitTodayWidget()
+        HabitYearWidget()
+    }
 }
 
 /// The widget's three strings. Same five languages and same fallback rule as the app's Kotlin table.
@@ -394,6 +441,21 @@ enum L {
         t("Read", "Leer", "Ler", "Lesen", "Lire"),
         t("Walk", "Caminar", "Caminhar", "Spazieren", "Marcher"),
     ]
+    static let pickHabit = t(
+        "Choose a habit",
+        "Elige un hábito",
+        "Escolha um hábito",
+        "Gewohnheit wählen",
+        "Choisissez une habitude"
+    )
+    static let yearTitle = t("Year", "Año", "Ano", "Jahr", "Année")
+    static let yearDescription = t(
+        "One habit, the whole year",
+        "Un hábito, el año entero",
+        "Um hábito, o ano inteiro",
+        "Eine Gewohnheit, das ganze Jahr",
+        "Une habitude, toute l'année"
+    )
     static let widgetDescription = t(
         "Tick off today's habits",
         "Marca tus hábitos de hoy",
