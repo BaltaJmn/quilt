@@ -90,7 +90,7 @@ El cuerpo del commit explica **por qué**, no qué. El diff ya dice qué.
 
 ## Estilo
 
-- Documentación y commits en español, salvo `store/play-listing-en.txt` y demás material de tienda
+- Documentación y commits en español, salvo `store/listings/en-US/` y demás material de tienda
   en inglés.
 - Sin em dash y sin emoji en nada que escriba Claude. En texto, en comentarios y en commits.
 - Comentarios: solo los que explican una decisión que el código no puede explicar solo.

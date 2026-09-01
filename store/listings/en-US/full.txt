@@ -3,7 +3,7 @@ Every day is a patch. By the end of the year you have the whole quilt.
 Quilt doesn't show you the week. It shows you all 365 days, stitched together one square at a time. It's the view that makes you not want to break the streak: you see the month you slipped and the seven straight weeks you didn't, all at once.
 
 THE WHOLE YEAR, NOT THE WEEK
-Every habit gets its own year grid with all twelve months labelled. Tap any past day to mark it: if you forgot Sunday, it's fixed in a second. Current streak, best streak, total days and completion rate, all counted over the days that actually asked something of you.
+Every habit gets its own year grid with all twelve months labeled. Tap any past day to mark it: if you forgot Sunday, it's fixed in a second. Current streak, best streak, total days and completion rate, all counted over the days that actually asked something of you.
 
 TICK OFF WITHOUT OPENING THE APP
 Genuinely interactive home screen widgets, in three sizes. One tap on the square and the habit is done. No app, no distraction. The medium and large widgets also show each habit's streak and its last seven days, so you know where you stand without going in.
@@ -27,6 +27,9 @@ ACTUALLY FREE
 Three habits, every widget, every reminder, the full export and the complete year grid. No ads. No trial clock. No card required.
 
 QUILT PRO
-A single payment, forever, that removes the habit limit and unlocks the full colour palette. It is not a subscription and never will be.
+A single payment, forever, that removes the habit limit and unlocks the full color palette. It is not a subscription and never will be.
+
+WHAT YOU WON'T FIND HERE
+No social challenges, no friends, no chat, no AI coach telling you to breathe. A grid, your habits and the year ahead.
 
 If you have ever kept a year in pixels page, a habit calendar or a daily routine checklist on paper, Quilt is that, on your phone.

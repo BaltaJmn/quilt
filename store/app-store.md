@@ -205,7 +205,7 @@ Hecho esto una vez, `.github/workflows/release-ios.yml` repite el proceso entero
     exacto. Reaprovecha los mismos encuadres de `store/screenshots/` para que las dos tiendas
     cuenten lo mismo.
 
-22. **[tú] Textos.** Reutiliza `store/play-listing.md` y `store/play-listing-en.txt`, pero los
+22. **[tú] Textos.** Reutiliza `store/listings/<idioma>/`, pero los
     limites de Apple son otros:
 
     | Campo | Limite | De donde sale |
