@@ -18,6 +18,7 @@ no en el chat.
 | `iosApp/HabitWidget` | Widget de WidgetKit. Reimplementa en Swift el modelo de `habits.json`: si cambia el JSON, cambian los dos lados. |
 | `iosApp/Configuration/Config.xcconfig` | Versión, identificador y Team ID de iOS. No se editan en el `.pbxproj`. |
 | `SPEC.md` | Spec de producto y hoja de ruta. Lo que la app hace y lo que aún no. |
+| `store/listings/<idioma>/` | Los textos de la ficha de Play, un fichero por campo. Fuente única: de aquí los lee el script que los sube. |
 | `store/lanzamiento.md` | Checklist de lanzamiento de las dos tiendas. `[yo]` es tarea de Claude, `[tú]` es tarea que solo puede hacer el humano. |
 | `store/ci.md` | Secretos de GitHub y cómo publican los tres workflows. |
 | `store/app-store.md` | Subida a la App Store, paso a paso. Lo que falta es todo `[tú]`. |
@@ -35,6 +36,11 @@ no en el chat.
   del historial del usuario. `weeklyTarget` y `skipped` son opcionales por eso.
 - `Strings.kt` obliga a los cinco idiomas (en, es, pt, de, fr) por firma de función. La tabla `L`
   del widget de iOS es su espejo en Swift y hay que tocarla a la vez.
+- **El `versionCode` no se reutiliza nunca**, ni entre canales de Play. Una versión que ya entró en
+  `internal` no se puede volver a subir a `alpha`: se promociona a mano o se saca etiqueta nueva.
+- La descripción larga de Play **conserva los saltos de línea tal cual**. Los párrafos de
+  `store/listings/` van en una sola línea larga a propósito: cortarlos a 100 columnas para leerlos
+  en el editor los parte por la mitad en el móvil.
 - El `expect object` mínimo permite miembros extra en los `actual`. Los ganchos que la UI necesita
   (`Reminders.onNeedsPermission`, `Backup.onPickFile`) viven ahí, no en el común.
 
@@ -66,7 +72,9 @@ Dos reglas que cuestan una tarde si se olvidan:
 - La clave secreta de RevenueCat (`sk_...`) nunca entra en el repositorio. Solo las públicas
   (`goog_`, `appl_`), que ya viajan dentro del binario.
 - La cuenta de servicio que publica en Play es distinta de la de RevenueCat, que es de solo
-  lectura a propósito.
+  lectura a propósito. La de RevenueCat ya tiene permiso de presencia en la tienda, así que invita a
+  reutilizarla para subir la ficha: no se hace. Si se filtra su JSON, la diferencia entre las dos es
+  que te lean los pedidos o que te suban un binario.
 
 ## Cómo se marcan los cambios entre las dos cuentas
 
@@ -106,4 +114,12 @@ xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp \
   -destination 'generic/platform=iOS Simulator' build CODE_SIGNING_ALLOWED=NO
 ```
 
-Publicar: `git tag v1.2 && git push origin v1.2` dispara el workflow de Android.
+Publicar: `git tag v1.6 && git push origin v1.6` dispara el workflow de Android, que sube a prueba
+cerrada (`alpha`) y la deja publicada en el mismo paso. No queda ningún botón que pulsar después.
+
+Ficha de tienda, los cinco idiomas de una vez:
+
+```bash
+gh workflow run listings.yml --ref main -f accion=estado   # lee en qué canal está cada versión
+gh workflow run listings.yml --ref main -f accion=subir    # escribe la ficha en Play
+```

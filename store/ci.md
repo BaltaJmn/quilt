@@ -30,6 +30,19 @@ filtra su JSON la diferencia es entre que te lean los pedidos y que te suban un 
 
 Un push que toque `store/listings/**` solo comprueba los limites de caracteres. No escribe en Play.
 
+El disparo manual pide una accion, y por defecto es `estado`, que no escribe: lee en que canal esta
+cada `versionCode`. Es la unica forma de comprobar desde fuera de la Console si una version llego a
+su canal, porque `completed` significa enviada y `draft` significa que se quedo a medias.
+
+```bash
+gh workflow run listings.yml --ref main -f accion=estado   # lee, no toca nada
+gh workflow run listings.yml --ref main -f accion=subir    # escribe la ficha
+```
+
+**El `versionCode` no se reutiliza nunca, ni entre canales.** Play lo rechaza aunque el canal sea
+otro, asi que una version que ya entro en `internal` no se puede volver a subir a `alpha`: o se
+promociona a mano en la Console, o se saca una etiqueta nueva.
+
 ## Lo que el workflow no hace
 
 **No sube el `versionCode`.** Sigue en `androidApp/build.gradle.kts` y lo cambias tú antes de

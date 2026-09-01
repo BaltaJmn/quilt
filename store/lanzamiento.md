@@ -20,25 +20,28 @@ trámites y el test cerrado de 14 días. Todo lo que sea código cabe dentro de 
 - [x] ~~**El precio de Pro.**~~ **4,99 €** de base, conversión automática con redondeo, todos los
       países, sin prueba gratuita.
 
-## Bloqueo actual: la facturación de GitHub Actions
+## Estado de la publicación
 
-Sigue bloqueado a 31 de agosto de 2026. La ejecución `33365836179`, del empujón de `574b718` a las
-06:50 de ese día, murió en tres segundos, antes de arrancar ninguna máquina, con este aviso de
-GitHub:
+A 1 de septiembre de 2026, leído de la API con `--estado`, no de la Console:
 
-> The job was not started because recent account payments have failed or your spending limit needs to
-> be increased.
+| Canal | versionCode | Estado |
+|---|---|---|
+| `production` | vacío | |
+| `beta` | vacío | |
+| `alpha` (prueba cerrada) | 7 | `completed`, 1.6 |
+| `internal` | 6 | `completed`, 1.5 |
 
-No es el código ni los workflows: el repositorio es privado, así que cada minuto de Actions se
-factura, y la cuenta tiene el pago rechazado o el límite de gasto a cero. Se arregla en
-*Settings > Billing and plans* de la cuenta de GitHub, y después basta con `gh run rerun <id>`,
-`gh workflow run release.yml --ref main -f track=alpha` o volver a empujar la etiqueta.
+**Una versión subida con `status: completed` ya está enviada.** No hay ningún botón de "mandar a
+revisión" que quede por pulsar: el workflow la sube y la publica en su canal en el mismo paso, y a
+partir de ahí Google la revisa por su cuenta. Lo mismo vale para la ficha. Si algo se hubiese
+quedado a medias, `--estado` lo diría con `draft` en lugar de `completed`.
 
-Mientras tanto se puede subir el AAB a mano al canal de prueba cerrada desde Play Console. La
-versión en curso es `versionCode` 7, `versionName` 1.6, y hay que regenerarla con
-`./gradlew :androidApp:bundleRelease` cada vez que se toque el código, porque el `.aab` que hay en
-`androidApp/build/outputs/bundle/release/` es el de la compilación anterior. Las notas de la versión, en los cinco
-idiomas, están en `store/whatsnew/`.
+**El `versionCode` no se reutiliza nunca, ni entre canales.** El 6 se gastó en `internal` y por eso
+1.5 no se pudo promocionar a prueba cerrada con una ejecución nueva: hubo que subir 1.6 con el 7.
+Cada etiqueta gasta uno.
+
+~~La facturación de GitHub Actions estaba bloqueada.~~ Resuelto: el repositorio es público, así que
+los minutos no se facturan. Los tres workflows corren.
 
 ## Los 14 días de la prueba cerrada
 
@@ -71,9 +74,9 @@ versiones nuevas al canal durante la ventana es normal y no reinicia la cuenta.
 
 ## Fase 1. Infraestructura
 
-- [x] ~~**[yo] `git init` y repo en GitHub.**~~ `BaltaJmn/quilt`, privado.
+- [x] ~~**[yo] `git init` y repo en GitHub.**~~ `BaltaJmn/quilt`, público.
 - [x] ~~**[yo] Publicar desde CI.**~~ `.github/workflows/release.yml`: etiqueta `v*` compila,
-      verifica la firma y sube a prueba interna. Pasos y secretos en `ci.md`.
+      verifica la firma y sube a prueba cerrada (`alpha`). Pasos y secretos en `ci.md`.
 - [x] ~~**[yo] CI de tests en cada push.**~~ `.github/workflows/tests.yml`: los tests comunes
       sobre JVM en Ubuntu y sobre Kotlin/Native en macOS.
 - [x] ~~**[yo] Publicar iOS desde CI.**~~ `.github/workflows/release-ios.yml`, misma etiqueta `v*`
@@ -125,7 +128,9 @@ que no hace nada. El día que metamos código nativo propio, se añade entonces.
 - [x] **[tú] Subir el primer AAB a un canal de prueba.** Manual y obligatorio: la Play
       Developer API no se puede usar hasta que hayas subido un binario a mano. Hecho, y encima ya
       hay una prueba cerrada con 12 testers corriendo.
-- [ ] **[tú] Rellenar la ficha** con los textos de `play-listing.md`. Empieza por español e inglés.
+- [x] ~~**[yo] Rellenar la ficha.**~~ Los cinco idiomas, subidos de una vez con
+      `listings.yml`. Textos en `store/listings/<idioma>/`, el porqué de cada uno en
+      `play-listing.md`.
 - [x] **[yo] Capturas** en español e inglés, `store/screenshots/es/` y `store/screenshots/en/`.
       Sacadas con `adb` y el modo demo de SystemUI, así que la próxima tanda sale idéntica.
 - [x] **[tú o yo] Gráfico de funciones 1024×500.** `store/graphics/feature-es.png` y `-en.png`.
