@@ -16,6 +16,15 @@ También hay disparo manual desde la pestaña *Actions*, con un desplegable para
 (`alpha`, `internal`, `beta`, `production`). Sin elegir nada, la etiqueta va a `alpha`, que es la
 prueba cerrada.
 
+## La ficha de tienda
+
+`.github/workflows/listings.yml` sube los cinco idiomas de golpe con la API de Android Publisher,
+desde *Actions*, a mano. Los textos son [`store/listings/<idioma>/`](listings), tres ficheros por
+idioma. Usa el mismo `PLAY_SERVICE_ACCOUNT_JSON`, pero la cuenta necesita ademas el permiso de ficha
+de Play Store, que el de publicar versiones no incluye.
+
+Un push que toque `store/listings/**` solo comprueba los limites de caracteres. No escribe en Play.
+
 ## Lo que el workflow no hace
 
 **No sube el `versionCode`.** Sigue en `androidApp/build.gradle.kts` y lo cambias tú antes de

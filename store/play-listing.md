@@ -1,11 +1,17 @@
 # Ficha de Google Play
 
-Todo lo que hay que pegar en Play Console.
+Por qué cada texto de la ficha dice lo que dice. **El texto pegable no está aquí**, está en
+[`store/listings/<idioma>/`](listings), un fichero por campo, porque de ahí lo lee también el script
+que los sube. Este documento guarda el razonamiento, que es lo que un directorio de ficheros sueltos
+no puede guardar.
+
+Los saltos de línea de esos ficheros son los que Play va a mostrar. Cada párrafo viaja en una sola
+línea larga a propósito: la descripción larga conserva los saltos tal cual, así que un texto cortado
+a 100 columnas para que se lea en el editor sale con las frases partidas por la mitad en el móvil.
 
 **La app está traducida a cinco idiomas** (inglés, español, portugués, alemán y francés), así que
 la ficha debería ir en los cinco: en Play cada idioma es una ficha independiente y se indexa por
-separado, y rellenarlas es gratis. Aquí abajo están escritos el español y el inglés; faltan
-portugués, alemán y francés.
+separado, y rellenarlas es gratis. Están los cinco escritos.
 **Idioma predeterminado de la ficha: inglés (en-US).** No es donde se publica, es a qué idioma cae
 un usuario cuyo idioma no hayas traducido. Con el inglés de base, los cinco mercados traducidos se
 añaden encima y el resto del mundo ve algo legible.
@@ -28,87 +34,27 @@ primera subida, y el nombre visible en la tienda es independiente.
 ## Textos en español
 
 ### Título (máx. 30 caracteres)
-```
-Quilt: seguimiento de hábitos
-```
+[`store/listings/es-ES/title.txt`](listings/es-ES/title.txt)
 Veintinueve caracteres. Cambiado desde *Quilt: hábitos y rachas*, que gastaba solo 23 de los 30 y se
 dejaba fuera la frase que la gente teclea de verdad en español: *seguimiento de hábitos*. «Rachas» se
 pierde del título, pero sigue en la descripción corta y en la larga, que también se indexan.
 
 ### Descripción corta (máx. 80 caracteres)
-```
-Ve tu año entero, no solo hoy. Cuadrícula de hábitos, widget y rachas.
-```
+[`store/listings/es-ES/short.txt`](listings/es-ES/short.txt)
 La anterior se pasaba: 81 caracteres, uno por encima del tope, así que Play no la aceptaba tal cual.
 Y gastaba el espacio en «retal», que no lo busca nadie, y en la privacidad, que se vende dentro de la
 ficha pero no se teclea en el buscador. Esta línea es lo único que se lee debajo del título en los
 resultados, así que las primeras cinco palabras son el argumento de por qué esta y no otra.
 
 ### Descripción larga (máx. 4000 caracteres)
-```
-Cada día es un retal. Al final del año tienes la colcha entera.
-
-Quilt no te enseña la semana. Te enseña los 365 días, como una colcha de retales que se va cosiendo
-de uno en uno. Es la vista que hace que no quieras romper la racha: ves de un vistazo el mes que
-fallaste y las siete semanas seguidas que no.
-
-EL AÑO COMPLETO, NO LA SEMANA
-Cada hábito tiene su cuadrícula anual con los doce meses etiquetados. Toca cualquier día pasado para
-marcarlo: si te olvidaste del domingo, se arregla en un segundo. Racha actual, racha máxima, días
-totales y porcentaje de cumplimiento, calculados sobre los días que de verdad tocaban.
-
-MARCA SIN ABRIR LA APP
-Widgets de pantalla de inicio de verdad interactivos, en tres tamaños. Un toque sobre el cuadrado y
-el hábito queda hecho: no abre la app, no te distrae. El widget mediano y el grande enseñan además
-tu racha y los últimos siete días de cada hábito, para que veas si vas o no vas sin entrar.
-
-LOS DÍAS SALTADOS NO ROMPEN NADA
-Estabas enfermo. Estabas de vacaciones. Decidiste descansar. Mantén pulsado un día y queda marcado
-como saltado: ni cuenta como fallo, ni cuenta como acierto, ni rompe la racha, ni te hunde el
-porcentaje. Es la diferencia entre una app que te acompaña y una que te castiga.
-
-HÁBITOS DE CANTIDAD
-Ocho vasos de agua. Treinta minutos de lectura. Tres series. Pon un objetivo por día y ve el
-progreso llenándose, en la app y en el widget.
-
-RECORDATORIOS QUE NO MOLESTAN
-Una hora por hábito, respetando los días que has programado. Nada de avisos en cadena ni de
-notificaciones a las once de la noche para decirte que has fallado.
-
-COMPARTE TU AÑO
-Genera una imagen limpia de tu semana, tu mes o tu año entero y compártela donde quieras. Sin
-marcas de agua feas.
-
-TUS DATOS SON TUYOS
-Sin cuenta. Sin correo electrónico. Sin registro. Sin analítica de uso. Todo vive en tu móvil, en un
-fichero que puedes exportar cuando te dé la gana y volver a importar en otro dispositivo. Si un día
-te cansas de la app, te llevas tu historial entero contigo. La única conexión que hace Quilt es la
-de procesar una compra, si decides hacerla.
-
-GRATIS DE VERDAD
-Tres hábitos, todos los widgets, todos los recordatorios, la exportación completa y la cuadrícula
-anual entera. Sin anuncios. Sin límite de tiempo. Sin pedirte la tarjeta.
-
-QUILT PRO
-Un pago único, para siempre, que quita el límite de hábitos y desbloquea la paleta de colores
-completa. No es una suscripción y nunca lo será.
-
-NO VAS A ENCONTRAR AQUÍ
-Ni retos sociales, ni amigos, ni chat, ni un coach de inteligencia artificial diciéndote que
-respires. Una cuadrícula, tus hábitos y el año por delante.
-
-Si alguna vez has llevado en papel un year in pixels, un calendario de hábitos o una lista de rutina
-diaria, Quilt es eso en el móvil.
-```
+[`store/listings/es-ES/full.txt`](listings/es-ES/full.txt)
 
 ---
 
 ## Textos en inglés
 
 ### Título (máx. 30)
-```
-Quilt: Habit Tracker & Streaks
-```
+[`store/listings/en-US/title.txt`](listings/en-US/title.txt)
 Treinta caracteres justos. El título es lo que más pesa en la búsqueda de Play, así que lleva la
 marca y el término que la gente teclea de verdad (*habit tracker*), no un sinónimo bonito.
 
@@ -120,65 +66,13 @@ tres de sobra. Además Play manda a revisión cualquier cambio de nombre y reini
 histórico de posiciones: no se toca sin una razón mejor que un sinónimo.
 
 ### Descripción corta (máx. 80)
-```
-See your whole year, not just today. Habit grid, home widget, no account.
-```
+[`store/listings/en-US/short.txt`](listings/en-US/short.txt)
 Setenta y tres caracteres. La anterior gastaba el hueco en *patch*, que es la metáfora de la marca y
 no la busca nadie. Esta abre con el contraste contra toda la competencia (ellos enseñan el día, esta
 el año) y de paso mete tres términos que el título no lleva: *grid*, *widget* y *account*.
 
 ### Descripción larga (máx. 4000)
-```
-Every day is a patch. By the end of the year you have the whole quilt.
-
-Quilt doesn't show you the week. It shows you all 365 days, stitched together one square at a time.
-It's the view that makes you not want to break the streak: you see the month you slipped and the
-seven straight weeks you didn't, all at once.
-
-THE WHOLE YEAR, NOT THE WEEK
-Every habit gets its own year grid with all twelve months labelled. Tap any past day to mark it: if
-you forgot Sunday, it's fixed in a second. Current streak, best streak, total days and completion
-rate, all counted over the days that actually asked something of you.
-
-TICK OFF WITHOUT OPENING THE APP
-Genuinely interactive home screen widgets, in three sizes. One tap on the square and the habit is
-done. No app, no distraction. The medium and large widgets also show each habit's streak and its
-last seven days, so you know where you stand without going in.
-
-SKIPPED DAYS BREAK NOTHING
-You were ill. You were away. You chose to rest. Press and hold a day to mark it skipped: it doesn't
-count as a miss, doesn't count as a win, doesn't break the streak and doesn't sink your percentage.
-That's the difference between an app that walks with you and one that punishes you.
-
-COUNTED HABITS
-Eight glasses of water. Thirty minutes of reading. Three sets. Set a daily target and watch it fill
-up, in the app and on the widget.
-
-REMINDERS THAT DON'T NAG
-One time per habit, respecting the days you scheduled. No chains of alerts, no eleven-o'clock
-notification to tell you that you failed.
-
-SHARE YOUR YEAR
-Make a clean image of your week, your month or your whole year and share it anywhere. No ugly
-watermarks.
-
-YOUR DATA IS YOURS
-No account. No email. No sign-up. No usage analytics. Everything lives on your phone, in a file you
-can export whenever you like and import again on another device. If you ever get tired of the app,
-your entire history comes with you. The only connection Quilt makes is to process a purchase, if
-you choose to make one.
-
-ACTUALLY FREE
-Three habits, every widget, every reminder, the full export and the complete year grid. No ads. No
-trial clock. No card required.
-
-QUILT PRO
-A single payment, forever, that removes the habit limit and unlocks the full colour palette. It is
-not a subscription and never will be.
-
-If you have ever kept a year in pixels page, a habit calendar or a daily routine checklist on paper,
-Quilt is that, on your phone.
-```
+[`store/listings/en-US/full.txt`](listings/en-US/full.txt)
 
 ---
 
@@ -323,3 +217,39 @@ Sin RevenueCat esta app no recogería nada. Con él sí, y hay que declararlo:
 
 Antes de enviar el formulario, contrasta esta tabla con la guía de Data Safety que publica el propio
 RevenueCat: son ellos los que saben exactamente qué campos mandan.
+
+---
+
+## Portugués, alemán y francés
+
+Los tres son traducción de la ficha española, no de la inglesa, porque la española es la que se
+escribió primero y la que tiene la sección *NO VAS A ENCONTRAR AQUÍ*, que a la inglesa le falta.
+
+El título es lo único que no se traduce literal, porque en cada idioma la gente teclea otra cosa:
+
+| Idioma | Título | Por qué |
+|---|---|---|
+| `pt-BR` | Quilt: rastreador de hábitos (28) | *rastreador de hábitos* es la forma corriente en Brasil. *Sequência* se queda para la descripción corta. |
+| `de-DE` | Quilt: Gewohnheiten Tracker (27) | El compuesto correcto sería *Gewohnheitstracker*, pero pegado no casa con quien busca *Gewohnheiten* suelto. Separado cubre las dos, y es como lo escriben las demás fichas alemanas. |
+| `fr-FR` | Quilt : suivi d'habitudes (25) | *suivi d'habitudes* es la expresión de categoría. *Traqueur* existe pero suena a traducción automática. |
+
+Las descripciones cortas repiten el patrón de la española: primero el contraste que justifica la app
+(el año entero frente al día de hoy) y después los términos que el título no lleva.
+
+## Subirlas todas de una vez
+
+Play Console no tiene importación masiva, pero la API sí. `.github/workflows/listings.yml`, ejecución
+manual desde *Actions*, manda los cinco idiomas en una sola edición. Es atómica: o entran los cinco o
+no entra ninguno.
+
+En un push a `store/listings/**` el mismo workflow solo comprueba los límites, no escribe en Play.
+
+```bash
+python3 tools/play-listing/subir.py          # comprueba los topes, no toca Play
+```
+
+Dos cosas antes de la primera ejecución:
+
+- La cuenta de servicio necesita el permiso de **ficha de Play Store** en *Users and permissions*. La
+  que ya existe se dio de alta para publicar versiones, y ese permiso no incluye editar la ficha.
+- Cambiar el **título** manda la ficha a revisión de Play. Los otros dos campos entran solos.
