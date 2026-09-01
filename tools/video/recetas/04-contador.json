@@ -1,0 +1,13 @@
+{
+  "salida": "quilt-04-contador.mp4",
+  "fuente": "grabaciones/04-contador.mp4",
+  "intro": { "sub": "Ocho vasos, un cuadrito" },
+  "recorte": { "desde": 2.5, "hasta": 16.8 },
+  "encuadre": { "x": 0, "y": 90, "w": 1080, "h": 1920 },
+  "rotulos": [
+    { "t": [0.2, 2.3], "texto": "Ocho vasos de agua.", "pos": "abajo", "tam": 70, "acento": "cielo" },
+    { "t": [2.7, 6.9], "texto": "Cada toque llena\nun poco más el día.", "pos": "abajo", "tam": 66, "acento": "cielo" },
+    { "t": [7.3, 9.3], "texto": "Hasta cerrarlo.", "pos": "abajo", "tam": 74, "acento": "menta" },
+    { "t": [9.9, 14.1], "texto": "El cuadrito se llena\ncomo un vaso.", "pos": "arriba", "tam": 64, "acento": "cielo" }
+  ]
+}

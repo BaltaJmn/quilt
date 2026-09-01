@@ -1,0 +1,17 @@
+{
+  "salida": "quilt-08-crear-habito.mp4",
+  "fuente": "grabaciones/08-crear-habito.mp4",
+  "intro": { "sub": "Un hábito nuevo en veinte segundos" },
+  "tramos": [
+    { "desde": 4.3, "hasta": 8.25, "encuadre": { "x": 0, "y": 480, "w": 1080, "h": 1920 } },
+    { "desde": 9.1, "hasta": 18.0, "encuadre": { "x": 0, "y": 480, "w": 1080, "h": 1920 } },
+    { "desde": 20.42, "hasta": 23.42, "encuadre": { "x": 0, "y": 90, "w": 1080, "h": 1920 } }
+  ],
+  "rotulos": [
+    { "t": [0.2, 2.6], "texto": "Un hábito nuevo.", "pos": "arriba", "tam": 72, "acento": "cielo" },
+    { "t": [3.0, 5.0], "texto": "Nombre.", "pos": "abajo", "tam": 76, "acento": "cielo" },
+    { "t": [5.5, 7.6], "texto": "Icono y color.", "pos": "abajo", "tam": 76, "acento": "cielo" },
+    { "t": [8.0, 11.4], "texto": "Y cuántas veces al día,\nsi va por veces.", "pos": "abajo", "tam": 60, "acento": "menta" },
+    { "t": [12.0, 15.6], "texto": "Sin asistente\nde nueve pasos.", "pos": "arriba", "tam": 66, "acento": "salvia" }
+  ]
+}

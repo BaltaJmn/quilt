@@ -1,0 +1,9 @@
+# Correr tres veces por semana, los dias que sean. La ficha cuenta semanas, no dias.
+# El guion termina con la hoja de editar abierta, sin `atras`. Cerrarla dejaba cuatro
+# segundos de pantalla anterior al final de la grabacion que el montaje no puede usar:
+# el ultimo fotograma es el que se clona, asi que tiene que ser el que se quiere ver.
+esperar 3.5
+tocar 360 850
+esperar 4.5
+tocar 895 137
+esperar 6

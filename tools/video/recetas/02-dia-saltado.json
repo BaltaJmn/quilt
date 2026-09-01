@@ -1,0 +1,13 @@
+{
+  "salida": "quilt-02-dia-saltado.mp4",
+  "fuente": "grabaciones/02-dia-saltado.mp4",
+  "intro": { "sub": "El día que no pudiste" },
+  "recorte": { "desde": 2.5, "hasta": 19.0 },
+  "encuadre": { "x": 0, "y": 90, "w": 1080, "h": 1920 },
+  "rotulos": [
+    { "t": [0.2, 2.4], "texto": "Tu racha, cortada\npor tres días sueltos.", "pos": "arriba", "tam": 62, "acento": "rosa" },
+    { "t": [3.0, 6.8], "texto": "Mantén pulsado el día\nque no pudiste.", "pos": "abajo", "tam": 64, "acento": "melocoton" },
+    { "t": [7.4, 13.4], "texto": "Vacaciones y enfermedad\nno rompen la racha.", "pos": "abajo", "tam": 62, "acento": "salvia" },
+    { "t": [14.0, 16.4], "texto": "Y vuelve entera.", "pos": "arriba", "tam": 74, "acento": "menta" }
+  ]
+}

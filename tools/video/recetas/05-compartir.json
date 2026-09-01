@@ -1,0 +1,15 @@
+{
+  "salida": "quilt-05-compartir.mp4",
+  "fuente": "grabaciones/05-compartir.mp4",
+  "intro": { "sub": "El año, en una tarjeta" },
+  "tramos": [
+    { "desde": 2.4, "hasta": 4.6, "encuadre": { "x": 0, "y": 90, "w": 1080, "h": 1920 } },
+    { "desde": 4.6, "hasta": 17.5, "encuadre": { "x": 130, "y": 250, "w": 820, "h": 1458 } }
+  ],
+  "rotulos": [
+    { "t": [0.2, 2.0], "texto": "Compartir el año.", "pos": "arriba", "tam": 72, "acento": "salvia" },
+    { "t": [2.6, 6.0], "texto": "Una tarjeta limpia,\nsin marca de agua.", "pos": "arriba", "tam": 62, "acento": "salvia" },
+    { "t": [6.5, 10.5], "texto": "Semana, mes o año.", "pos": "arriba", "tam": 70, "acento": "menta" },
+    { "t": [11.2, 15.0], "texto": "El año entero,\nlisto para subirlo.", "pos": "arriba", "tam": 64, "acento": "salvia" }
+  ]
+}

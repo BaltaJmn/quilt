@@ -1,0 +1,13 @@
+{
+  "salida": "quilt-01-un-toque.mp4",
+  "fuente": "grabaciones/01-un-toque.mp4",
+  "intro": { "sub": "Un toque marca el día" },
+  "recorte": { "desde": 2.4, "hasta": 17.0 },
+  "encuadre": { "x": 0, "y": 90, "w": 1080, "h": 1920 },
+  "rotulos": [
+    { "t": [0.2, 2.4], "texto": "Queda uno\npor marcar.", "pos": "arriba", "tam": 70, "acento": "salvia" },
+    { "t": [2.9, 6.1], "texto": "Un toque y el día\nse pinta.", "pos": "abajo", "tam": 74, "acento": "rosa" },
+    { "t": [6.9, 11.1], "texto": "Racha, mejor racha,\ndías totales, cumplimiento.", "pos": "arriba", "tam": 56, "acento": "menta" },
+    { "t": [11.8, 14.4], "texto": "Y el año entero\nen una tarjeta.", "pos": "abajo", "tam": 66, "acento": "salvia" }
+  ]
+}

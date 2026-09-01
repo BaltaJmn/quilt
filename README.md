@@ -32,10 +32,11 @@ conexión que hace la app es la de procesar una compra.
 | `shared/src/iosMain` | Almacenamiento en App Group, recordatorios (`UNCalendarNotificationTrigger`) |
 | `androidApp` | La `MainActivity` y los recursos de Android |
 | `iosApp` | El punto de entrada de iOS y el widget de WidgetKit en Swift |
-| `tools` | `generate_icons.py`, fuente única de todos los iconos |
-| `store` | Ficha de tienda, guía de RevenueCat y lista de lanzamiento |
+| `tools` | `generate_icons.py`, fuente única de todos los iconos, y `video/`, la producción de los verticales de promoción |
+| `store` | Ficha de tienda, guía de RevenueCat, lista de lanzamiento y `video.md` |
 
-`SPEC.md` tiene el porqué de cada decisión.
+`SPEC.md` tiene el porqué de cada decisión y `MAPA.md` el inventario completo de qué hay en cada
+carpeta.
 
 ## Compilar
 

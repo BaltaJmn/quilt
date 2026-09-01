@@ -1,0 +1,8 @@
+# El mismo ano de noche. Ni blanco puro ni negro puro.
+esperar 3.5
+noche on
+esperar 5
+tocar 360 410
+esperar 5
+atras
+esperar 3.5

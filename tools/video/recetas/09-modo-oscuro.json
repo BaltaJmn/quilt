@@ -1,0 +1,13 @@
+{
+  "salida": "quilt-09-modo-oscuro.mp4",
+  "fuente": "grabaciones/09-modo-oscuro.mp4",
+  "intro": { "sub": "El mismo año, de noche" },
+  "recorte": { "desde": 2.5, "hasta": 19.5 },
+  "encuadre": { "x": 0, "y": 90, "w": 1080, "h": 1920 },
+  "rotulos": [
+    { "t": [0.2, 2.2], "texto": "De día.", "pos": "arriba", "tam": 76, "acento": "salvia" },
+    { "t": [2.9, 7.3], "texto": "Y de noche, sola.", "pos": "abajo", "tam": 72, "acento": "lavanda" },
+    { "t": [7.9, 12.4], "texto": "Ni blanco puro\nni negro puro.", "pos": "abajo", "tam": 66, "acento": "lavanda" },
+    { "t": [13.0, 16.8], "texto": "Los mismos colores,\nsin quemar los ojos.", "pos": "arriba", "tam": 60, "acento": "menta" }
+  ]
+}

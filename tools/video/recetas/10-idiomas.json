@@ -1,0 +1,19 @@
+{
+  "salida": "quilt-10-idiomas.mp4",
+  "fuente": "grabaciones/10-idiomas.mp4",
+  "intro": { "sub": "Cinco idiomas, ningún ajuste" },
+  "tramos": [
+    { "desde": 2.0, "hasta": 4.45, "encuadre": { "x": 0, "y": 90, "w": 1080, "h": 1920 } },
+    { "desde": 7.15, "hasta": 9.85, "encuadre": { "x": 0, "y": 90, "w": 1080, "h": 1920 } },
+    { "desde": 12.1, "hasta": 15.6, "encuadre": { "x": 0, "y": 90, "w": 1080, "h": 1920 } },
+    { "desde": 18.1, "hasta": 20.3, "encuadre": { "x": 0, "y": 90, "w": 1080, "h": 1920 } },
+    { "desde": 23.1, "hasta": 26.1, "encuadre": { "x": 0, "y": 90, "w": 1080, "h": 1920 } }
+  ],
+  "rotulos": [
+    { "t": [0.2, 2.3], "texto": "Español.", "pos": "abajo", "tam": 76, "acento": "rosa" },
+    { "t": [2.6, 5.0], "texto": "Inglés.", "pos": "abajo", "tam": 76, "acento": "melocoton" },
+    { "t": [5.3, 8.5], "texto": "Portugués.", "pos": "abajo", "tam": 76, "acento": "mantequilla" },
+    { "t": [8.8, 10.7], "texto": "Alemán.", "pos": "abajo", "tam": 76, "acento": "menta" },
+    { "t": [11.0, 13.6], "texto": "Francés.\nSin ajuste que tocar.", "pos": "abajo", "tam": 60, "acento": "cielo" }
+  ]
+}

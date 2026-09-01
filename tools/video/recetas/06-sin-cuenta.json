@@ -1,0 +1,15 @@
+{
+  "salida": "quilt-06-sin-cuenta.mp4",
+  "fuente": "grabaciones/06-sin-cuenta.mp4",
+  "intro": { "sub": "Sin cuenta y sin nube" },
+  "tramos": [
+    { "desde": 2.5, "hasta": 6.0, "encuadre": { "x": 0, "y": 90, "w": 1080, "h": 1920 } },
+    { "desde": 6.0, "hasta": 15.85, "encuadre": { "x": 0, "y": 240, "w": 1080, "h": 1920 } }
+  ],
+  "rotulos": [
+    { "t": [0.2, 2.2], "texto": "Sin cuenta. Sin registro.", "pos": "arriba", "tam": 62, "acento": "salvia" },
+    { "t": [2.8, 5.4], "texto": "Se abre y ya estás dentro.", "pos": "abajo", "tam": 62, "acento": "salvia" },
+    { "t": [6.8, 10.0], "texto": "Tus hábitos viven solo\nen este dispositivo.", "pos": "abajo", "tam": 60, "acento": "menta" },
+    { "t": [10.5, 13.2], "texto": "Y te los puedes llevar\ncuando quieras.", "pos": "abajo", "tam": 60, "acento": "cielo" }
+  ]
+}

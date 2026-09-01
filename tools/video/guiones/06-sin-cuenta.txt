@@ -1,0 +1,8 @@
+# Ajustes: los datos viven solo en el dispositivo. Sin cuenta y sin nube.
+esperar 3
+tocar 973 185
+esperar 3.5
+deslizar 540 1900 540 1150 500
+esperar 7
+atras
+esperar 4

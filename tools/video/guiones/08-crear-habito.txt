@@ -1,0 +1,26 @@
+# Crear un habito de cero. Empieza con dos habitos (DATOS=dos.json) y acaba con tres.
+# Sin `atras` en ningun punto: cerraria la hoja modal entera, no solo el teclado.
+# El color se elige entre los cuatro primeros. Del quinto en adelante son de Pro y
+# tocarlos abre la hoja de compra, que ademas sin red dice que la tienda no esta
+# disponible: dos segundos de cartel de pago en mitad del clip que vende la app.
+esperar 3
+tocar 962 2220
+esperar 2.5
+tocar 540 965
+esperar 1
+texto Beber agua
+esperar 2
+tocar 217 1192
+esperar 1.5
+tocar 437 1390
+esperar 1.8
+tocar 973 1861
+esperar 0.7
+tocar 973 1861
+esperar 0.7
+tocar 973 1861
+esperar 0.7
+tocar 973 1861
+esperar 2.2
+tocar 540 2189
+esperar 4.5

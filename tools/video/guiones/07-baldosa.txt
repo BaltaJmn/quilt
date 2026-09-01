@@ -1,0 +1,8 @@
+# Baldosa de ajustes rapidos: se baja la persiana y se marca sin abrir la app.
+esperar 3.5
+persiana
+esperar 4
+tocar 286 630
+esperar 4.5
+cerrar
+esperar 4

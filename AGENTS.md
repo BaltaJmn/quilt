@@ -3,7 +3,7 @@
 Rastreador de hábitos anual, Android + iOS, Compose Multiplatform sobre Kotlin Multiplatform.
 Nombre de producto **Quilt**. Identificador en las dos tiendas: `com.baltajmn.habit`.
 
-Este fichero lo carga Claude Code solo en cualquier sesión abierta sobre este repositorio, desde
+Este fichero lo carga Codex solo en cualquier sesión abierta sobre este repositorio, desde
 cualquier cuenta. Es el contexto permanente del proyecto: si algo hay que saber siempre, va aquí,
 no en el chat.
 
@@ -18,7 +18,7 @@ no en el chat.
 | `iosApp/HabitWidget` | Widget de WidgetKit. Reimplementa en Swift el modelo de `habits.json`: si cambia el JSON, cambian los dos lados. |
 | `iosApp/Configuration/Config.xcconfig` | Versión, identificador y Team ID de iOS. No se editan en el `.pbxproj`. |
 | `SPEC.md` | Spec de producto y hoja de ruta. Lo que la app hace y lo que aún no. |
-| `store/lanzamiento.md` | Checklist de lanzamiento de las dos tiendas. `[yo]` es tarea de Claude, `[tú]` es tarea que solo puede hacer el humano. |
+| `store/lanzamiento.md` | Checklist de lanzamiento de las dos tiendas. `[yo]` es tarea de Codex, `[tú]` es tarea que solo puede hacer el humano. |
 | `store/ci.md` | Secretos de GitHub y cómo publican los tres workflows. |
 | `store/app-store.md` | Subida a la App Store, paso a paso. Lo que falta es todo `[tú]`. |
 | `store/ideas.md` | Ideas de producto que pasan el filtro de no añadir pantallas. |
@@ -72,16 +72,16 @@ Dos reglas que cuestan una tarde si se olvidan:
 
 El registro es `git log`, no un fichero paralelo que se desincroniza al segundo día.
 
-Cada commit hecho con Claude lleva dos trailers:
+Cada commit hecho con Codex lleva dos trailers:
 
 ```
-Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_<id>
+Co-Authored-By: Codex Opus 5 <noreply@anthropic.com>
+Codex-Session: https://Codex.ai/code/session_<id>
 ```
 
 Con eso:
 
-- `git log --grep='Claude-Session'` lista todo lo que ha tocado Claude.
+- `git log --grep='Codex-Session'` lista todo lo que ha tocado Codex.
 - `git log --grep='session_<id>'` reconstruye exactamente qué hizo una sesión concreta, y el
   enlace abre la conversación completa en la cuenta que la ejecutó.
 - `git log --format='%h %an %s'` separa lo humano de lo asistido sin más herramientas.
@@ -92,7 +92,7 @@ El cuerpo del commit explica **por qué**, no qué. El diff ya dice qué.
 
 - Documentación y commits en español, salvo `store/play-listing-en.txt` y demás material de tienda
   en inglés.
-- Sin em dash y sin emoji en nada que escriba Claude. En texto, en comentarios y en commits.
+- Sin em dash y sin emoji en nada que escriba Codex. En texto, en comentarios y en commits.
 - Comentarios: solo los que explican una decisión que el código no puede explicar solo.
 
 ## Comandos

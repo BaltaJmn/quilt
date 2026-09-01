@@ -1,0 +1,14 @@
+# DATOS=agua.json. Ocho vasos: cada toque llena un poco mas el cuadrito.
+esperar 3.5
+tocar 922 432
+esperar 0.9
+tocar 922 432
+esperar 0.9
+tocar 922 432
+esperar 0.9
+tocar 922 432
+esperar 0.9
+tocar 922 432
+esperar 3
+tocar 360 410
+esperar 4

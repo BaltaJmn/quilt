@@ -1,0 +1,13 @@
+{
+  "salida": "quilt-07-baldosa.mp4",
+  "fuente": "grabaciones/07-baldosa.mp4",
+  "intro": { "sub": "Marcar sin abrir la app" },
+  "recorte": { "desde": 2.5, "hasta": 17.0 },
+  "encuadre": { "x": 0, "y": 90, "w": 1080, "h": 1920 },
+  "rotulos": [
+    { "t": [0.2, 2.2], "texto": "Sin abrir la app.", "pos": "abajo", "tam": 70, "acento": "rosa" },
+    { "t": [2.8, 4.7], "texto": "Se baja la persiana.", "pos": "abajo", "tam": 68, "acento": "melocoton" },
+    { "t": [5.3, 9.9], "texto": "Una baldosa de ajustes rápidos\nmarca el siguiente pendiente.", "pos": "abajo", "tam": 52, "acento": "menta" },
+    { "t": [10.9, 14.3], "texto": "Hecho, sin salir\nde donde estabas.", "pos": "arriba", "tam": 64, "acento": "salvia" }
+  ]
+}

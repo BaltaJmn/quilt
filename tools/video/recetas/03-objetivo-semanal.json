@@ -1,0 +1,14 @@
+{
+  "salida": "quilt-03-objetivo-semanal.mp4",
+  "fuente": "grabaciones/03-objetivo-semanal.mp4",
+  "intro": { "sub": "No todo es todos los días" },
+  "tramos": [
+    { "desde": 2.5, "hasta": 9.6, "encuadre": { "x": 0, "y": 90, "w": 1080, "h": 1920 } },
+    { "desde": 9.9, "hasta": 15.2, "encuadre": { "x": 0, "y": 480, "w": 1080, "h": 1920 } }
+  ],
+  "rotulos": [
+    { "t": [0.2, 2.4], "texto": "No todo es\ntodos los días.", "pos": "arriba", "tam": 70, "acento": "rosa" },
+    { "t": [3.0, 6.8], "texto": "Correr tres veces por semana.\nLa racha cuenta semanas.", "pos": "abajo", "tam": 54, "acento": "rosa" },
+    { "t": [8.4, 12.2], "texto": "Se elige al crear el hábito\ny se cambia cuando quieras.", "pos": "arriba", "tam": 54, "acento": "menta" }
+  ]
+}

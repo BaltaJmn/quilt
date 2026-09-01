@@ -1,0 +1,13 @@
+# Cinco idiomas, sin ajuste que tocar: la app sigue al del sistema.
+# Cinco segundos por idioma y no tres y medio: cambiar el idioma reinicia el proceso y
+# los dos primeros segundos son la pantalla de arranque. El montaje los recorta, asi
+# que cada tramo tiene que dejar tres segundos de app ya dibujada.
+esperar 3
+idioma en-US
+esperar 5
+idioma pt-BR
+esperar 5
+idioma de-DE
+esperar 5
+idioma fr-FR
+esperar 6

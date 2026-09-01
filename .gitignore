@@ -22,3 +22,10 @@ node_modules/
 keystore.properties
 *.jks
 *.keystore
+
+# Produccion de video: el entorno y los binarios se regeneran, los guiones y recetas no.
+tools/video/.venv/
+tools/video/grabaciones/
+tools/video/salida/
+tools/video/demo/*.json
+tools/video/__pycache__/

@@ -1,0 +1,11 @@
+# Vacaciones y enfermedad no rompen la racha. Tres pulsaciones largas sobre los tres
+# dias fallados de agosto en la rejilla de la ficha: 4 -> 6 -> 11 -> 19 dias seguidos.
+esperar 3.5
+tocar 360 410
+esperar 4
+pulsar 647 674 700
+esperar 2.5
+pulsar 647 633 700
+esperar 2.5
+pulsar 634 646 700
+esperar 4

@@ -1,0 +1,10 @@
+# La tarjeta que se comparte. Semana y ano, y termina en el ano entero, que es la imagen
+# que el espectador quiere para si. El "Mes" se cae del guion a proposito: el primero de
+# mes la tarjeta mensual sale practicamente vacia.
+esperar 3
+tocar 848 185
+esperar 4
+tocar 259 294
+esperar 4.5
+tocar 818 294
+esperar 5.5

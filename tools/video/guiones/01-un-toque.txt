@@ -1,0 +1,9 @@
+# La promesa base: un toque marca el dia, y la ficha lo cuenta todo.
+# Coordenadas de la pantalla de inicio en 1080x2400.
+esperar 3.5
+tocar 922 872
+esperar 3.5
+tocar 360 410
+esperar 5
+atras
+esperar 3
