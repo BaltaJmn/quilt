@@ -20,8 +20,13 @@ prueba cerrada.
 
 `.github/workflows/listings.yml` sube los cinco idiomas de golpe con la API de Android Publisher,
 desde *Actions*, a mano. Los textos son [`store/listings/<idioma>/`](listings), tres ficheros por
-idioma. Usa el mismo `PLAY_SERVICE_ACCOUNT_JSON`, pero la cuenta necesita ademas el permiso de ficha
-de Play Store, que el de publicar versiones no incluye.
+idioma. Usa el mismo `PLAY_SERVICE_ACCOUNT_JSON`, pero esa cuenta necesita ademas el permiso de
+ficha de Play Store, que el de publicar versiones no incluye.
+
+**La que hay que tocar es la de publicar, no la de RevenueCat.** Aquella ya tiene *Gestionar la
+presencia en la tienda*, asi que da la tentacion de cambiar el secreto y ahorrarse el paso. Se cambia
+el permiso de la publisher y punto: la de RevenueCat se creo sin poder publicar a proposito, y si se
+filtra su JSON la diferencia es entre que te lean los pedidos y que te suban un binario.
 
 Un push que toque `store/listings/**` solo comprueba los limites de caracteres. No escribe en Play.
 
