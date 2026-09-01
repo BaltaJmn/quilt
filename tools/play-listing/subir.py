@@ -6,7 +6,9 @@ idiomas por quince campos. La API de Android Publisher si acepta los cinco en un
 ademas la edicion es atomica: o entran todos los idiomas o no entra ninguno, que es justo lo que se
 quiere de un cambio de posicionamiento.
 
-Sin argumentos solo comprueba los limites y no toca Play. Con --subir hace el cambio de verdad.
+Sin argumentos solo comprueba los limites y no toca Play. Con --subir hace el cambio de verdad, y
+con --estado no escribe nada: lee en que canal esta cada versionCode, que es la unica forma de saber
+desde fuera de la Console si una version llego a su canal o se quedo en borrador.
 """
 import json
 import os
@@ -38,7 +40,7 @@ def leer():
     return fichas
 
 
-def subir(fichas):
+def conectar():
     from google.oauth2 import service_account
     from googleapiclient.discovery import build
 
@@ -46,7 +48,28 @@ def subir(fichas):
         json.loads(os.environ["PLAY_SERVICE_ACCOUNT_JSON"]),
         scopes=["https://www.googleapis.com/auth/androidpublisher"],
     )
-    edits = build("androidpublisher", "v3", credentials=credenciales, cache_discovery=False).edits()
+    return build("androidpublisher", "v3", credentials=credenciales, cache_discovery=False).edits()
+
+
+def estado():
+    """Lee los canales. Una edicion que no se confirma no cambia nada y caduca sola."""
+    edits = conectar()
+    edicion = edits.insert(packageName=PAQUETE, body={}).execute()["id"]
+    for canal in edits.tracks().list(packageName=PAQUETE, editId=edicion).execute().get("tracks", []):
+        for version in canal.get("releases", []) or [None]:
+            if version is None:
+                print("%-11s vacio" % canal["track"])
+                continue
+            print("%-11s versionCode %-6s estado %-11s %s" % (
+                canal["track"],
+                ",".join(version.get("versionCodes", [])) or "-",
+                version.get("status", "?"),
+                version.get("name", ""),
+            ))
+
+
+def subir(fichas):
+    edits = conectar()
     edicion = edits.insert(packageName=PAQUETE, body={}).execute()["id"]
     for idioma, ficha in fichas.items():
         edits.listings().update(
@@ -59,8 +82,10 @@ def subir(fichas):
 
 
 if __name__ == "__main__":
-    fichas = leer()
-    if "--subir" in sys.argv:
-        subir(fichas)
+    if "--estado" in sys.argv:
+        estado()
+    elif "--subir" in sys.argv:
+        subir(leer())
     else:
+        leer()
         print("\nSolo comprobacion. Anade --subir para escribir en Play.")
