@@ -85,22 +85,26 @@ fun ShareScreen(onBack: () -> Unit) {
             }
         }
 
-        Image(
-            bitmap = card,
-            contentDescription = S.preview,
-            contentScale = ContentScale.Fit,
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1080f / 1350f)
-                .clip(MaterialTheme.shapes.large)
-                .border(1.dp, MaterialTheme.colorScheme.outline, MaterialTheme.shapes.large),
-        )
+        // The card is taller than it is wide, so sizing it by the width alone makes it 1.25 screens
+        // tall on anything landscape or tablet shaped. This column does not scroll and does not
+        // clip, so the header, the chips and the buttons were pushed off the screen and what was
+        // left looked like a picture with no explanation. The box takes whatever height is left
+        // over and the card is fitted inside it, by width on a phone and by height on a wide one.
+        Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+            Image(
+                bitmap = card,
+                contentDescription = S.preview,
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .aspectRatio(1080f / 1350f)
+                    .clip(MaterialTheme.shapes.large)
+                    .border(1.dp, MaterialTheme.colorScheme.outline, MaterialTheme.shapes.large),
+            )
+        }
 
         status?.let {
             Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
-
-        Spacer(Modifier.weight(1f))
 
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.fillMaxWidth()) {
             ActionButton(
