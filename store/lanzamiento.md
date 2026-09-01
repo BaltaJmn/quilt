@@ -136,8 +136,10 @@ que no hace nada. El día que metamos código nativo propio, se añade entonces.
 - [x] **[tú o yo] Gráfico de funciones 1024×500.** `store/graphics/feature-es.png` y `-en.png`.
 - [ ] **[tú] Subir el vídeo a YouTube** (`store/graphics/quilt-flow-es.mp4`, `-en.mp4`) como *oculto*
       y pegar el enlace en la ficha. Play no acepta el fichero, solo la URL.
-- [ ] **[tú] Data Safety.** Borrador en `play-listing.md`; contrástalo con la guía de RevenueCat.
-- [ ] **[tú] Clasificación de contenido** (cuestionario IARC) y **público objetivo** 13+.
+- [ ] **[tú] Data Safety.** Hoja de respuestas cerrada y contrastada contra el código en
+      `play-listing.md`. No tiene API: hay que pegarla en la Console.
+- [ ] **[tú] Clasificación de contenido** (IARC) y **público objetivo** 13+. Respuestas en
+      `play-listing.md`. Tampoco tiene API.
 - [ ] **[tú] Crear el producto de compra** `pro_lifetime`, 4,99 €. Textos y pasos en
       `revenuecat.md` §1. Requiere el AAB ya subido y el perfil de pagos verificado.
 

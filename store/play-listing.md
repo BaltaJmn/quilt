@@ -198,25 +198,89 @@ marcar tres hábitos, subir el contador de agua a 5/8, abrir el detalle con el a
 por Año/Mes/Semana en compartir y terminar marcando desde el widget en la pantalla de inicio.
 Play solo acepta el vídeo como enlace de YouTube, así que hay que subirlo primero (sin listar).
 
-## Data Safety, borrador
+## Data Safety y clasificación de contenido
 
-Sin RevenueCat esta app no recogería nada. Con él sí, y hay que declararlo:
+Los dos son formularios de la Console y **no tienen API**: `androidpublisher` expone ediciones,
+canales, fichas y productos, nada más. Hay que rellenarlos a mano. Esto de aquí abajo es la hoja de
+respuestas, contrastada contra el código, para que rellenarlos sea mecánico y no una interpretación.
+
+### Lo que el código dice de verdad
+
+Comprobado, no supuesto:
+
+| Comprobación | Resultado |
+|---|---|
+| Llamadas de red en código propio | Ninguna. La única URL es la política de privacidad, y la abre el navegador ([`Pro.kt:195`](../shared/src/commonMain/kotlin/com/baltajmn/habit/ui/Pro.kt#L195)) |
+| Analítica, crash reporting, publicidad | Ninguna. Ni Firebase, ni Crashlytics, ni AdMob, ni nada |
+| Permisos del manifiesto fusionado | `INTERNET`, `ACCESS_NETWORK_STATE`, `BILLING`, `FOREGROUND_SERVICE`, `WAKE_LOCK`, `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED` |
+| `com.google.android.gms.permission.AD_ID` | **Ausente.** Sin identificador de publicidad no hay nada que declarar en seguimiento |
+| Cuándo habla con RevenueCat | En **cada arranque**, no solo al comprar |
+
+Esa última fila es la que decide una respuesta del formulario. `App.kt:27` llama a
+`Billing.configure()` sin condición y `Billing.refresh()` pide `awaitCustomerInfo()` acto seguido,
+así que el SDK crea su identificador anónimo y llama a su API también para quien usa la app gratis y
+no compra nunca. La recogida es **obligatoria**, no opcional. Decir lo contrario en el formulario
+sería falso.
+
+### Data Safety, respuestas
+
+**¿Recoge o comparte datos de usuario?** Sí.
+
+Dos tipos, y solo dos. Los dos con las mismas respuestas:
+
+| Tipo | Dónde está en el formulario |
+|---|---|
+| Historial de compras | *Compras y transacciones financieras* |
+| Identificadores de dispositivo u otros | *Identificadores* |
 
 | Pregunta | Respuesta |
 |---|---|
-| ¿Recoge datos? | **Sí** |
-| Tipo | *Identificadores de dispositivo u otros*. RevenueCat crea un ID anónimo por instalación |
-| Tipo | *Historial de compras*. Necesario para saber si tienes Pro |
-| Finalidad | Funcionalidad de la aplicación |
-| ¿Vinculado a la identidad? | No |
-| ¿Se usa para seguimiento publicitario? | No |
-| ¿Se comparte con terceros? | Se procesa por RevenueCat como encargado del tratamiento |
-| ¿Cifrado en tránsito? | Sí |
-| ¿Se puede solicitar el borrado? | Sí, por el correo de contacto |
-| Los hábitos, el historial, las rachas | **No salen del dispositivo.** No se declaran porque no se recogen |
+| ¿Se recoge? | Sí |
+| ¿Se comparte? | **No** |
+| ¿Es obligatoria la recogida? | Sí |
+| Finalidad | Solo *funciones de la aplicación* |
+| ¿Vinculado a la identidad del usuario? | No |
+| ¿Se usa para seguimiento entre aplicaciones? | No |
 
-Antes de enviar el formulario, contrasta esta tabla con la guía de Data Safety que publica el propio
-RevenueCat: son ellos los que saben exactamente qué campos mandan.
+**El "no" de compartir tiene truco y es el error clásico.** Play define *compartir* como transferir
+a un tercero, y excluye expresamente al proveedor de servicios que procesa por cuenta tuya.
+RevenueCat es eso, un encargado del tratamiento, así que la respuesta correcta es *no se comparte*.
+El formulario no acepta matices: es un sí o un no, y el matiz va en la política de privacidad.
+
+Todo lo demás va a **no**, y conviene marcarlo de una pasada para que no quede nada a medias:
+ubicación, información personal, información financiera de pago, salud y fitness, mensajes, fotos y
+vídeos, audio, archivos y documentos, calendario, contactos, actividad en aplicaciones, búsquedas
+web, e información y rendimiento de la aplicación.
+
+Los hábitos, el historial, las rachas y las notas **no se declaran porque no se recogen**: viven en
+un fichero del dispositivo y no salen de ahí.
+
+Sección de seguridad:
+
+| Pregunta | Respuesta |
+|---|---|
+| ¿Se cifran los datos en tránsito? | Sí |
+| ¿Puede el usuario pedir que se borren? | Sí, por el correo de contacto |
+| ¿Revisión de seguridad independiente? | No |
+
+Antes de enviar, contrasta los dos tipos con la guía de Data Safety que publica el propio
+RevenueCat: son ellos los que saben qué campos manda su SDK, y si algún día se activa alguna de sus
+integraciones de analítica esta tabla se queda corta.
+
+### Clasificación de contenido (IARC)
+
+Categoría del cuestionario: **utilidad, productividad, comunicación u otros**. No es un juego, y
+elegir *juego* mete un cuestionario distinto y más largo.
+
+Todo lo que pregunta va a **no**: violencia, sexo, lenguaje, sustancias, apuestas, miedo, contenido
+generado por usuarios, interacción entre usuarios, compartir ubicación y compartir datos personales.
+La única que va a **sí** es la de **compras digitales**, que no sube la clasificación pero es
+obligatoria declararla.
+
+Resultado esperado: **PEGI 3, ESRB Everyone, USK 0**.
+
+**Público objetivo: 13 años o más**, y en la pregunta de si la app atrae a menores, no. Marcar una
+franja infantil activa el régimen de Families, que trae requisitos extra que esta app no necesita.
 
 ---
 
