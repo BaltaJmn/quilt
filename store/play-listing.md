@@ -3,8 +3,8 @@
 Todo lo que hay que pegar en Play Console.
 
 **La app está traducida a cinco idiomas** (inglés, español, portugués, alemán y francés), así que
-la ficha debería ir en los cinco: en Play cada idioma es una ficha independiente con sus propias
-palabras clave, y rellenarlas es gratis. Aquí abajo están escritos el español y el inglés; faltan
+la ficha debería ir en los cinco: en Play cada idioma es una ficha independiente y se indexa por
+separado, y rellenarlas es gratis. Aquí abajo están escritos el español y el inglés; faltan
 portugués, alemán y francés.
 **Idioma predeterminado de la ficha: inglés (en-US).** No es donde se publica, es a qué idioma cae
 un usuario cuyo idioma no hayas traducido. Con el inglés de base, los cinco mercados traducidos se
@@ -29,13 +29,20 @@ primera subida, y el nombre visible en la tienda es independiente.
 
 ### Título (máx. 30 caracteres)
 ```
-Quilt: hábitos y rachas
+Quilt: seguimiento de hábitos
 ```
+Veintinueve caracteres. Cambiado desde *Quilt: hábitos y rachas*, que gastaba solo 23 de los 30 y se
+dejaba fuera la frase que la gente teclea de verdad en español: *seguimiento de hábitos*. «Rachas» se
+pierde del título, pero sigue en la descripción corta y en la larga, que también se indexan.
 
 ### Descripción corta (máx. 80 caracteres)
 ```
-Un retal al día. Tu año entero de hábitos en una pantalla, sin cuenta y sin nube.
+Ve tu año entero, no solo hoy. Cuadrícula de hábitos, widget y rachas.
 ```
+La anterior se pasaba: 81 caracteres, uno por encima del tope, así que Play no la aceptaba tal cual.
+Y gastaba el espacio en «retal», que no lo busca nadie, y en la privacidad, que se vende dentro de la
+ficha pero no se teclea en el buscador. Esta línea es lo único que se lee debajo del título en los
+resultados, así que las primeras cinco palabras son el argumento de por qué esta y no otra.
 
 ### Descripción larga (máx. 4000 caracteres)
 ```
@@ -89,6 +96,9 @@ completa. No es una suscripción y nunca lo será.
 NO VAS A ENCONTRAR AQUÍ
 Ni retos sociales, ni amigos, ni chat, ni un coach de inteligencia artificial diciéndote que
 respires. Una cuadrícula, tus hábitos y el año por delante.
+
+Si alguna vez has llevado en papel un year in pixels, un calendario de hábitos o una lista de rutina
+diaria, Quilt es eso en el móvil.
 ```
 
 ---
@@ -102,10 +112,20 @@ Quilt: Habit Tracker & Streaks
 Treinta caracteres justos. El título es lo que más pesa en la búsqueda de Play, así que lleva la
 marca y el término que la gente teclea de verdad (*habit tracker*), no un sinónimo bonito.
 
+**Se queda como está.** Usa los 30 de 30, empieza por la marca y contiene el término de categoría,
+que es lo innegociable. La palabra más floja es *Streaks*, pero ninguna sustituta sale gratis:
+*Widget* haría pensar que la app es solo un widget, y *Year* se lee como si los hábitos fueran
+anuales. La diferenciación cabe mejor en la descripción corta, que tiene 80 caracteres en vez de
+tres de sobra. Además Play manda a revisión cualquier cambio de nombre y reinicia parte del
+histórico de posiciones: no se toca sin una razón mejor que un sinónimo.
+
 ### Descripción corta (máx. 80)
 ```
-One patch a day. Your whole year of habits on one screen. No account, no cloud.
+See your whole year, not just today. Habit grid, home widget, no account.
 ```
+Setenta y tres caracteres. La anterior gastaba el hueco en *patch*, que es la metáfora de la marca y
+no la busca nadie. Esta abre con el contraste contra toda la competencia (ellos enseñan el día, esta
+el año) y de paso mete tres términos que el título no lleva: *grid*, *widget* y *account*.
 
 ### Descripción larga (máx. 4000)
 ```
@@ -155,6 +175,9 @@ trial clock. No card required.
 QUILT PRO
 A single payment, forever, that removes the habit limit and unlocks the full colour palette. It is
 not a subscription and never will be.
+
+If you have ever kept a year in pixels page, a habit calendar or a daily routine checklist on paper,
+Quilt is that, on your phone.
 ```
 
 ---
