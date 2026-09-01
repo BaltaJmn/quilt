@@ -15,75 +15,18 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-
-      - uses: gradle/actions/setup-gradle@v4
-
-      # The build already reads keystore.properties and falls back to the debug key when
-      # it is missing. Writing the file is therefore the whole of the signing setup:
-      # a silent fallback would ship a debug-signed bundle, so fail loudly instead.
-      - name: Restore the upload keystore
-        env:
-          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: |
-          set -euo pipefail
-          test -n "$KEYSTORE_BASE64" || { echo "::error::KEYSTORE_BASE64 is empty"; exit 1; }
-          echo "$KEYSTORE_BASE64" | base64 -d > upload.jks
-          cat > keystore.properties <<EOF
-          storeFile=upload.jks
-          storePassword=$KEYSTORE_PASSWORD
-          keyAlias=$KEY_ALIAS
-          keyPassword=$KEY_PASSWORD
-          EOF
-
-      - run: ./gradlew :shared:testAndroidHostTest :androidApp:bundleRelease
-
-      # Signed by the upload key, not the debug one. Cheap to check, and the failure it
-      # catches is the kind Play only tells you about after the upload.
-      - name: Verify the signature
-        run: |
-          set -euo pipefail
-          # Written to a file rather than piped into grep: grep -q exits early, jarsigner takes
-          # SIGPIPE, and pipefail would turn a passing check into a failing build.
-          # `-verbose:summary` and not `-certs` a secas: sin verbose, jarsigner imprime "jar
-          # verified" y ni una linea de certificado, asi que el grep de abajo no encontraba nada y
-          # la comprobacion fallaba con el paquete bien firmado.
-          jarsigner -verify -verbose:summary -certs \
-            androidApp/build/outputs/bundle/release/androidApp-release.aab > signature.txt
-          grep -q 'CN=Baltasar' signature.txt \
-            || { echo "::error::bundle is not signed with the upload key"; exit 1; }
-
-      # Before the third-party action runs, not after. That action gets the same working
-      # directory; there is no reason for the upload key to still be sitting in it.
-      - name: Shred the key
-        run: rm -f upload.jks keystore.properties
-
-      # ponytail: floating tag on a third-party action. Pin to a commit SHA if this ever
-      # runs anywhere the Play service account can do more than publish.
-      - uses: r0adkll/upload-google-play@v1
-        with:
-          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
-          packageName: com.baltajmn.habit
-          releaseFiles: androidApp/build/outputs/bundle/release/androidApp-release.aab
-          # `tracks` y no `track`: el singular esta deprecado en la accion y avisa en cada
-          # ejecucion. Por defecto alpha, que es el canal de prueba cerrada, porque es el que
-          # tiene testers de verdad; internal sigue disponible en el desplegable manual.
-          tracks: ${{ inputs.track || 'alpha' }}
-          status: completed
-          # One file per locale, named whatsnew-<locale>. Without this the release lands with
-          # empty release notes and the only way to add them is by hand in Play Console.
-          whatsNewDirectory: store/whatsnew
-
-      - name: Make sure the key is gone even on failure
-        if: always()
-        run: rm -f upload.jks keystore.properties
+    # La secuencia entera vive en BaltaJmn/ci porque Test4Test necesita la misma.
+    # Los secretos se listan uno a uno y no con `secrets: inherit`: este repositorio
+    # tambien guarda los de App Store Connect y no tienen nada que hacer aqui.
+    uses: BaltaJmn/ci/.github/workflows/android-play-release.yml@main
+    with:
+      package-name: com.baltajmn.habit
+      gradle-tasks: ':shared:testAndroidHostTest :androidApp:bundleRelease'
+      track: ${{ inputs.track || 'alpha' }}
+      whatsnew-dir: store/whatsnew
+    secrets:
+      KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+      KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+      KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+      KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
