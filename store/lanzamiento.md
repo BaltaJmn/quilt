@@ -35,7 +35,7 @@ factura, y la cuenta tiene el pago rechazado o el límite de gasto a cero. Se ar
 `gh workflow run release.yml --ref main -f track=alpha` o volver a empujar la etiqueta.
 
 Mientras tanto se puede subir el AAB a mano al canal de prueba cerrada desde Play Console. La
-versión en curso es `versionCode` 6, `versionName` 1.5, y hay que regenerarla con
+versión en curso es `versionCode` 7, `versionName` 1.6, y hay que regenerarla con
 `./gradlew :androidApp:bundleRelease` cada vez que se toque el código, porque el `.aab` que hay en
 `androidApp/build/outputs/bundle/release/` es el de la compilación anterior. Las notas de la versión, en los cinco
 idiomas, están en `store/whatsnew/`.

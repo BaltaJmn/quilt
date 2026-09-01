@@ -179,7 +179,7 @@ Hecho esto una vez, `.github/workflows/release-ios.yml` repite el proceso entero
 20. A partir de ahi, una etiqueta publica en las dos tiendas a la vez:
 
     ```bash
-    git tag v1.5 && git push origin v1.5
+    git tag v1.6 && git push origin v1.6
     ```
 
     Mientras los secretos no existan, el trabajo de iOS se salta solo y deja un aviso en vez de
@@ -293,7 +293,7 @@ Verificado sobre el `.app` construido, no sobre lo que deberia pasar:
 |---|---|
 | `CFBundleIdentifier` de la app | `com.baltajmn.habit` |
 | `CFBundleIdentifier` del widget | `com.baltajmn.habit.widget`, derivado del de la app |
-| `CFBundleShortVersionString` | 1.5, en paralelo con Android |
+| `CFBundleShortVersionString` | 1.6, en paralelo con Android |
 | `ITSAppUsesNonExemptEncryption` | `false` |
 | Idiomas dentro del `.app` | `de`, `en`, `es`, `fr`, `pt` |
 | Texto del permiso de fotos en espanol | "Para guardar la imagen de tus habitos en tu carrete." |
