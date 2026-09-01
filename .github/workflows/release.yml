@@ -10,8 +10,8 @@ on:
       track:
         description: Play track to publish to
         type: choice
-        options: [internal, alpha, beta, production]
-        default: internal
+        options: [alpha, internal, beta, production]
+        default: alpha
 
 jobs:
   release:
@@ -75,7 +75,10 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
           packageName: com.baltajmn.habit
           releaseFiles: androidApp/build/outputs/bundle/release/androidApp-release.aab
-          track: ${{ inputs.track || 'internal' }}
+          # `tracks` y no `track`: el singular esta deprecado en la accion y avisa en cada
+          # ejecucion. Por defecto alpha, que es el canal de prueba cerrada, porque es el que
+          # tiene testers de verdad; internal sigue disponible en el desplegable manual.
+          tracks: ${{ inputs.track || 'alpha' }}
           status: completed
           # One file per locale, named whatsnew-<locale>. Without this the release lands with
           # empty release notes and the only way to add them is by hand in Play Console.

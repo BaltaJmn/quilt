@@ -1,6 +1,6 @@
 # Publicar desde GitHub Actions
 
-`.github/workflows/release.yml` compila el AAB firmado y lo sube al canal de prueba interna.
+`.github/workflows/release.yml` compila el AAB firmado y lo sube al canal de prueba cerrada.
 
 ## Cómo se dispara
 
@@ -13,7 +13,8 @@ git tag v1.2 && git push origin v1.2
 ```
 
 También hay disparo manual desde la pestaña *Actions*, con un desplegable para elegir canal
-(`internal`, `alpha`, `beta`, `production`).
+(`alpha`, `internal`, `beta`, `production`). Sin elegir nada, la etiqueta va a `alpha`, que es la
+prueba cerrada.
 
 ## Lo que el workflow no hace
 
