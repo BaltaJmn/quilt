@@ -106,9 +106,13 @@ La segunda es la peticion. Personalizar ya existe a medias y conviene saber dond
 tiene emoji y color, el emoji sale de una lista fija de doce y el color de una paleta de ocho, cuatro
 gratis y las ocho en Pro. Lo que falta y cabe sin pantalla nueva:
 
-- **Emoji libre** en vez de los doce de `HABIT_EMOJIS`. Es cambiar el selector por un campo de texto
-  de un caracter en la fila que ya esta. El modelo ya guarda `emoji: String`, asi que no toca
-  `habits.json` ni `HabitStore.swift`.
+- **Emoji libre** en vez de los doce de `HABIT_EMOJIS`. Hecha en la 1.7. La fila termina en un
+  circulo de trazo discontinuo que es el propio campo de texto: al tocarlo sale el teclado, y el
+  teclado del sistema ya es el mejor selector de emoji que se puede poner, con busqueda, tonos de
+  piel y los mas usados, en el idioma del usuario. El saneado vive en `habitIcon()`, en el modelo y
+  no en la pantalla, porque lo que escriban acaba en `habits.json`, que lee tambien el widget de
+  Swift: corta a doce unidades UTF-16, que es la secuencia estandar mas larga, y nunca devuelve
+  media pareja suplente.
 - **El dia en que empieza la semana.** Hoy `startOfWeek` resta `isoDayNumber - 1`, o sea lunes fijo.
   Quien empieza en domingo ve la semana corrida en la tarjeta de compartir y en el widget. Es un
   ajuste en la hoja que ya hay, pero toca las cuatro copias de la aritmetica, la de Swift incluida.

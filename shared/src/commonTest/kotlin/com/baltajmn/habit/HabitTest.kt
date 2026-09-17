@@ -14,6 +14,7 @@ import com.baltajmn.habit.i18n.monthNames
 import com.baltajmn.habit.i18n.streakText
 import com.baltajmn.habit.data.nextReminderAt
 import com.baltajmn.habit.model.Habit
+import com.baltajmn.habit.model.habitIcon
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlin.test.Test
@@ -21,6 +22,32 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
+
+class HabitIconTest {
+
+    @Test
+    fun keepsEmojiThatAreSeveralUnitsLong() {
+        // Skin tone, zero-width joiner and a variation selector: taking one char breaks all three.
+        assertEquals("\uD83D\uDC4D\uD83C\uDFFD", habitIcon("\uD83D\uDC4D\uD83C\uDFFD"))
+        assertEquals("\uD83D\uDC69\u200D\uD83D\uDCBB", habitIcon("\uD83D\uDC69\u200D\uD83D\uDCBB"))
+        assertEquals("\u270D\uFE0F", habitIcon("\u270D\uFE0F"))
+    }
+
+    @Test
+    fun trimsAndAcceptsAShortMonogram() {
+        assertEquals("DE", habitIcon("  DE  "))
+        assertEquals("", habitIcon("   "))
+    }
+
+    @Test
+    fun neverReturnsHalfASurrogatePair() {
+        // habits.json is read by the Swift widget too, and half a pair is not valid text there.
+        val long = "\uD83D\uDE00".repeat(10)
+        val cut = habitIcon(long)
+        assertTrue(cut.length <= 12)
+        assertFalse(cut.lastOrNull()?.isHighSurrogate() == true)
+    }
+}
 
 class HabitTest {
 

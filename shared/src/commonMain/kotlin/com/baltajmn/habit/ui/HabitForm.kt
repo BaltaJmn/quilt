@@ -9,14 +9,18 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -30,13 +34,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.baltajmn.habit.data.HabitRepository
 import com.baltajmn.habit.model.Habit
+import com.baltajmn.habit.model.habitIcon
 import com.baltajmn.habit.ui.theme.HabitPalette
 import com.baltajmn.habit.i18n.S
 
@@ -68,8 +81,15 @@ fun HabitForm(
     var showPaywall by remember { mutableStateOf(false) }
     val valid = name.isNotBlank() && (weekly != null || days.isNotEmpty())
 
+    // The sheet shrinks to whatever the keyboard leaves, and this form is taller than that: without
+    // a scroll the schedule, the reminder and the label of the submit button are simply cut off
+    // while the user is typing the name. Same failure as the share screen on a wide display.
     Column(
-        Modifier.padding(horizontal = 24.dp).padding(bottom = 32.dp),
+        Modifier
+            .verticalScroll(rememberScrollState())
+            .imePadding()
+            .padding(horizontal = 24.dp)
+            .padding(bottom = 32.dp),
         verticalArrangement = Arrangement.spacedBy(18.dp),
     ) {
         Text(
@@ -96,6 +116,14 @@ fun HabitForm(
                     onClick = { emoji = option },
                 ) { Text(option, fontSize = 17.sp) }
             }
+            // The thirteenth slot is theirs. Twelve presets cover the habits everyone has and
+            // none of the ones only you have, so the row ends in an empty circle that is itself
+            // the text field: tapping it opens the emoji keyboard, which is a better picker than
+            // any grid we could ship.
+            OwnIcon(
+                value = emoji.takeIf { it !in HABIT_EMOJIS }.orEmpty(),
+                onValue = { emoji = habitIcon(it) },
+            )
         }
 
         PickerRow(label = S.color) {
@@ -215,6 +243,49 @@ private fun PickerRow(label: String, content: @Composable () -> Unit) {
             modifier = Modifier.horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) { content() }
+    }
+}
+
+@Composable
+private fun OwnIcon(value: String, onValue: (String) -> Unit) {
+    val focus = remember { FocusRequester() }
+    val outline = MaterialTheme.colorScheme.outline
+    val ring = MaterialTheme.colorScheme.onSurface
+    val dashes = remember { PathEffect.dashPathEffect(floatArrayOf(6f, 6f)) }
+    Box(
+        Modifier
+            .size(34.dp)
+            .drawBehind {
+                // Dashed while empty, so an unused slot reads as one to fill and not as a
+                // thirteenth icon that failed to load.
+                if (value.isEmpty()) {
+                    drawCircle(outline, style = Stroke(width = 1.dp.toPx(), pathEffect = dashes))
+                }
+            }
+            .then(
+                if (value.isEmpty()) Modifier
+                else Modifier
+                    .background(MaterialTheme.colorScheme.surfaceVariant, CircleShape)
+                    .border(2.dp, ring, CircleShape)
+            )
+            .clickable { focus.requestFocus() },
+        contentAlignment = Alignment.Center,
+    ) {
+        BasicTextField(
+            value = value,
+            onValueChange = onValue,
+            singleLine = true,
+            textStyle = TextStyle(
+                fontSize = 17.sp,
+                textAlign = TextAlign.Center,
+                color = LocalContentColor.current,
+            ),
+            // No caret: the field wears the shape of a swatch, and a blinking bar inside a 34dp
+            // circle reads as a rendering fault. The keyboard coming up is the feedback.
+            cursorBrush = SolidColor(Color.Transparent),
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+            modifier = Modifier.fillMaxWidth().focusRequester(focus),
+        )
     }
 }
 
