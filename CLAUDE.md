@@ -19,6 +19,7 @@ no en el chat.
 | `iosApp/Configuration/Config.xcconfig` | Versión, identificador y Team ID de iOS. No se editan en el `.pbxproj`. |
 | `SPEC.md` | Spec de producto y hoja de ruta. Lo que la app hace y lo que aún no. |
 | `store/listings/<idioma>/` | Los textos de la ficha de Play, un fichero por campo. Fuente única: de aquí los lee el script que los sube. |
+| `store/produccion.md` | Las ocho respuestas del formulario de acceso a producción, en inglés. Se rellena otra vez entero si Google rechaza. |
 | `store/lanzamiento.md` | Checklist de lanzamiento de las dos tiendas. `[yo]` es tarea de Claude, `[tú]` es tarea que solo puede hacer el humano. |
 | `store/ci.md` | Secretos de GitHub y cómo publican los tres workflows. |
 | `store/app-store.md` | Subida a la App Store, paso a paso. Lo que falta es todo `[tú]`. |

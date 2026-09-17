@@ -90,6 +90,33 @@ Es la unica de la lista que puede estropear lo que tienes. Si entra, que sea sin
 visible al abrir un dia concreto, nunca en la lista ni en el widget, y sin busqueda. En cuanto pida
 una pantalla para buscar notas, ya es otra app.
 
+## 7. Hacerla suya de verdad. Coste bajo, pedida por un tester
+
+Un tester de la prueba cerrada, con el porcentaje como enganche:
+
+> Quilt : the more data and days I get, I love the fact that it shows percentage. I’m at 73%.
+> + I wonder if you can make it customizable factors for the user. As they get more attached to the
+> app, can you really make it "theirs"?
+
+Son dos cosas. La primera confirma una decision que ya esta tomada: el porcentaje cuenta sobre los
+dias que de verdad pedian algo, no sobre los 365, y por eso gana valor segun avanza el ano en vez de
+hundirse. No se toca.
+
+La segunda es la peticion. Personalizar ya existe a medias y conviene saber donde acaba: cada habito
+tiene emoji y color, el emoji sale de una lista fija de doce y el color de una paleta de ocho, cuatro
+gratis y las ocho en Pro. Lo que falta y cabe sin pantalla nueva:
+
+- **Emoji libre** en vez de los doce de `HABIT_EMOJIS`. Es cambiar el selector por un campo de texto
+  de un caracter en la fila que ya esta. El modelo ya guarda `emoji: String`, asi que no toca
+  `habits.json` ni `HabitStore.swift`.
+- **El dia en que empieza la semana.** Hoy `startOfWeek` resta `isoDayNumber - 1`, o sea lunes fijo.
+  Quien empieza en domingo ve la semana corrida en la tarjeta de compartir y en el widget. Es un
+  ajuste en la hoja que ya hay, pero toca las cuatro copias de la aritmetica, la de Swift incluida.
+
+Lo que no entra, aunque sea lo que la palabra "personalizar" sugiere: temas, tipografias y formas de
+cuadrito. Eso pide una pantalla de personalizacion, y la sexta pantalla es justo lo que filtra este
+fichero.
+
 ---
 
 ## Lo que no hay que anadir, aunque lo pida el mercado

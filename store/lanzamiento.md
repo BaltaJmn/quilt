@@ -169,7 +169,8 @@ que no hace nada. El día que metamos código nativo propio, se añade entonces.
       trampas: `store/testers.md`.
 - [ ] **[tú] Arrancar el test cerrado.** **Hazlo lo antes posible**: son 14 días seguidos y es el
       plazo más largo de todo el proyecto. Arráncalo mientras se hace el resto, no después.
-- [ ] **[tú] Solicitar acceso a producción** al terminar los 14 días.
+- [ ] **[tú] Solicitar acceso a producción** al terminar los 14 días. Las ocho respuestas del
+      formulario, ya escritas y contrastadas contra el repositorio, en `produccion.md`.
 - [ ] **[tú] Publicar.**
 
 ## Fase 5. Apple (en paralelo, empieza ya)
