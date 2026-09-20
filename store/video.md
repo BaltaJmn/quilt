@@ -25,10 +25,17 @@ directamente los tiempos que hay que escribir en los rótulos de la receta. No h
 el vídeo fotograma a fotograma.
 
 Todos los vídeos salen con la misma cabecera y el mismo cierre, que los pone `quilt_video.py` y no
-la receta: 1,7 s de portada con el icono, el nombre **Quilt** y una frase corta que sí elige la
-receta, y 2,8 s de cierre con el icono, el nombre y "Gratis en Google Play y App Store". Son
-`INTRO_SEG`, `CIERRE_SEG`, `MARCA` y `CIERRE_SUB` en la cabecera del script. Con eso, un cuerpo de
-10,5 s ya pasa de los 15 s que pide el formato.
+la receta: 2,5 s de portada con el icono, el nombre **Quilt**, una frase corta que sí elige la
+receta y un campo de búsqueda con el nombre dentro, y 2,8 s de cierre con el icono, el nombre y
+"Gratis en Google Play y App Store". Son `INTRO_SEG`, `CIERRE_SEG`, `MARCA`, `CIERRE_SUB` y
+`BUSCA_EN` en la cabecera del script. Con eso, un cuerpo de 9,7 s ya pasa de los 15 s que pide el
+formato.
+
+El campo de búsqueda es lo único del clip que le dice al espectador qué tiene que teclear para
+encontrar la app, y es la razón de que la cabecera dure más que el resto del montaje: un nombre
+inventado no se recuerda de una pasada. No imita la interfaz de ninguna tienda a propósito. Una
+pastilla con una lupa se entiende igual y no pone la marca de Google ni la de Apple en un vídeo que
+no es suyo.
 
 ### El guion de grabación
 
@@ -242,7 +249,7 @@ que grabarlos a mano o cambiarlos por otra cosa. Es lo que pasó con el 4 y el 1
 
 ## Los diez que están montados
 
-En `tools/video/salida`. Todos 1080x1920 a 30 fps, mudos, entre 16,9 s y 21,5 s.
+En `tools/video/salida`. Todos 1080x1920 a 30 fps, mudos, entre 17,7 s y 22,3 s.
 
 | Clip | Qué enseña | Datos | Notas de grabación |
 |---|---|---|---|

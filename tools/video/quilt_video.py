@@ -62,11 +62,12 @@ FUNDIDO = 0.28
 
 # Cabecera y cierre de marca. Van generados, no grabados: son la misma imagen en los diez
 # clips, que es lo que hace que se reconozcan como una serie al pasar por el feed.
-INTRO_SEG = 1.7
+INTRO_SEG = 2.5
 CIERRE_SEG = 2.8
 MARCA = "Quilt"
 INTRO_SUB = "Tu año entero, un cuadrito por día"
 CIERRE_SUB = "Gratis en Google Play y App Store"
+BUSCA_EN = "en Google Play y App Store"
 
 
 def fuente(tam: int, peso: int = 0) -> ImageFont.FreeTypeFont:
@@ -191,20 +192,52 @@ def marca(lado: int) -> Image.Image:
     return img
 
 
-def tarjeta(sub: str, destino: Path) -> tuple[int, int]:
+def buscador(texto: str) -> Image.Image:
+    """Campo de busqueda con el nombre dentro.
+
+    Es lo unico del clip que le dice al espectador que tiene que teclear, y por eso la
+    cabecera dura mas que el resto del montaje: un nombre inventado no se recuerda de una
+    pasada. No imita la interfaz de ninguna tienda. Una pastilla con una lupa se entiende
+    igual y no pone la marca de Google ni la de Apple en un video que no es suyo.
+    """
+    f = fuente(64)
+    ancho, alto = 680, 132
+    izquierda, lupa = 70, 52
+    img = Image.new("RGBA", (ancho, alto), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle((0, 0, ancho - 1, alto - 1), radius=alto // 2,
+                        fill=(255, 255, 255, 255), outline=(*TINTA, 50), width=3)
+
+    cx, cy, r = izquierda + lupa // 2, alto // 2, lupa // 2 - 5
+    d.ellipse((cx - r, cy - r, cx + r, cy + r), outline=(*TINTA, 165), width=6)
+    d.line((cx + r * 0.7, cy + r * 0.7, cx + r * 1.55, cy + r * 1.55),
+           fill=(*TINTA, 165), width=6)
+
+    caja = f.getbbox(texto)
+    d.text((izquierda + lupa + 34, (alto - (caja[3] - caja[1])) // 2 - caja[1]),
+           texto, font=f, fill=(*TINTA, 255))
+    return img
+
+
+def tarjeta(sub: str, destino: Path, buscar: bool = False) -> tuple[int, int]:
     """Icono, nombre y una linea, sobre transparencia. El fondo crema lo pone el video."""
     lado = 250
     f_nombre = fuente(140)
     f_sub = fuente(54)
+    f_pie = fuente(44)
     lineas = envolver(sub, f_sub, ANCHO - 2 * MARGEN_LADO - 40)
+    pastilla = buscador(MARCA) if buscar else None
 
     hueco_icono, hueco_sub = 54, 26
     alto_nombre = f_nombre.getbbox(MARCA)[3] - f_nombre.getbbox(MARCA)[1]
     alto_linea = int(54 * 1.3)
+    alto_pie = int(44 * 1.3)
     alto = lado + hueco_icono + alto_nombre + hueco_sub + alto_linea * len(lineas)
-    ancho = max(
-        [lado, f_nombre.getbbox(MARCA)[2]] + [f_sub.getbbox(l)[2] for l in lineas]
-    ) + 8
+    anchos = [lado, f_nombre.getbbox(MARCA)[2]] + [f_sub.getbbox(l)[2] for l in lineas]
+    if pastilla:
+        alto += 14 + pastilla.height + 22 + alto_pie
+        anchos += [pastilla.width, f_pie.getbbox(BUSCA_EN)[2]]
+    ancho = max(anchos) + 8
 
     img = Image.new("RGBA", (ancho, alto), (0, 0, 0, 0))
     img.alpha_composite(marca(lado), ((ancho - lado) // 2, 0))
@@ -218,6 +251,13 @@ def tarjeta(sub: str, destino: Path) -> tuple[int, int]:
         d.text(((ancho - f_sub.getbbox(linea)[2]) // 2, y), linea, font=f_sub,
                fill=(*TINTA, 200))
         y += alto_linea
+
+    if pastilla:
+        y += 14
+        img.alpha_composite(pastilla, ((ancho - pastilla.width) // 2, y))
+        y += pastilla.height + 22
+        d.text(((ancho - f_pie.getbbox(BUSCA_EN)[2]) // 2, y), BUSCA_EN, font=f_pie,
+               fill=(*TINTA, 160))
 
     img.save(destino)
     return img.size
@@ -285,7 +325,7 @@ def construye(receta: dict, tmp: Path) -> list[str]:
     intro_sub = receta.get("intro", {}).get("sub", INTRO_SUB)
     cierre_sub = receta.get("cierre", {}).get("sub", CIERRE_SUB)
     png_intro, png_cierre = tmp / "intro.png", tmp / "cierre.png"
-    caja_intro = tarjeta(intro_sub, png_intro)
+    caja_intro = tarjeta(intro_sub, png_intro, buscar=True)
     caja_cierre = tarjeta(cierre_sub, png_cierre)
 
     cmd = ["ffmpeg", "-y", "-v", "error", "-i", str(fuente_video)]
