@@ -4,6 +4,7 @@ import com.baltajmn.habit.data.HabitRepository
 import com.baltajmn.habit.data.csvOf
 import com.baltajmn.habit.data.cycled
 import com.baltajmn.habit.data.millisUntilTomorrow
+import com.baltajmn.habit.data.reachedReviewStreak
 import com.baltajmn.habit.data.skipToggled
 import com.baltajmn.habit.i18n.normalizeLanguage
 import com.baltajmn.habit.model.Habit
@@ -12,8 +13,10 @@ import com.baltajmn.habit.ui.firstOffset
 import com.baltajmn.habit.ui.indexAt
 import com.baltajmn.habit.ui.slotOf
 import com.baltajmn.habit.ui.yearColumns
+import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.minus
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
@@ -138,6 +141,32 @@ class MutationTest {
             h = if (step % 3 == 2) skipToggled(h, march10) else cycled(h, march10)
             assertTrue(h.countOn(march10) == 0 || !h.isSkippedOn(march10), "step $step")
         }
+    }
+}
+
+/** The once-ever in-app review prompt: fires exactly when a streak first reaches a week. */
+class ReviewTriggerTest {
+
+    private fun weekLog(endingOn: LocalDate): Map<String, Int> =
+        (0..6).associate { back -> (endingOn.minus(DatePeriod(days = back))).toString() to 1 }
+
+    @Test
+    fun a_streak_of_seven_asks_for_a_review() {
+        val h = habit(log = weekLog(march10))
+        assertEquals(7, h.streak(march10))
+        assertTrue(reachedReviewStreak(h, march10, alreadyRequested = false))
+    }
+
+    @Test
+    fun a_shorter_streak_does_not_ask() {
+        val h = habit(log = weekLog(march10) - "2026-03-04") // six days, not seven
+        assertFalse(reachedReviewStreak(h, march10, alreadyRequested = false))
+    }
+
+    @Test
+    fun it_never_fires_twice() {
+        val h = habit(log = weekLog(march10))
+        assertFalse(reachedReviewStreak(h, march10, alreadyRequested = true))
     }
 }
 

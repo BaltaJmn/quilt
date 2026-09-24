@@ -115,7 +115,7 @@ xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp \
   -destination 'generic/platform=iOS Simulator' build CODE_SIGNING_ALLOWED=NO
 ```
 
-Publicar: `git tag v1.7 && git push origin v1.7` dispara el workflow de Android, que sube a prueba
+Publicar: `git tag v1.8 && git push origin v1.8` dispara el workflow de Android, que sube a prueba
 cerrada (`alpha`) y la deja publicada en el mismo paso. No queda ningún botón que pulsar después.
 
 Ficha de tienda, los cinco idiomas de una vez:

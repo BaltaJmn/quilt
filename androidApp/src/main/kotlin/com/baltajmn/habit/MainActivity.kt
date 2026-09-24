@@ -11,6 +11,8 @@ import com.baltajmn.habit.data.AndroidContext
 import com.baltajmn.habit.data.Backup
 import com.baltajmn.habit.data.HabitRepository
 import com.baltajmn.habit.data.Reminders
+import com.baltajmn.habit.review.Review
+import java.lang.ref.WeakReference
 
 class MainActivity : ComponentActivity() {
 
@@ -50,6 +52,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         AndroidContext.init(this)
+        Review.host = WeakReference(this)
 
         // Only asked for once a habit actually has a reminder.
         Reminders.onNeedsPermission = {
@@ -89,6 +92,7 @@ class MainActivity : ComponentActivity() {
         Reminders.onNeedsPermission = null
         Backup.onPickFile = null
         Backup.onSaveFile = null
+        Review.host = null
         super.onDestroy()
     }
 }

@@ -74,6 +74,7 @@ kotlin {
             implementation(libs.glance.appwidget)
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.compose.uiTooling)
+            implementation(libs.play.review.ktx)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)

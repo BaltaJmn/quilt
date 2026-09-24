@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.baltajmn.habit.model.Habit
 import com.baltajmn.habit.model.parseDate
+import com.baltajmn.habit.review.Review
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -27,6 +28,8 @@ private data class Store(
     val version: Int = 1,
     val habits: List<Habit> = emptyList(),
     val isPro: Boolean = false,
+    /** The once-ever in-app rating prompt already fired. Never reset, even if it failed to show. */
+    val reviewRequested: Boolean = false,
 )
 
 /**
@@ -68,6 +71,7 @@ object HabitRepository {
 
     private var loaded = false
     private var repairPrimary = false
+    private var reviewRequested = false
 
     fun load() {
         if (loaded) return
@@ -79,6 +83,7 @@ object HabitRepository {
             ?: return
         _habits.addAll(store.habits)
         isPro = store.isPro
+        reviewRequested = store.reviewRequested
         // Repair the damaged file now: waiting for the user's next tap leaves a window where
         // one more failure would take the backup with it.
         if (repairPrimary) save(syncReminders = false)
@@ -148,8 +153,13 @@ object HabitRepository {
         val index = _habits.indexOfFirst { it.id == habitId }
         if (index < 0) return
         _habits[index] = cycled(_habits[index], date)
+        val requestReview = reachedReviewStreak(_habits[index], today, reviewRequested)
+        if (requestReview) reviewRequested = true
         // Ticking a box cannot change a reminder, so skip the reschedule.
         save(syncReminders = false)
+        // After the write, not before: a crash mid-prompt must not leave the flag unset and the
+        // next tap asking again.
+        if (requestReview) Review.request()
     }
 
     /**
@@ -172,7 +182,9 @@ object HabitRepository {
 
     private fun save(syncReminders: Boolean = true) {
         Storage.write(
-            json.encodeToString(Store(habits = _habits.toList(), isPro = isPro)),
+            json.encodeToString(
+                Store(habits = _habits.toList(), isPro = isPro, reviewRequested = reviewRequested)
+            ),
             rotateBackup = !repairPrimary,
         )
         repairPrimary = false
@@ -233,6 +245,14 @@ object HabitRepository {
 
 @OptIn(ExperimentalTime::class)
 fun today(): LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault())
+
+/**
+ * Whether the habit a tap just touched should trigger the once-ever review prompt: its streak just
+ * reached a full week. `>=` and not `==` because a habit can jump straight past 7 (a weekly target
+ * closing more than one week at once), and this is a one-shot flag, never re-armed either way.
+ */
+internal fun reachedReviewStreak(habit: Habit, today: LocalDate, alreadyRequested: Boolean): Boolean =
+    !alreadyRequested && habit.streak(today) >= 7
 
 /**
  * Milliseconds from [now] to the next local midnight. Through the calendar and not a fixed 86.4
