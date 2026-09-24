@@ -1,6 +1,6 @@
 Cada día es un retal. Al final del año tienes la colcha entera.
 
-Quilt no te enseña la semana. Te enseña los 365 días, como una colcha de retales que se va cosiendo de uno en uno. Es la vista que hace que no quieras romper la racha: ves de un vistazo el mes que fallaste y las siete semanas seguidas que no.
+Quilt es un seguimiento de hábitos que no te enseña la semana. Te enseña los 365 días, como una colcha de retales que se va cosiendo de uno en uno. Es la vista que hace que no quieras romper la racha: ves de un vistazo el mes que fallaste y las siete semanas seguidas que no.
 
 EL AÑO COMPLETO, NO LA SEMANA
 Cada hábito tiene su cuadrícula anual con los doce meses etiquetados. Toca cualquier día pasado para marcarlo: si te olvidaste del domingo, se arregla en un segundo. Racha actual, racha máxima, días totales y porcentaje de cumplimiento, calculados sobre los días que de verdad tocaban.
@@ -24,7 +24,7 @@ TUS DATOS SON TUYOS
 Sin cuenta. Sin correo electrónico. Sin registro. Sin analítica de uso. Todo vive en tu móvil, en un fichero que puedes exportar cuando te dé la gana y volver a importar en otro dispositivo. Si un día te cansas de la app, te llevas tu historial entero contigo. La única conexión que hace Quilt es la de procesar una compra, si decides hacerla.
 
 GRATIS DE VERDAD
-Tres hábitos, todos los widgets, todos los recordatorios, la exportación completa y la cuadrícula anual entera. Sin anuncios. Sin límite de tiempo. Sin pedirte la tarjeta.
+Un seguimiento de hábitos gratis de verdad: tres hábitos, todos los widgets, todos los recordatorios, la exportación completa y la cuadrícula anual entera. Sin anuncios. Sin límite de tiempo. Sin pedirte la tarjeta.
 
 QUILT PRO
 Un pago único, para siempre, que quita el límite de hábitos y desbloquea la paleta de colores completa. No es una suscripción y nunca lo será.
@@ -32,4 +32,4 @@ Un pago único, para siempre, que quita el límite de hábitos y desbloquea la p
 NO VAS A ENCONTRAR AQUÍ
 Ni retos sociales, ni amigos, ni chat, ni un coach de inteligencia artificial diciéndote que respires. Una cuadrícula, tus hábitos y el año por delante.
 
-Si alguna vez has llevado en papel un year in pixels, un calendario de hábitos o una lista de rutina diaria, Quilt es eso en el móvil.
+Si alguna vez has llevado en papel un year in pixels, un calendario de hábitos o una lista de rutina diaria, Quilt es eso en el móvil: el seguimiento de hábitos que sí aguanta hasta diciembre.
