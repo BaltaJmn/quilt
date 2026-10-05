@@ -433,11 +433,21 @@ class LanguageTest {
         assertEquals("es", normalizeLanguage("ES_es"))
         assertEquals("pt", normalizeLanguage("pt_BR"))
         assertEquals("fr", normalizeLanguage("fr-CA"))
+        assertEquals("ja", normalizeLanguage("ja-JP"))
+        assertEquals("nl", normalizeLanguage("nl-BE"))
+    }
+
+    @Test
+    fun android_and_ios_indonesian_land_on_the_same_row() {
+        // java.util.Locale on Android still says "in"; iOS says "id".
+        assertEquals("id", normalizeLanguage("in"))
+        assertEquals("id", normalizeLanguage("in_ID"))
+        assertEquals("id", normalizeLanguage("id-ID"))
     }
 
     @Test
     fun anything_the_app_does_not_ship_lands_in_english() {
-        for (tag in listOf("ja", "zh-Hans", "", "x", "ca")) {
+        for (tag in listOf("zh-Hans", "ar", "", "x", "ca", "sv")) {
             assertEquals("en", normalizeLanguage(tag), tag)
         }
     }

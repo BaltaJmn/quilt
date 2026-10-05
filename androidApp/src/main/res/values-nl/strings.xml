@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_description">Vink de gewoonten van vandaag af</string>
+    <string name="widget_title">Vandaag</string>
+    <string name="year_widget_description">Eén gewoonte, het hele jaar</string>
+</resources>

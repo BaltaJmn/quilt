@@ -99,7 +99,7 @@ identificador, ni abrir la ficha. Es lo primero.
     - Reference Name: `Quilt Pro`
     - Product ID: `com.baltajmn.habit.pro_lifetime` (en Apple no se repite entre apps de la cuenta)
     - Precio: 4,99 EUR, el mismo escalon que en Play
-    - Localizaciones: nombre y descripcion en los cinco idiomas
+    - Localizaciones: nombre y descripcion en los trece idiomas de la app
     - Review Screenshot: una captura de la pantalla Pro, obligatoria
 
 11. **[tú] Conectar RevenueCat.** Dashboard de RevenueCat, proyecto Quilt, *+ New App*, plataforma
@@ -217,7 +217,8 @@ Hecho esto una vez, `.github/workflows/release-ios.yml` repite el proceso entero
     | Keywords | 100 caracteres, separadas por comas **sin espacios** | Play no tiene equivalente, hay que escribirlas |
     | What's New | 4000 caracteres | `store/release-notes-1.1.txt` |
 
-    Los cinco idiomas: en, es, pt, de, fr. Los mismos que la app.
+    Los trece idiomas de la app: en, es, pt, de, fr, it, ja, ko, pl, tr, id, ru, nl. Los mismos que
+    `store/listings/`.
 
 23. **[tú] Privacy Policy URL.** `https://quilt.baltajmn.dev/`
 
@@ -282,7 +283,7 @@ Hecho esto una vez, `.github/workflows/release-ios.yml` repite el proceso entero
 | 3.1.1 In-App Purchase | Todo bien digital se vende con StoreKit, sin enlaces de pago externos | RevenueCat usa StoreKit; no hay ningun enlace de pago |
 | 4.2 Minimum Functionality | Mas que una pagina web envuelta | Widget, recordatorios, exportacion, cuadricula anual |
 | 5.1.1(i) | Politica de privacidad **accesible desde dentro de la app** | Anadido: enlace en la hoja de Ajustes |
-| 5.1.2 | Los textos de permiso explican el uso real, en el idioma del usuario | Cinco `InfoPlist.strings`, uno por idioma |
+| 5.1.2 | Los textos de permiso explican el uso real, en el idioma del usuario | Un `InfoPlist.strings` por idioma, trece |
 | 5.1.1(v) | No pedir datos que la app no necesita | La app no pide ninguno |
 
 ---
@@ -297,7 +298,7 @@ Verificado sobre el `.app` construido, no sobre lo que deberia pasar:
 | `CFBundleIdentifier` del widget | `com.baltajmn.habit.widget`, derivado del de la app |
 | `CFBundleShortVersionString` | 1.8, en paralelo con Android |
 | `ITSAppUsesNonExemptEncryption` | `false` |
-| Idiomas dentro del `.app` | `de`, `en`, `es`, `fr`, `pt` |
+| Idiomas dentro del `.app` | `de`, `en`, `es`, `fr`, `pt`. Los otros ocho (`it`, `ja`, `ko`, `pl`, `tr`, `id`, `ru`, `nl`) entraron despues y no se han comprobado aun sobre un `.app` construido |
 | Texto del permiso de fotos en espanol | "Para guardar la imagen de tus habitos en tu carrete." |
 | `CODE_SIGN_IDENTITY` fijado a "Apple Development" | Eliminado. Fijado impedia exportar para la App Store |
 | Esquema compartido para el CI | `xcshareddata/xcschemes/iosApp.xcscheme` versionado |

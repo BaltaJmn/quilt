@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_description">今日の習慣をチェック</string>
+    <string name="widget_title">今日</string>
+    <string name="year_widget_description">1つの習慣を、一年まるごと</string>
+</resources>

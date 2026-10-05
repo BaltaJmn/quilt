@@ -32,11 +32,14 @@ no en el chat.
 
 - `habits.json` en el App Group `group.com.baltajmn.habit` (iOS) y en el directorio de la app
   (Android) es el contrato entre app y widget. Se escribe de forma atómica y con copia `.bak`.
-- Un campo nuevo en `Habit` se añade en `HabitStore.swift` en el mismo cambio. El widget de iOS
-  reescribe el fichero entero en cada toque, así que un campo que su `struct` no declare desaparece
-  del historial del usuario. `weeklyTarget` y `skipped` son opcionales por eso.
-- `Strings.kt` obliga a los cinco idiomas (en, es, pt, de, fr) por firma de función. La tabla `L`
-  del widget de iOS es su espejo en Swift y hay que tocarla a la vez.
+- Un campo nuevo en `Habit` o en `Store` se añade en `HabitStore.swift` en el mismo cambio. El
+  widget de iOS reescribe el fichero entero en cada toque, así que un campo que su `struct` no
+  declare desaparece del historial del usuario. `weeklyTarget`, `skipped` y `reviewRequested` son
+  opcionales por eso.
+- `Strings.kt` obliga a los trece idiomas (en, es, pt, de, fr, it, ja, ko, pl, tr, id, ru, nl) por
+  firma de función, en ese orden. La tabla `L` del widget de iOS es su espejo en Swift y hay que
+  tocarla a la vez. Android dice `in` para el indonesio e iOS `id`: los dos caen en la misma fila, y
+  los recursos de Android van en `values-in`.
 - **El `versionCode` no se reutiliza nunca**, ni entre canales de Play. Una versión que ya entró en
   `internal` no se puede volver a subir a `alpha`: se promociona a mano o se saca etiqueta nueva.
 - La descripción larga de Play **conserva los saltos de línea tal cual**. Los párrafos de

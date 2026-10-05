@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_description">Bugünün alışkanlıklarını işaretle</string>
+    <string name="widget_title">Bugün</string>
+    <string name="year_widget_description">Bir alışkanlık, koca bir yıl</string>
+</resources>

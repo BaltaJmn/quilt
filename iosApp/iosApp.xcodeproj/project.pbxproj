@@ -204,6 +204,14 @@
 				pt,
 				de,
 				fr,
+				it,
+				ja,
+				ko,
+				pl,
+				tr,
+				id,
+				ru,
+				nl,
 				Base,
 			);
 			mainGroup = 0A099ECCBC9D467CF327BF20;

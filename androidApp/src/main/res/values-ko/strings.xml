@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_description">오늘의 습관을 체크하세요</string>
+    <string name="widget_title">오늘</string>
+    <string name="year_widget_description">습관 하나, 1년 전체</string>
+</resources>

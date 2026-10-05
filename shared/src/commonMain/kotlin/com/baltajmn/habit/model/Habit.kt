@@ -230,8 +230,8 @@ internal fun parseDate(value: String): LocalDate? =
  * What a habit is allowed to wear as its icon.
  *
  * The field is free text because the system emoji keyboard is the picker. Shipping our own grid
- * would mean shipping and translating ~1800 emoji names into five languages to end up worse at
- * search, skin tones and recents than the keyboard the user already has.
+ * would mean shipping and translating ~1800 emoji names into every language the app ships, to end
+ * up worse at search, skin tones and recents than the keyboard the user already has.
  *
  * Not `first()`: a flag, a skin tone or a family is several UTF-16 units joined by zero-width
  * joiners, and taking one char would cut it into empty squares. Twelve is the longest standard

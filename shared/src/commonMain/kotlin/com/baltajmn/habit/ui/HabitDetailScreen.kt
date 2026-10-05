@@ -254,7 +254,7 @@ private fun Stats(habit: Habit, year: Int, today: kotlinx.datetime.LocalDate) {
         }
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             StatTile(S.totalDays, "${habit.totalDone()}", S.sinceStart, Modifier.weight(1f))
-            StatTile(S.completion, "$rate%", S.inYear(year), Modifier.weight(1f))
+            StatTile(S.completion, S.percent(rate), S.inYear(year), Modifier.weight(1f))
         }
     }
 }

@@ -85,7 +85,7 @@ private fun DrawScope.drawHeader(
 ) {
     val title = when (period) {
         SharePeriod.WEEK -> S.weekOf(startOfWeek(today).day, startOfWeek(today).month.ordinal)
-        SharePeriod.MONTH -> "${S.months[today.month.ordinal].replaceFirstChar { it.uppercase() }} ${today.year}"
+        SharePeriod.MONTH -> S.monthTitle(today.month.ordinal, today.year)
         SharePeriod.YEAR -> "${today.year}"
     }
     text(measurer, title, MARGIN, 90f, 64f, FontWeight.Light, Ink)

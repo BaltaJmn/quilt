@@ -408,59 +408,122 @@ struct HabitWidgetBundle: WidgetBundle {
     }
 }
 
-/// The widget's three strings. Same five languages and same fallback rule as the app's Kotlin table.
+/// The widget's strings. Same thirteen languages, same order and same fallback rule as the app's
+/// Kotlin table: en, es, pt, de, fr, it, ja, ko, pl, tr, id, ru, nl.
 enum L {
     /// `Locale.current` resolves against the bundle's own .lproj list, and the extension ships
     /// none, so it always answers English. The user's actual preference is the app's rule too.
+    /// "in" is the code Android uses for Indonesian; iOS says "id", but the Kotlin rule accepts
+    /// both, and this one is its mirror.
     private static let lang: String = {
-        let code = String((Locale.preferredLanguages.first ?? "en").prefix(2)).lowercased()
-        return ["en", "es", "pt", "de", "fr"].contains(code) ? code : "en"
+        var code = String((Locale.preferredLanguages.first ?? "en").prefix(2)).lowercased()
+        if code == "in" { code = "id" }
+        return ["en", "es", "pt", "de", "fr", "it", "ja", "ko", "pl", "tr", "id", "ru", "nl"]
+            .contains(code) ? code : "en"
     }()
 
-    private static func t(_ en: String, _ es: String, _ pt: String, _ de: String, _ fr: String) -> String {
+    private static func t(
+        _ en: String, _ es: String, _ pt: String, _ de: String, _ fr: String,
+        _ it: String, _ ja: String, _ ko: String, _ pl: String, _ tr: String,
+        _ id: String, _ ru: String, _ nl: String
+    ) -> String {
         switch lang {
         case "es": return es
         case "pt": return pt
         case "de": return de
         case "fr": return fr
+        case "it": return it
+        case "ja": return ja
+        case "ko": return ko
+        case "pl": return pl
+        case "tr": return tr
+        case "id": return id
+        case "ru": return ru
+        case "nl": return nl
         default: return en
         }
     }
 
-    static let today = t("Today", "Hoy", "Hoje", "Heute", "Aujourd'hui")
+    static let today = t(
+        "Today", "Hoy", "Hoje", "Heute", "Aujourd'hui",
+        "Oggi", "今日", "오늘", "Dziś", "Bugün",
+        "Hari ini", "Сегодня", "Vandaag"
+    )
     static let nothingToday = t(
         "Nothing scheduled for today",
         "Nada programado para hoy",
         "Nada programado para hoje",
         "Für heute nichts geplant",
-        "Rien de prévu aujourd'hui"
+        "Rien de prévu aujourd'hui",
+        "Niente in programma per oggi",
+        "今日の予定はありません",
+        "오늘 예정된 습관이 없습니다",
+        "Nic zaplanowanego na dziś",
+        "Bugün için planlanan bir şey yok",
+        "Tidak ada jadwal hari ini",
+        "На сегодня ничего не запланировано",
+        "Niets gepland voor vandaag"
     )
     /// Only the gallery preview ever shows these.
     static let sampleHabits = [
-        t("Water", "Agua", "\u{00C1}gua", "Wasser", "Eau"),
-        t("Read", "Leer", "Ler", "Lesen", "Lire"),
-        t("Walk", "Caminar", "Caminhar", "Spazieren", "Marcher"),
+        t("Water", "Agua", "\u{00C1}gua", "Wasser", "Eau",
+          "Acqua", "水", "물", "Woda", "Su",
+          "Air", "Вода", "Water"),
+        t("Read", "Leer", "Ler", "Lesen", "Lire",
+          "Leggere", "読書", "독서", "Czytanie", "Okuma",
+          "Membaca", "Чтение", "Lezen"),
+        t("Walk", "Caminar", "Caminhar", "Spazieren", "Marcher",
+          "Camminare", "散歩", "걷기", "Spacer", "Yürüyüş",
+          "Jalan kaki", "Прогулка", "Wandelen"),
     ]
     static let pickHabit = t(
         "Choose a habit",
         "Elige un hábito",
         "Escolha um hábito",
         "Gewohnheit wählen",
-        "Choisissez une habitude"
+        "Choisissez une habitude",
+        "Scegli un'abitudine",
+        "習慣を選択",
+        "습관 선택",
+        "Wybierz nawyk",
+        "Bir alışkanlık seç",
+        "Pilih kebiasaan",
+        "Выберите привычку",
+        "Kies een gewoonte"
     )
-    static let yearTitle = t("Year", "Año", "Ano", "Jahr", "Année")
+    static let yearTitle = t(
+        "Year", "Año", "Ano", "Jahr", "Année",
+        "Anno", "年", "연간", "Rok", "Yıl",
+        "Tahun", "Год", "Jaar"
+    )
     static let yearDescription = t(
         "One habit, the whole year",
         "Un hábito, el año entero",
         "Um hábito, o ano inteiro",
         "Eine Gewohnheit, das ganze Jahr",
-        "Une habitude, toute l'année"
+        "Une habitude, toute l'année",
+        "Un'abitudine, l'anno intero",
+        "1つの習慣を、一年まるごと",
+        "습관 하나, 1년 전체",
+        "Jeden nawyk, cały rok",
+        "Bir alışkanlık, koca bir yıl",
+        "Satu kebiasaan, setahun penuh",
+        "Одна привычка, целый год",
+        "Eén gewoonte, het hele jaar"
     )
     static let widgetDescription = t(
         "Tick off today's habits",
         "Marca tus hábitos de hoy",
         "Marque seus hábitos de hoje",
         "Hake deine heutigen Gewohnheiten ab",
-        "Cochez vos habitudes du jour"
+        "Cochez vos habitudes du jour",
+        "Spunta le abitudini di oggi",
+        "今日の習慣をチェック",
+        "오늘의 습관을 체크하세요",
+        "Odhaczaj dzisiejsze nawyki",
+        "Bugünün alışkanlıklarını işaretle",
+        "Centang kebiasaan hari ini",
+        "Отмечайте привычки на сегодня",
+        "Vink de gewoonten van vandaag af"
     )
 }

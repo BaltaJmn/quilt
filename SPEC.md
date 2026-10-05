@@ -119,7 +119,7 @@ La previsualización del selector de widgets de Android (`res/layout/widget_prev
 estático, no un render del widget real: el selector infla `RemoteViews`, que solo admite una lista corta
 de vistas. `View` a secas no está en ella, hay que usar `ImageView`. Al cambiar el diseño del widget hay
 que acordarse de tocar también ese XML. No lleva nombres de hábito a propósito: los emoji valen igual en
-los cinco idiomas.
+todos los idiomas.
 
 El widget interactivo de marcar es el gancho: `alarmee` no lo cubre, hay que escribirlo nativo en cada
 plataforma.
@@ -341,6 +341,7 @@ Ordenado por daño real, no por esfuerzo.
 5. ~~**Widgets con cara y ojos**~~. Hecho. Pequeño, mediano y grande, idénticos en iOS y Android, con racha, relleno parcial y la tira de los últimos 7 días (ver §4). Queda pendiente el widget del **grid anual completo** de un hábito, que es material de Pro.
 6. **Sincronización iCloud / Drive** sobre el fichero de copia de seguridad.
 7. ~~**Localización, 5 idiomas**~~. Hecho. Inglés, español, portugués, alemán y francés, en tabla única `S` en común más `L` en el widget de iOS. El idioma sale de las preferencias del sistema, no del bundle; cualquier idioma fuera de los cinco cae a inglés. Declarados en `CFBundleLocalizations` y en `locales_config.xml`, así que la App Store los lista y Android ofrece el selector de idioma por app. **Pendiente: repaso nativo de DE, FR y PT antes de promocionar.**
+   Ampliado después a trece, los mismos de la ficha de Play: italiano, japonés, coreano, polaco, turco, indonesio, ruso y neerlandés. Polaco y ruso tienen tres formas de plural y el mes en genitivo tras un número; japonés y coreano ponen el año delante y escriben los meses como `10月`. **Pendiente lo mismo: repaso nativo de los ocho.**
 8. **Resumen anual automático** en diciembre, con aviso: el pico de compartir del año.
 
 ---

@@ -11,7 +11,11 @@ import com.baltajmn.habit.i18n.dayInitialsFor
 import com.baltajmn.habit.i18n.formatTime
 import com.baltajmn.habit.i18n.monthAbbreviations
 import com.baltajmn.habit.i18n.monthNames
+import com.baltajmn.habit.i18n.monthNamesGenitive
+import com.baltajmn.habit.i18n.plPlural
+import com.baltajmn.habit.i18n.ruPlural
 import com.baltajmn.habit.i18n.streakText
+import com.baltajmn.habit.i18n.weekStreakText
 import com.baltajmn.habit.data.nextReminderAt
 import com.baltajmn.habit.model.Habit
 import com.baltajmn.habit.model.habitIcon
@@ -433,8 +437,47 @@ class StringsTest {
         assertEquals("4 Tage in Folge", streakText(4, "de"))
         assertEquals("1 jour d'affilée", streakText(1, "fr"))
         assertEquals("4 jours d'affilée", streakText(4, "fr"))
+        assertEquals("4 giorni di fila", streakText(4, "it"))
+        assertEquals("4日連続", streakText(4, "ja"))
+        assertEquals("4일 연속", streakText(4, "ko"))
+        assertEquals("1 dzień z rzędu", streakText(1, "pl"))
+        assertEquals("5 dni z rzędu", streakText(5, "pl"))
+        assertEquals("4 gün üst üste", streakText(4, "tr"))
+        assertEquals("4 hari berturut-turut", streakText(4, "id"))
+        assertEquals("21 день подряд", streakText(21, "ru"))
+        assertEquals("3 дня подряд", streakText(3, "ru"))
+        assertEquals("11 дней подряд", streakText(11, "ru"))
+        assertEquals("1 dag op rij", streakText(1, "nl"))
+        assertEquals("4 dagen op rij", streakText(4, "nl"))
+        assertEquals("2 tygodnie z rzędu", weekStreakText(2, "pl"))
+        assertEquals("5 недель подряд", weekStreakText(5, "ru"))
         // An unsupported language falls back to English rather than to an empty string.
-        assertEquals("4 day streak", streakText(4, "ja"))
+        assertEquals("4 day streak", streakText(4, "zh"))
+    }
+
+    @Test
+    fun slavic_plurals_follow_the_last_digits() {
+        // n -> the form Russian and Polish pick. The two only part ways on 21, 31 ...: Russian
+        // reads the last digit, Polish only ever treats 1 itself as singular.
+        val cases = mapOf(
+            0 to ("many" to "many"),
+            1 to ("one" to "one"),
+            2 to ("few" to "few"),
+            4 to ("few" to "few"),
+            5 to ("many" to "many"),
+            11 to ("many" to "many"),
+            12 to ("many" to "many"),
+            14 to ("many" to "many"),
+            21 to ("one" to "many"),
+            22 to ("few" to "few"),
+            25 to ("many" to "many"),
+            112 to ("many" to "many"),
+            122 to ("few" to "few"),
+        )
+        for ((n, expected) in cases) {
+            assertEquals(expected.first, ruPlural(n, "one", "few", "many"), "ru $n")
+            assertEquals(expected.second, plPlural(n, "one", "few", "many"), "pl $n")
+        }
     }
 
     @Test
@@ -444,7 +487,7 @@ class StringsTest {
         // midnight and noon are where 12-hour clocks usually break
         assertEquals("12:00 AM", formatTime(0, "en"))
         assertEquals("12:00 PM", formatTime(12 * 60, "en"))
-        for (lang in listOf("es", "pt", "de", "fr")) {
+        for (lang in SUPPORTED - "en") {
             assertEquals("07:05", formatTime(7 * 60 + 5, lang), lang)
             assertEquals("19:30", formatTime(19 * 60 + 30, lang), lang)
         }
@@ -456,12 +499,21 @@ class StringsTest {
         // grid draws the wrong month label over the wrong column, in that language only.
         for (lang in SUPPORTED) {
             assertEquals(12, monthNames(lang).size, "months in $lang")
+            assertEquals(12, monthNamesGenitive(lang).size, "genitive months in $lang")
             assertEquals(12, monthAbbreviations(lang).size, "short months in $lang")
             assertEquals(7, dayInitialsFor(lang).size, "day initials in $lang")
             assertEquals(emptyList(), monthNames(lang).filter { it.isBlank() }, "blank month in $lang")
             assertEquals(
                 emptyList(),
-                monthAbbreviations(lang).filter { it.length != 3 },
+                dayInitialsFor(lang).filter { it.isBlank() || it.length > 2 },
+                "day initials have to fit a 34 dp circle in $lang",
+            )
+            // Japanese and Korean write "10月": a number and one glyph, about as wide as three
+            // Latin capitals. Every alphabet has to be exactly three letters.
+            val cjk = lang == "ja" || lang == "ko"
+            assertEquals(
+                emptyList(),
+                monthAbbreviations(lang).filter { if (cjk) it.length !in 2..3 else it.length != 3 },
                 "short month names must all be three letters in $lang",
             )
         }

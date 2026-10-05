@@ -18,7 +18,8 @@ Compose Multiplatform sobre Kotlin Multiplatform: una sola interfaz para las dos
 - Recordatorios locales por hábito, respetando los días programados.
 - Compartir una imagen de la semana, el mes o el año.
 - Exportar e importar la copia completa en JSON, y exportar a CSV.
-- Cinco idiomas: inglés, español, portugués, alemán y francés.
+- Trece idiomas, los mismos que la ficha: inglés, español, portugués, alemán, francés, italiano,
+  japonés, coreano, polaco, turco, indonesio, ruso y neerlandés.
 
 Sin cuenta, sin registro y sin analítica. Todo vive en un fichero JSON en el dispositivo. La única
 conexión que hace la app es la de procesar una compra.

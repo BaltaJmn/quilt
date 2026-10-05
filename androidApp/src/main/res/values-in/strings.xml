@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_description">Centang kebiasaan hari ini</string>
+    <string name="widget_title">Hari ini</string>
+    <string name="year_widget_description">Satu kebiasaan, setahun penuh</string>
+</resources>

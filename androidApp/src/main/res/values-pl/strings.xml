@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_description">Odhaczaj dzisiejsze nawyki</string>
+    <string name="widget_title">Dziś</string>
+    <string name="year_widget_description">Jeden nawyk, cały rok</string>
+</resources>
