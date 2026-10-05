@@ -1,0 +1,1 @@
+Gewohnheitstracker,Serie,Widget,Routine,Ziele,Kalender,Planer,Erinnerung,Raster,Pixel,Fortschritt
