@@ -83,8 +83,9 @@ private fun YearBody() {
     ) {
         if (habit == null) {
             Box(modifier = GlanceModifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                // Not "nothing scheduled today": this widget is about the year, and iOS says the same.
                 Text(
-                    text = S.widgetEmpty,
+                    text = S.pickHabit,
                     style = TextStyle(color = Muted, fontSize = 12.sp),
                 )
             }
@@ -115,9 +116,13 @@ private fun YearBody() {
     }
 }
 
+/**
+ * The squares the grid paints as done, so the number and the picture agree. A tick on a day off the
+ * schedule is drawn as off, and counting it here made Android say one figure and iOS another.
+ */
 private fun Habit.doneDaysIn(year: Int): Int {
     val first = LocalDate(year, 1, 1)
-    return (0 until daysInYear(year)).count { isDoneOn(first.plus(DatePeriod(days = it))) }
+    return (0 until daysInYear(year)).count { stateOn(first.plus(DatePeriod(days = it))) == DayState.Done }
 }
 
 private fun yearBitmap(context: Context, habit: Habit, size: DpSize, year: Int): Bitmap {

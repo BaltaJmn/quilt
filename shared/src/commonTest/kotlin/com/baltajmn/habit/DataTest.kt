@@ -3,8 +3,10 @@ package com.baltajmn.habit
 import com.baltajmn.habit.data.HabitRepository
 import com.baltajmn.habit.data.csvOf
 import com.baltajmn.habit.data.cycled
+import com.baltajmn.habit.data.hasNewReminder
 import com.baltajmn.habit.data.millisUntilTomorrow
 import com.baltajmn.habit.data.reachedReviewStreak
+import com.baltajmn.habit.data.reminderKeys
 import com.baltajmn.habit.data.skipToggled
 import com.baltajmn.habit.i18n.normalizeLanguage
 import com.baltajmn.habit.model.Habit
@@ -382,6 +384,43 @@ class MidnightTest {
             assertEquals(date, now.plus((wait - 1).milliseconds).toLocalDateTime(zone).date, "$now fires early")
             now = now.plus(1.hours)
         }
+    }
+}
+
+/** When the app is allowed to ask for the notification permission, on both platforms alike. */
+class ReminderPromptTest {
+
+    private fun keys(vararg reminders: Pair<String, Int?>, archived: Boolean = false) = reminderKeys(
+        reminders.map { (id, minute) -> habit(archived = archived).copy(id = id, reminderMinute = minute) }
+    )
+
+    @Test
+    fun the_first_sync_of_the_process_never_asks() {
+        assertFalse(hasNewReminder(null, keys("a" to 540)))
+    }
+
+    @Test
+    fun re_syncing_the_same_reminders_never_asks() {
+        // A launch, a return to the foreground and a tick all land here. Asking on them was the loop.
+        assertFalse(hasNewReminder(keys("a" to 540), keys("a" to 540)))
+    }
+
+    @Test
+    fun a_reminder_just_set_or_moved_asks() {
+        assertTrue(hasNewReminder(keys(), keys("a" to 540)))
+        assertTrue(hasNewReminder(keys("a" to 540), keys("a" to 600)))
+        assertTrue(hasNewReminder(keys("a" to 540), keys("a" to 540, "b" to 480)))
+    }
+
+    @Test
+    fun taking_a_reminder_away_does_not_ask() {
+        assertFalse(hasNewReminder(keys("a" to 540, "b" to 480), keys("a" to 540)))
+        assertFalse(hasNewReminder(keys("a" to 540), keys("a" to null)))
+    }
+
+    @Test
+    fun an_archived_habit_has_no_reminder_to_ask_for() {
+        assertEquals(emptySet(), keys("a" to 540, archived = true))
     }
 }
 

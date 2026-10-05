@@ -32,3 +32,19 @@ fun Habit.nextReminderAt(now: LocalDateTime): LocalDateTime? {
     }
     return null
 }
+
+/** Each active reminder as far as asking for permission goes: which habit, at what time. */
+internal fun reminderKeys(habits: List<Habit>): Set<String> =
+    habits.filter { !it.archived && it.reminderMinute != null }
+        .map { "${it.id}@${it.reminderMinute}" }
+        .toSet()
+
+/**
+ * Whether a re-sync carries a reminder the user has just set or moved. Only that earns asking for
+ * the permission: a launch, a return to the foreground and a tick all re-sync the same reminders,
+ * and asking on each of them turns one "no" into a loop. On iOS the loop was literal, Settings
+ * opened again every time the user came back from it. Null [previous] is the first sync of the
+ * process, which sets the baseline and asks nothing.
+ */
+internal fun hasNewReminder(previous: Set<String>?, current: Set<String>): Boolean =
+    previous != null && !previous.containsAll(current)

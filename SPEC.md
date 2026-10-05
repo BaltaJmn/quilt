@@ -50,8 +50,10 @@ pero multiplataforma desde el día uno. Una frase: *"tu año entero en una panta
 
 ### Descartado a propósito
 
-- **Atajos de Siri / App Intents y tile de Ajustes rápidos.** El widget ya cubre "marcar sin abrir la app".
-  Un tile solo dispara una acción, así que habría que elegir hábito y añadir configuración para ello.
+- ~~**Atajos de Siri / App Intents y tile de Ajustes rápidos.**~~ Se descartaron y acabaron entrando, cada
+  uno en su plataforma: el tile marca el siguiente pendiente sin elegir hábito, y Siri elige el hábito por
+  voz. Son las únicas superficies que no existen en las dos tiendas, porque el sistema no las ofrece en la
+  otra. La tabla de superficies de `CLAUDE.md` es la referencia.
 - **Que iOS se salte el aviso si el hábito ya está hecho.** Exigiría triggers no repetitivos programados por
   adelantado, y con el tope de 64 pendientes eso son 12 días de margen con 5 hábitos, o 4 días con 15. Si el
   usuario tarda en abrir la app, los recordatorios se acaban en silencio. Peor que una notificación de más.

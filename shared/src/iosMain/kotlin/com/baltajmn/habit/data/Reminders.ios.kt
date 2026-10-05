@@ -4,6 +4,7 @@ import com.baltajmn.habit.model.Habit
 import platform.Foundation.NSDateComponents
 import platform.UserNotifications.UNAuthorizationOptionAlert
 import platform.UserNotifications.UNAuthorizationOptionSound
+import platform.UserNotifications.UNAuthorizationStatusDenied
 import platform.UserNotifications.UNCalendarNotificationTrigger
 import platform.UserNotifications.UNMutableNotificationContent
 import platform.UserNotifications.UNNotificationRequest
@@ -30,16 +31,29 @@ actual object Reminders {
      */
     var onNeedsPermission: (() -> Unit)? = null
 
+    /** What the last sync scheduled, to tell a reminder just set from one merely re-synced. */
+    private var lastReminders: Set<String>? = null
+
     actual fun sync(habits: List<Habit>) {
         center.removeAllPendingNotificationRequests()
         val scheduled = habits.filter { !it.archived && it.reminderMinute != null }
+        val keys = reminderKeys(habits)
+        val isNew = hasNewReminder(lastReminders, keys)
+        lastReminders = keys
         if (scheduled.isEmpty()) return
-        center.requestAuthorizationWithOptions(
-            UNAuthorizationOptionAlert or UNAuthorizationOptionSound
-        ) { granted, _ ->
-            // Both callbacks arrive off the main thread and the handler touches Compose state.
-            dispatch_async(dispatch_get_main_queue()) {
-                if (granted) scheduled.forEach { schedule(it) } else onNeedsPermission?.invoke()
+        center.getNotificationSettingsWithCompletionHandler { settings ->
+            // Settings only once the system alert can no longer appear, and only for a reminder the
+            // user just set. Sending them there right after they said no to the alert is pushy, and
+            // doing it on every sync bounced them back to Settings every time they returned.
+            val wasDenied = settings?.authorizationStatus == UNAuthorizationStatusDenied
+            center.requestAuthorizationWithOptions(
+                UNAuthorizationOptionAlert or UNAuthorizationOptionSound
+            ) { granted, _ ->
+                // Both callbacks arrive off the main thread and the handler touches Compose state.
+                dispatch_async(dispatch_get_main_queue()) {
+                    if (granted) scheduled.forEach { schedule(it) }
+                    else if (wasDenied && isNew) onNeedsPermission?.invoke()
+                }
             }
         }
     }

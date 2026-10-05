@@ -126,6 +126,10 @@ struct HabitStore: Codable {
     var version: Int
     var habits: [Habit]
     var isPro: Bool
+    /// Never read here, only carried: this struct re-encodes the whole file on every tap, and
+    /// without the field the once-ever rating prompt would be re-armed by the widget.
+    /// Optional for the same reason as `Habit.skipped`, files from before 1.8 do not have it.
+    var reviewRequested: Bool?
 }
 
 enum HabitFile {

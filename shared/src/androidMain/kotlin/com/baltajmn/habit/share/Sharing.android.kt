@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.core.content.FileProvider
 import com.baltajmn.habit.data.AndroidContext
+import com.baltajmn.habit.i18n.S
 import java.io.ByteArrayOutputStream
 import java.io.File
 
@@ -33,7 +34,7 @@ actual object Sharing {
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
         context.startActivity(
-            Intent.createChooser(send, "Compartir").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            Intent.createChooser(send, S.share).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         )
     }
 

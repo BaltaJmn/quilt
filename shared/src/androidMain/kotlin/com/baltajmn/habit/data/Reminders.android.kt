@@ -27,17 +27,23 @@ actual object Reminders {
      */
     var onNeedsPermission: (() -> Unit)? = null
 
+    /** What the last sync scheduled, to tell a reminder just set from one merely re-synced. */
+    private var lastReminders: Set<String>? = null
+
     actual fun sync(habits: List<Habit>) {
         val context = AndroidContext.value
         val alarms = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        var needsPermission = false
+        val keys = reminderKeys(habits)
+        // Asking on every sync re-opened the dialog in the onResume that follows a "no", which
+        // left the user one tap from denying it for good without having chosen to.
+        val ask = hasNewReminder(lastReminders, keys)
+        lastReminders = keys
 
         habits.forEach { habit ->
             alarms.cancel(pendingIntent(context, habit.id))
             if (habit.archived) return@forEach
             val next = habit.nextReminderAt(now) ?: return@forEach
-            needsPermission = true
             // Inexact on purpose: an exact alarm would need SCHEDULE_EXACT_ALARM, and a habit
             // nudge a few minutes late is fine. allowWhileIdle still gets it out of doze.
             alarms.setAndAllowWhileIdle(
@@ -47,7 +53,7 @@ actual object Reminders {
             )
         }
 
-        if (needsPermission && !hasNotificationPermission(context)) onNeedsPermission?.invoke()
+        if (ask && !hasNotificationPermission(context)) onNeedsPermission?.invoke()
     }
 
     actual fun cancel(habitId: String) {
