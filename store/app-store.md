@@ -240,7 +240,8 @@ Hecho esto una vez, `.github/workflows/release-ios.yml` repite el proceso entero
     | Location, Contacts, Health, Diagnostics, Usage Data | **No** |
 
     Anadir cualquier SDK de analitica o de informes de fallos invalida estas respuestas y obliga a
-    rehacer el formulario y la politica.
+    rehacer el formulario, la politica y `iosApp/iosApp/PrivacyInfo.xcprivacy`, que repite estas
+    mismas respuestas.
 
 25. **[tú] Age Rating.** 4+. Sin contenido generado por usuarios, sin publicidad, sin navegador,
     sin apuestas.
@@ -302,6 +303,8 @@ Verificado sobre el `.app` construido, no sobre lo que deberia pasar:
 | Version minima de iOS | 17.0. Antes 18.2, que dejaba fuera todo lo anterior a diciembre de 2024 |
 | `:shared:iosSimulatorArm64Test` | Verde |
 | Compilacion Release de la app y del widget | Verde |
+| `PrivacyInfo.xcprivacy` dentro del `.app` | Si. Declara `stat`/`fstat` (C617.1) y `NSUserDefaults` (CA92.1), sacados con `nm -u` del binario. Sin el, App Store Connect rechaza la subida con ITMS-91053. El widget no enlaza ninguna de esas APIs |
+| Interfaz en iPad Pro 13" | Revisada en simulador: las tarjetas ocupan el ancho y la rejilla del ano escala sin cortes |
 
 ---
 
