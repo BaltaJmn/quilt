@@ -233,11 +233,12 @@ Hecho esto una vez, `.github/workflows/release-ios.yml` repite el proceso entero
     | Pregunta | Respuesta |
     |---|---|
     | Purchases, Purchase History | Si, se recoge |
-    | Identifiers, Device ID | Si, se recoge (el identificador anonimo de RevenueCat) |
-    | Ambos: vinculado a la identidad del usuario | **No**. No hay cuentas ni `Purchases.logIn()` |
-    | Ambos: usado para seguimiento | **No** |
-    | Ambos: para que | App Functionality |
-    | Location, Contacts, Health, Diagnostics, Usage Data | **No** |
+    | Vinculado a la identidad del usuario | **No**. No hay cuentas ni `Purchases.logIn()` |
+    | Usado para seguimiento | **No** |
+    | Para que | App Functionality y Analytics, las dos que pide la documentacion de RevenueCat |
+    | Identifiers, Location, Contacts, Health, Diagnostics, Usage Data | **No**. RevenueCat pide Device ID solo con integraciones que usen el IDFA y User ID solo con IDs propios |
+
+    Rellenado en App Store Connect el 05-10-2026, igual en las cuatro apps de la familia.
 
     Anadir cualquier SDK de analitica o de informes de fallos invalida estas respuestas y obliga a
     rehacer el formulario, la politica y `iosApp/iosApp/PrivacyInfo.xcprivacy`, que repite estas
