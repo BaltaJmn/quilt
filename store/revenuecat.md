@@ -45,7 +45,7 @@ Y dos cosas que no son un menú escondido sino una precondición:
 | Producto | Uno solo, compra única. Nunca suscripción. |
 | Identificador | `pro_lifetime`. **Irreversible**: un ID borrado no se reutiliza jamás. |
 | Nombre visible | Quilt Pro |
-| Precio | 4,99 € de base, conversión automática al resto de monedas **con redondeo**. |
+| Precio | 4,99 € de escaparate en España: 4,12 € sin IVA en el precio en bloque y conversión de Google sin tocar, como Chroma, FlowTime y MoodTraker. Hasta el 05-10-2026 estuvo a 5,99 por meter 4,99 sin IVA. |
 | Países | Todos. |
 | Prueba gratuita | No. El plan gratis es la prueba. |
 
@@ -74,8 +74,8 @@ No se puede conectar nada hasta que Play tenga qué vender.
 2. **Crear producto.**
 3. Identificador: `pro_lifetime`.
 4. Nombre y descripción por idioma, los de la tabla de abajo.
-5. Precio 4,99 €, convierte al resto y pulsa **Redondear precios**: sin eso salen 5,37 zł y
-   227,43 ¥, que leen como un error de la tienda.
+5. Precio en bloque **4,12 €**: va sin IVA, y con el 21 % sale a 4,99 en España. La conversión de Google ya
+   redondea las monedas grandes (21,99 zł, 800 ¥).
 6. **Actívalo.** Un producto inactivo no aparece por la API y el paywall sale sin precio.
 
 | Idioma | Nombre | Descripción |
@@ -180,8 +180,8 @@ Yo la pego en `revenueCatApiKey` (el `actual` de Android) y verifico compra y re
 
 Mismo proyecto de RevenueCat, otra app dentro:
 
-- **Apps → + App Store**, con el bundle ID y la *App-Specific Shared Secret* de App Store Connect.
-- Crear allí el producto con **el mismo identificador**, `pro_lifetime`.
+- **Apps → + App Store**, con el bundle ID y la clave de compras integradas de App Store Connect (`.p8` + Issuer ID; la *Shared Secret* ya no hace falta con StoreKit 2).
+- Crear allí el producto `com.baltajmn.habit.pro_lifetime`: en Apple un ID no se repite entre apps de la cuenta.
 - Asociarlo al **mismo derecho `pro`** y al mismo paquete de la oferta.
 - Copiar la clave pública de iOS (`appl_...`) y pasármela.
 

@@ -17,7 +17,7 @@ trámites y el test cerrado de 14 días. Todo lo que sea código cabe dentro de 
       **paleta completa** (gratis 4 de 8). Widgets, recordatorios, exportación y la cuadrícula anual
       entera son gratis para siempre. `pitch` reescrito en los cinco idiomas y el `TODO` fuera.
       Detalle en `revenuecat.md` §0.
-- [x] ~~**El precio de Pro.**~~ **4,99 €** de base, conversión automática con redondeo, todos los
+- [x] ~~**El precio de Pro.**~~ **4,99 €** de escaparate (4,12 € sin IVA de base), conversión automática, todos los
       países, sin prueba gratuita.
 
 ## Estado de la publicación

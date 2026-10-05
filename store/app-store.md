@@ -97,14 +97,14 @@ identificador, ni abrir la ficha. Es lo primero.
 10. **[tú] Crear el producto.** Tu app, *Monetization*, *In-App Purchases*, boton +:
     - Tipo: **Non-Consumable**
     - Reference Name: `Quilt Pro`
-    - Product ID: `pro_lifetime`, **exactamente el mismo que en Play**
+    - Product ID: `com.baltajmn.habit.pro_lifetime` (en Apple no se repite entre apps de la cuenta)
     - Precio: 4,99 EUR, el mismo escalon que en Play
     - Localizaciones: nombre y descripcion en los cinco idiomas
     - Review Screenshot: una captura de la pantalla Pro, obligatoria
 
 11. **[tú] Conectar RevenueCat.** Dashboard de RevenueCat, proyecto Quilt, *+ New App*, plataforma
     *App Store*. Pide el bundle id y una clave de App Store Connect API del tipo *In-App Purchase*,
-    que es la que le deja validar los recibos. Luego anade `pro_lifetime` al mismo *Entitlement*
+    que es la que le deja validar los recibos. Luego anade `com.baltajmn.habit.pro_lifetime` al mismo *Entitlement*
     `pro` y al mismo *Offering* que ya usa Android, para que el codigo comun no distinga plataforma.
 
 12. **[tú] Pegar la clave publica de iOS.** RevenueCat, *API Keys*, la que empieza por `appl_`:
