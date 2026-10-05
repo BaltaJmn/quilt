@@ -99,15 +99,16 @@ de prueba**. Nada de datos financieros: no los necesita.
 sobre macOS, que es lo único que demuestra que `iosMain` sigue compilando y enlazando. El de macOS
 cuesta diez veces más por minuto, y por eso el disparador no incluye ramas sueltas.
 
-`.github/workflows/release-ios.yml` se dispara con la misma etiqueta `v*`, así que una etiqueta
-publica en las dos tiendas. Archiva, exporta y sube a TestFlight en un solo `xcodebuild`
-(`destination: upload` en el `ExportOptions.plist`, que evita tener que pasar el ipa por `altool`).
+`release-ios.yml` se dispara con la misma etiqueta `v*`, así que una etiqueta publica en las dos
+tiendas. Solo llama a `ios-testflight-release.yml` de `BaltaJmn/ci`, el mismo en las cuatro apps de
+iOS: archiva, firma con los certificados propios del equipo y sube a TestFlight. El README de
+`BaltaJmn/ci` cuenta por qué firma con dos `.p12`, y su `PUBLICAR.md`, el proceso entero de las dos
+tiendas.
 
-Mientras no existan los secretos de Apple el trabajo se salta solo y deja un aviso, en vez de salir
-rojo en cada etiqueta y acostumbrarte a ignorar la marca roja de al lado, que sí importa.
+La versión y el número de build son el `versionName` y el `versionCode` de Android, los mismos que
+sube Play con esa etiqueta. Sin máquina macOS libre, `~/keys/testflight.sh .` hace lo mismo desde el
+Mac.
 
-El número de build de iOS lo pone el workflow desde `github.run_number`, no `Config.xcconfig`. App
-Store Connect solo exige que suba, y así no hay que acordarse.
 
 ### Secretos de Apple
 
@@ -117,8 +118,10 @@ Store Connect solo exige que suba, y así no hay que acordarse.
 | `APPSTORE_ISSUER_ID` | El Issuer ID, el mismo para todas las claves de la cuenta |
 | `APPSTORE_PRIVATE_KEY` | El contenido del `.p8`, entero, con sus líneas `BEGIN`/`END` |
 | `APPLE_TEAM_ID` | El Team ID de la cuenta de desarrollador |
+| `APPLE_DEVELOPMENT_P12` | Certificado Apple Development con su clave, `.p12` en base64 |
+| `APPLE_DEVELOPMENT_P12_PASSWORD` | Su contraseña |
+| `APPLE_DISTRIBUTION_P12` | Certificado Apple Distribution con su clave, `.p12` en base64 |
+| `APPLE_DISTRIBUTION_P12_PASSWORD` | Su contraseña |
 
-La clave `.p8` se descarga **una sola vez** desde App Store Connect. Si se pierde, se revoca y se
-crea otra. Necesita rol *App Manager* o superior para que `-allowProvisioningUpdates` pueda crear
-el certificado y los perfiles por su cuenta: es lo que evita tener que meter un `.p12` en un
-secreto.
+Los ocho son de cuenta, iguales en los cuatro repos de iOS, y los pone `~/keys/credenciales.sh
+sincronizar`.
