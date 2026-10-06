@@ -106,7 +106,7 @@ lo que se ve en él.
 
 ```
 1. Screen recording
-Attached: a recording made on a physical iPhone running the latest iOS, starting from a fresh install: creating a habit with its days and a daily reminder, marking it done for today, Settings with the backup, import and CSV export, the Quilt Pro screen, buying Quilt Pro with a sandbox account, the Pro feature of having more than three habits (the free limit), and the home screen widget. The Buy button shows the price StoreKit returns: in the recording it is the US price ($3.99) because the device had not signed in to the sandbox store yet, and the purchase sheet then shows the Spanish price (4.99 EUR). Quilt has no account registration, login or account deletion, and nothing is shared with other users (no user-generated content), so those flows do not exist.
+Attached: a recording made on a physical iPhone running the latest iOS, starting from a fresh install: creating a habit with its days and a daily reminder, marking it done for today, Settings with the backup, import and CSV export, the Quilt Pro screen, buying Quilt Pro with a sandbox account, the Pro feature of having more than three habits (the free limit), and the home screen widget. The Buy button shows the price StoreKit returns. The recording was made before Quilt Pro dropped to $1.99: the button shows the US price at the time ($3.99), because the device had not signed in to the sandbox store yet, and the purchase sheet the Spanish one (4.99 EUR). Quilt has no account registration, login or account deletion, and nothing is shared with other users (no user-generated content), so those flows do not exist.
 
 2. Purpose and audience
 Quilt is a yearly habit tracker. Each habit is a grid of the whole year: every day you keep it becomes a filled patch, and by the end of the year you have the whole quilt. It is for people who want to build habits with a clear visual overview and no pressure: no accounts, no social feeds and no ads. Everything stays on the device.
@@ -127,7 +127,7 @@ Reminders are local notifications; the permission prompt appears when the first 
 Nothing else: no account system, no server of our own, no analytics, no ads and no AI services.
 
 5. Regions
-The app works the same in every region. It is available in every App Store country except mainland China, in 13 languages, and the price of Quilt Pro follows Apple's regional pricing.
+The app works the same in every region. It is available in every App Store country except mainland China, in 13 languages, and Quilt Pro costs $1.99 (1.99 EUR in Spain), with Apple's regional pricing elsewhere.
 
 6. Regulated industries and third-party material
 Not applicable: Quilt is not in a regulated industry and includes no protected third-party material.

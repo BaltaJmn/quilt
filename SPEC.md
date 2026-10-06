@@ -170,6 +170,11 @@ Nada de lo que se vende es necesario para que la app cumpla su promesa.
 
 ### Precio
 
+**Desde el 06-10-2026, 1,99 EUR**: el mismo precio en las cuatro apps de la familia y en las dos
+tiendas, en cada país el de Apple (`tienda/compra.py` de `BaltaJmn/ci`). Es el escalón más bajo que deja
+más de un euro por venta: 1,99 / 1,21 de IVA y menos el 15 % de comisión son ~1,40 EUR netos. Quien
+compró antes conserva Pro. Lo que sigue es el razonamiento del precio anterior, como historia.
+
 | Producto | Precio de referencia (ES/US/UK) | Nota |
 |---|---|---|
 | **Pro para siempre** | **9,99 €** | 6,99 € las primeras 4-6 semanas como precio de lanzamiento |
