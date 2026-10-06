@@ -99,16 +99,40 @@ solo `NSPhotoLibraryAddUsageDescription` ("Para guardar la imagen de tus habitos
 
 Notas para el revisor, en ingles:
 
+Desde el 06-10-2026 son las siete respuestas que Apple pidió a Chroma en su primera revisión (2.1,
+*Information Needed*, por ser una cuenta con poco historial), para adelantarse. Les falta el vídeo:
+se graba en un iPhone y va como archivo adjunto de la información para la revisión.
+
 ```
-Quilt has no account and no server. Everything is stored on the device, so no demo account is needed.
+1. Screen recording
+Attached: a recording made on a physical iPhone running the latest iOS, from launching the app through the typical flow: creating habits, marking days, a skipped day, the year grid of a habit, a reminder, sharing the year, Settings, buying Quilt Pro with a sandbox account, a Pro feature and Restore purchase. Quilt has no account registration, login or account deletion, and nothing is shared with other users (no user-generated content), so those flows do not exist.
 
-The free plan allows 3 habits and the first 4 of the 8 colors. Quilt Pro is a one-time non-consumable in-app purchase (product com.baltajmn.habit.pro_lifetime, entitlement "pro" in RevenueCat) that removes both limits. Widgets, reminders, export and import, and the full year grid are free for everyone.
+2. Purpose and audience
+Quilt is a yearly habit tracker. Each habit is a grid of the whole year: every day you keep it becomes a filled patch, and by the end of the year you have the whole quilt. It is for people who want to build habits with a clear visual overview and no pressure: no accounts, no social feeds and no ads. Everything stays on the device.
 
-To reach the purchase screen: tap the + button to create habits; once there are 3, tapping + again opens the Pro dialog. It also opens when you tap a locked color in the habit form (colors after the first 4), and from Settings (gear icon, top right) > "Get Pro". Tap "Buy for <price>" and complete the purchase with a Sandbox account.
+3. How to use it
+No login, no setup and no sample files are needed.
+- Tap + to create a habit: name, icon, color, the days it is due and an optional reminder.
+- Tap a habit's check to mark today, or tap any past day in its grid to mark it. Long-press a day to mark it as skipped: it is excused and does not break the streak.
+- Tap a habit to open its detail: the year grid and its stats.
+- Share the year as an image. The only photo permission is add-only, to save that image.
+- Settings (gear icon, top right): reminders, export and import, Get Pro, Restore purchase and the privacy policy.
+- Widgets, and Siri and Shortcuts ("Mark a habit in Quilt").
+Reminders are local notifications; the permission prompt appears when the first reminder is set.
 
-Restore Purchase: Settings (gear icon, top right) > "Restore purchase", and also inside the Pro dialog. Both are hidden once Pro is active. The privacy policy link is at the bottom of Settings.
+4. External services
+- Apple In-App Purchase (StoreKit), for the single purchase.
+- RevenueCat (revenuecat.com), to validate that purchase and know whether Quilt Pro is active. It receives the purchase and an anonymous ID, never a name or an email.
+Nothing else: no account system, no server of our own, no analytics, no ads and no AI services.
 
-Reminders are local notifications; the permission prompt appears when the first reminder is set. The only photo permission is add-only, used to save a share image of the year to the camera roll. Siri and Shortcuts can mark a habit ("Mark a habit in Quilt").
+5. Regions
+The app works the same in every region. It is available in every App Store country except mainland China, in 13 languages, and the price of Quilt Pro follows Apple's regional pricing.
+
+6. Regulated industries and third-party material
+Not applicable: Quilt is not in a regulated industry and includes no protected third-party material.
+
+7. In-App Purchase
+One non-consumable product, Quilt Pro (com.baltajmn.habit.pro_lifetime): a one-time payment, no subscription. The free plan allows 3 habits and the first 4 of the 8 colors; Pro removes both limits. Widgets, reminders, export and import and the full year grid are free for everyone. The Pro dialog opens when you tap + with 3 habits already created, when you tap a locked color in the habit form, and from Settings > Get Pro; tap "Buy for <price>". Restore purchase is in Settings and inside the Pro dialog; both are hidden once Pro is active.
 ```
 
 ### Producto: `pro_lifetime` (Play), `com.baltajmn.habit.pro_lifetime` (App Store)
