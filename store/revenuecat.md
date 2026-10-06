@@ -45,7 +45,7 @@ Y dos cosas que no son un menú escondido sino una precondición:
 | Producto | Uno solo, compra única. Nunca suscripción. |
 | Identificador | `pro_lifetime`. **Irreversible**: un ID borrado no se reutiliza jamás. |
 | Nombre visible | Quilt Pro |
-| Precio | 1,99 € en las dos tiendas desde el 06-10-2026 (`compra.py` de `BaltaJmn/ci`; Apple, al aprobarse la 1.8). Antes, 4,99 € de escaparate en España: 4,12 € sin IVA en el precio en bloque y conversión de Google sin tocar, como Chroma, FlowTime y MoodTraker. Hasta el 05-10-2026 estuvo a 5,99 por meter 4,99 sin IVA. |
+| Precio | 1,99 € en las dos tiendas desde el 06-10-2026 (`compra.py` de `BaltaJmn/ci`). Antes, 4,99 € de escaparate en España: 4,12 € sin IVA en el precio en bloque y conversión de Google sin tocar, como Chroma, FlowTime y MoodTraker. Hasta el 05-10-2026 estuvo a 5,99 por meter 4,99 sin IVA. |
 | Países | Todos. |
 | Prueba gratuita | No. El plan gratis es la prueba. |
 

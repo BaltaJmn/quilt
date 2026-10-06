@@ -148,7 +148,7 @@ el derecho `pro` (`Billing.ENTITLEMENT`) y vende el **primer paquete de la ofert
 | Tipo | No consumible |
 | Nombre de referencia | `Quilt Pro` |
 | ID de producto | `com.baltajmn.habit.pro_lifetime`. En Apple un ID no se repite entre apps de la misma cuenta, y Chroma y FlowTime tambien venden `pro_lifetime`. No se puede reutilizar si se borra |
-| Precio | 1,99 EUR de base en España (con IVA), igual en las dos tiendas con `compra.py` de `BaltaJmn/ci` (Play desde el 06-10-2026; Apple cuando se apruebe la versión en revisión) |
+| Precio | 1,99 EUR de base en España (con IVA), igual en las dos tiendas con `compra.py` de `BaltaJmn/ci` (las dos desde el 06-10-2026) |
 | Disponibilidad | Todos los paises |
 | Compartir en familia | Sin marcar |
 | Captura para la revision | La pantalla Pro (el dialogo "Hábitos ilimitados"), obligatoria |
