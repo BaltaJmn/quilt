@@ -87,7 +87,7 @@ nadie, y repasa si alguien escribió entre el 1 y el 12 de septiembre sin que se
 La solicitud se puede enviar ya. Lo que no puede salir a producción sin esto:
 
 - Data Safety y clasificación IARC, respuestas en `play-listing.md`
-- El producto `pro_lifetime` a 4,99 €, o el botón de compra falla en producción. Pasos en
+- El producto `pro_lifetime` a 1,99 €, o el botón de compra falla en producción. Pasos en
   `revenuecat.md`
 
 ## Cronología de la prueba cerrada

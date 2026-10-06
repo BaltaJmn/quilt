@@ -1,127 +1,46 @@
 # Publicar desde GitHub Actions
 
-`.github/workflows/release.yml` compila el AAB firmado y lo sube al canal de prueba cerrada.
+Igual en las cuatro apps de la familia: el proceso, los workflows y los scripts viven en
+`BaltaJmn/ci` (`README.md` y `PUBLICAR.md`). Aquí, solo lo que es de Quilt.
 
-## Cómo se dispara
-
-**Por etiqueta**, no en cada push a `main`. Cada subida quema un `versionCode` y le llega a los
-probadores; hacerlo en cada commit es ruido y, durante el test cerrado, ruido que molesta a doce
-personas.
-
-```bash
-git tag v1.2 && git push origin v1.2
-```
-
-También hay disparo manual desde la pestaña *Actions*, con un desplegable para elegir canal
-(`alpha`, `internal`, `beta`, `production`). Sin elegir nada, la etiqueta va a `alpha`, que es la
-prueba cerrada.
-
-## La ficha de tienda
-
-`.github/workflows/listings.yml` sube los cinco idiomas de golpe con la API de Android Publisher,
-desde *Actions*, a mano. Los textos son [`store/listings/<idioma>/`](listings), tres ficheros por
-idioma. Usa el mismo `PLAY_SERVICE_ACCOUNT_JSON`, pero esa cuenta necesita ademas el permiso de
-ficha de Play Store, que el de publicar versiones no incluye.
-
-**La que hay que tocar es la de publicar, no la de RevenueCat.** Aquella ya tiene *Gestionar la
-presencia en la tienda*, asi que da la tentacion de cambiar el secreto y ahorrarse el paso. Se cambia
-el permiso de la publisher y punto: la de RevenueCat se creo sin poder publicar a proposito, y si se
-filtra su JSON la diferencia es entre que te lean los pedidos y que te suban un binario.
-
-Un push que toque `store/listings/**` solo comprueba los limites de caracteres. No escribe en Play.
-
-El disparo manual pide una accion, y por defecto es `estado`, que no escribe: lee en que canal esta
-cada `versionCode`. Es la unica forma de comprobar desde fuera de la Console si una version llego a
-su canal, porque `completed` significa enviada y `draft` significa que se quedo a medias.
-
-```bash
-gh workflow run listings.yml --ref main -f accion=estado   # lee, no toca nada
-gh workflow run listings.yml --ref main -f accion=subir    # escribe la ficha
-```
-
-**El `versionCode` no se reutiliza nunca, ni entre canales.** Play lo rechaza aunque el canal sea
-otro, asi que una version que ya entro en `internal` no se puede volver a subir a `alpha`: o se
-promociona a mano en la Console, o se saca una etiqueta nueva.
-
-## Lo que el workflow no hace
-
-**No sube el `versionCode`.** Sigue en `androidApp/build.gradle.kts` y lo cambias tú antes de
-etiquetar. Es a propósito: una sola fuente de verdad, y quien decide publicar es quien decide el
-número. Si se te olvida, Play rechaza la subida con "Version code 2 has already been used".
-
-**No escribe las notas de la versión.** Se siguen pegando a mano en la consola desde
-`release-notes-<versión>.txt`. Automatizarlo pide un fichero por idioma con un nombre concreto, y
-mientras las notas se escriban a mano para cada versión no compensa.
-
-## Secretos que hay que crear
-
-En el repositorio: *Settings → Secrets and variables → Actions → New repository secret*.
-
-| Secreto | Qué es |
+| Qué | Valor |
 |---|---|
-| `KEYSTORE_BASE64` | El `.jks` de subida, en base64 |
-| `KEYSTORE_PASSWORD` | La del almacén |
-| `KEY_ALIAS` | `upload` |
-| `KEY_PASSWORD` | La de la clave |
-| `PLAY_SERVICE_ACCOUNT_JSON` | El JSON de una cuenta de servicio **distinta** de la de RevenueCat |
+| Paquete de Play y bundle id de Apple | `com.baltajmn.habit` |
+| Clave de subida | `~/keys/quilt-upload.jks`, alias `upload`, `CN=Baltasar` (el `signer-cn` de `release.yml`) |
+| Versión de las dos tiendas | `versionName` y `versionCode` de `androidApp/build.gradle.kts` |
+| Web: contacto de Play, soporte y privacidad de Apple | https://quilt.baltajmn.dev/ |
+| Pro | `pro_lifetime` en Play, `com.baltajmn.habit.pro_lifetime` en Apple; 1,99 EUR en las dos |
 
-Para el primero:
+Ya está en producción en Play: la etiqueta va a `alpha` como en las demás, y se promociona a producción desde la consola.
+
+## Publicar una versión
+
+1. Subir el `versionCode` (y `versionName` si toca). Un `versionCode` no se reutiliza nunca.
+2. Si cambia algo visible, reescribir `store/whatsnew/whatsnew-<idioma>` en todos los idiomas (tope 500).
+3. Commit, y `git tag vX.Y && git push origin vX.Y`: Play `alpha` y TestFlight, la misma versión.
+4. Producción en Play y el envío a revisión de Apple, a mano en cada consola.
+
+Otro canal o una sola tienda: `gh workflow run release.yml -f stores=play -f track=internal`
+(`-f status=draft` mientras la app no haya publicado nada en Play).
+
+## Ficha
+
+Textos, gráficos y capturas en `store/`, con la estructura del README de `ci`. Cada push a `store/`
+la comprueba; para subirla, `gh workflow run listings.yml -f target=play` (o `app-store`, `both`).
+La App Store solo acepta cambios con una versión en preparación.
+
+## Secretos del repositorio
+
+Los cinco de Play salen de la clave de esta app y de la cuenta de servicio que publica. Se ponen sin
+que el valor pase por la pantalla:
 
 ```bash
-base64 -i ~/keys/quilt-upload.jks | pbcopy
+base64 -i ~/keys/quilt-upload.jks | gh secret set KEYSTORE_BASE64 -R BaltaJmn/quilt
+sed -n 's/^storePassword=//p' keystore.properties | tr -d '\n' | gh secret set KEYSTORE_PASSWORD -R BaltaJmn/quilt
+sed -n 's/^keyPassword=//p' keystore.properties | tr -d '\n' | gh secret set KEY_PASSWORD -R BaltaJmn/quilt
+printf upload | gh secret set KEY_ALIAS -R BaltaJmn/quilt
+gh secret set PLAY_SERVICE_ACCOUNT_JSON -R BaltaJmn/quilt < ~/keys/play-service-account.json
 ```
 
-Y lo pegas en el formulario de GitHub. No lo dejes en un fichero del repositorio ni en un chat.
-
-### La cuenta de servicio para publicar
-
-**No reutilices la de RevenueCat.** Aquella se creó a propósito sin permisos de publicación: solo
-lee pedidos. Esta necesita publicar, y son dos poderes que no deben vivir en la misma credencial.
-
-Se crea igual que la otra (Google Cloud → cuenta de servicio → clave JSON), y en Play Console
-*Usuarios y permisos → Invitar usuario* se le dan permisos sobre Quilt para **publicar en canales
-de prueba**. Nada de datos financieros: no los necesita.
-
-## Qué hace, en orden
-
-1. Compila con JDK 17 y reconstruye `keystore.properties` desde los secretos.
-2. Corre los tests de `shared` y genera el bundle.
-3. **Comprueba que el AAB va firmado con tu clave de subida**, no con la de debug. El build cae a
-   la clave de debug en silencio si falta `keystore.properties`, y Play no te lo dice hasta después
-   de subirlo.
-4. **Borra la clave del disco antes** de ejecutar la acción de terceros que sube a Play.
-5. Sube al canal, con el estado `completed`.
-
-## Los otros dos workflows
-
-`.github/workflows/tests.yml` corre en cada push a `main` y en cada pull request. Dos trabajos:
-`:shared:testAndroidHostTest` sobre Ubuntu, que es el rápido, y `:shared:iosSimulatorArm64Test`
-sobre macOS, que es lo único que demuestra que `iosMain` sigue compilando y enlazando. El de macOS
-cuesta diez veces más por minuto, y por eso el disparador no incluye ramas sueltas.
-
-`release-ios.yml` se dispara con la misma etiqueta `v*`, así que una etiqueta publica en las dos
-tiendas. Solo llama a `ios-testflight-release.yml` de `BaltaJmn/ci`, el mismo en las cuatro apps de
-iOS: archiva, firma con los certificados propios del equipo y sube a TestFlight. El README de
-`BaltaJmn/ci` cuenta por qué firma con dos `.p12`, y su `PUBLICAR.md`, el proceso entero de las dos
-tiendas.
-
-La versión y el número de build son el `versionName` y el `versionCode` de Android, los mismos que
-sube Play con esa etiqueta. Sin máquina macOS libre, `~/keys/testflight.sh .` hace lo mismo desde el
-Mac.
-
-
-### Secretos de Apple
-
-| Secreto | Qué es |
-|---|---|
-| `APPSTORE_KEY_ID` | El Key ID de la clave de la App Store Connect API |
-| `APPSTORE_ISSUER_ID` | El Issuer ID, el mismo para todas las claves de la cuenta |
-| `APPSTORE_PRIVATE_KEY` | El contenido del `.p8`, entero, con sus líneas `BEGIN`/`END` |
-| `APPLE_TEAM_ID` | El Team ID de la cuenta de desarrollador |
-| `APPLE_DEVELOPMENT_P12` | Certificado Apple Development con su clave, `.p12` en base64 |
-| `APPLE_DEVELOPMENT_P12_PASSWORD` | Su contraseña |
-| `APPLE_DISTRIBUTION_P12` | Certificado Apple Distribution con su clave, `.p12` en base64 |
-| `APPLE_DISTRIBUTION_P12_PASSWORD` | Su contraseña |
-
-Los ocho son de cuenta, iguales en los cuatro repos de iOS, y los pone `~/keys/credenciales.sh
-sincronizar`.
+Los ocho de Apple (`APPSTORE_*`, `APPLE_*`) son de cuenta, iguales en las cuatro apps: los pone
+`~/keys/credenciales.sh sincronizar`, que también renueva `PLAY_SERVICE_ACCOUNT_JSON` al rotarla.

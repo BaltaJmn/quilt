@@ -29,7 +29,7 @@ porqué de cada decisión de producto.
 | `iosApp/iosApp` | `iOSApp.swift`, `Info.plist`, los `<lang>.lproj` |
 | `iosApp/HabitWidget` | `HabitWidget.swift`, `HabitYearWidget.swift`, `HabitStore.swift` |
 | `iosApp/Configuration/Config.xcconfig` | Versión, identificador y Team ID de iOS |
-| `.github/workflows` | `tests.yml`, `release.yml` (Android), `release-ios.yml` |
+| `.github/workflows` | `tests.yml`, `release.yml` (Play y TestFlight), `listings.yml` (ficha); los dos últimos, llamadas a `BaltaJmn/ci` |
 
 `HabitStore.swift` reimplementa en Swift el modelo de `habits.json`. Un campo nuevo en `Habit` se
 añade en los dos sitios en el mismo cambio, o el widget de iOS lo borra del historial del usuario
@@ -50,7 +50,8 @@ la primera vez que alguien toca el widget.
 | `store/whatsnew/` | Novedades por idioma, cinco ficheros. Es el mecanismo vivo |
 | `store/release-notes-1.1.txt` | Notas del lanzamiento 1.1. Histórico, lo sustituye `whatsnew/` |
 | `store/screenshots/` | Capturas por idioma (`en`, `es`) y las de Play |
-| `store/graphics/` | Iconos, gráfico destacado y los dos `quilt-flow-*.mp4` |
+| `store/play/` | Icono y gráfico de funciones de Play (`feature/<idioma>.png`) |
+| `store/graphics/` | Los dos `quilt-flow-*.mp4` |
 | `store/privacy/` | Política de privacidad. Se publica aparte, en el repositorio `quilt-privacy` |
 
 ## Herramientas

@@ -69,7 +69,7 @@ politica y el manifiesto.
 |---|---|
 | Plataforma y dispositivos | Solo iPhone. Depende de `TARGETED_DEVICE_FAMILY = 1` en `project.pbxproj`, que ahora mismo es un cambio **sin commit** en el repositorio; commiteado, no hacen falta capturas de iPad (la fase G de `app-store.md` aun las pide) |
 | Nombre | `Quilt: Habit Tracker` (20/30). `Quilt: Habit Tracker & Streaks`, el titulo de Play, ya lo tenia reservado otra app el 05-10-2026 |
-| Subtitulo, palabras clave, texto promocional, descripcion | `store/app-store/<idioma>/`, los 13 idiomas de `store/listings/`. Topes comprobados con `python3 tools/store/fichas.py` |
+| Subtitulo, palabras clave, texto promocional, descripcion | `store/app-store/<idioma>/`, los 13 idiomas de `store/listings/`. Topes comprobados por `listings.yml` en cada push |
 | Idioma principal | English (U.S.) |
 | SKU | `quilt-ios-001` (el de `app-store.md`) |
 | Bundle ID | `com.baltajmn.habit` |
@@ -148,7 +148,7 @@ el derecho `pro` (`Billing.ENTITLEMENT`) y vende el **primer paquete de la ofert
 | Tipo | No consumible |
 | Nombre de referencia | `Quilt Pro` |
 | ID de producto | `com.baltajmn.habit.pro_lifetime`. En Apple un ID no se repite entre apps de la misma cuenta, y Chroma y FlowTime tambien venden `pro_lifetime`. No se puede reutilizar si se borra |
-| Precio | 4,99 EUR como base en Espana (en Apple ya lleva IVA), el mismo escaparate que pide `revenuecat.md`; el resto de paises por conversion automatica |
+| Precio | 1,99 EUR de base en España (con IVA), igual en las dos tiendas con `compra.py` de `BaltaJmn/ci` (Play desde el 06-10-2026; Apple cuando se apruebe la versión en revisión) |
 | Disponibilidad | Todos los paises |
 | Compartir en familia | Sin marcar |
 | Captura para la revision | La pantalla Pro (el dialogo "Hábitos ilimitados"), obligatoria |

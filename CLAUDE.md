@@ -121,9 +121,10 @@ xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp \
 Publicar: `git tag v1.8 && git push origin v1.8` dispara el workflow de Android, que sube a prueba
 cerrada (`alpha`) y la deja publicada en el mismo paso. No queda ningún botón que pulsar después.
 
-Ficha de tienda, los cinco idiomas de una vez:
+Ficha de tienda, todos los idiomas de una vez (`store/ci.md`):
 
 ```bash
-gh workflow run listings.yml --ref main -f accion=estado   # lee en qué canal está cada versión
-gh workflow run listings.yml --ref main -f accion=subir    # escribe la ficha en Play
+python3 ../ci/tienda/comprobar.py .                     # comprueba store/, no toca ninguna tienda
+/Users/baltajmn/keys/play.sh estado com.baltajmn.habit       # canales y versiones de Play
+gh workflow run listings.yml -f target=play               # sube la ficha a Play (o app-store, both)
 ```

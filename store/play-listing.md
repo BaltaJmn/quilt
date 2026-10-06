@@ -168,7 +168,7 @@ nunca la app qué hace.
 | Recurso | Requisito | Estado |
 |---|---|---|
 | Icono | 512×512 PNG de 32 bits, sin transparencia | Se genera con `tools/generate_icons.py` |
-| Gráfico de funciones | 1024×500 PNG o JPG. **Obligatorio** | Hecho: `store/graphics/feature-es.png`, `feature-en.png` |
+| Gráfico de funciones | 1024×500 PNG o JPG. **Obligatorio** | Hecho: `store/play/feature/es-ES.png`, `en-US.png` |
 | Capturas de teléfono | Mín. 2, máx. 8. Lado corto ≥ 320 px, lado largo ≤ 3840 px | Hechas a 1080×2400: `store/screenshots/es/`, `store/screenshots/en/` |
 | Capturas de tableta | Solo si declaras soporte de tableta | No hace falta |
 | Vídeo | URL de YouTube, opcional | Grabado: `store/graphics/quilt-flow-es.mp4`, `quilt-flow-en.mp4`. Falta subirlo a YouTube |
@@ -303,13 +303,13 @@ Las descripciones cortas repiten el patrón de la española: primero el contrast
 ## Subirlas todas de una vez
 
 Play Console no tiene importación masiva, pero la API sí. `.github/workflows/listings.yml`, ejecución
-manual desde *Actions*, manda los cinco idiomas en una sola edición. Es atómica: o entran los cinco o
+manual (`-f target=play`), manda todos los idiomas en una sola edición. Es atómica: o entran todos o
 no entra ninguno.
 
-En un push a `store/listings/**` el mismo workflow solo comprueba los límites, no escribe en Play.
+En un push a `store/` el mismo workflow solo comprueba, no escribe en ninguna tienda.
 
 ```bash
-python3 tools/play-listing/subir.py          # comprueba los topes, no toca Play
+python3 ../ci/tienda/comprobar.py .          # comprueba store/, no toca ninguna tienda
 ```
 
 Dos cosas antes de la primera ejecución:

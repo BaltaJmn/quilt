@@ -98,7 +98,7 @@ identificador, ni abrir la ficha. Es lo primero.
     - Tipo: **Non-Consumable**
     - Reference Name: `Quilt Pro`
     - Product ID: `com.baltajmn.habit.pro_lifetime` (en Apple no se repite entre apps de la cuenta)
-    - Precio: 4,99 EUR, el mismo escalon que en Play
+    - Precio: 1,99 EUR, el mismo que en Play (`compra.py` de `BaltaJmn/ci`)
     - Localizaciones: nombre y descripcion en los trece idiomas de la app
     - Review Screenshot: una captura de la pantalla Pro, obligatoria
 
@@ -157,7 +157,7 @@ los errores de firma se ven explicados en vez de como un log rojo de `xcodebuild
 
 ## Fase F. Dejar que lo haga el CI
 
-Hecho esto una vez, `.github/workflows/release-ios.yml` repite el proceso entero en cada etiqueta.
+Hecho esto una vez, `.github/workflows/release.yml` repite el proceso entero en cada etiqueta.
 
 18. **[tú] Crear la clave de API.** App Store Connect, *Users and Access*, *Integrations*,
     *App Store Connect API*, pestana *Team Keys*, boton +. Acceso **App Manager**, que es el minimo
