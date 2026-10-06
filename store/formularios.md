@@ -100,12 +100,13 @@ solo `NSPhotoLibraryAddUsageDescription` ("Para guardar la imagen de tus habitos
 Notas para el revisor, en ingles:
 
 Desde el 06-10-2026 son las siete respuestas que Apple pidió a Chroma en su primera revisión (2.1,
-*Information Needed*, por ser una cuenta con poco historial), para adelantarse. Les falta el vídeo:
-se graba en un iPhone y va como archivo adjunto de la información para la revisión.
+*Information Needed*, por ser una cuenta con poco historial), para adelantarse. El vídeo se grabó en un
+iPhone el 06-10-2026 y va como archivo adjunto de la información para la revisión; el punto 1 cuenta
+lo que se ve en él.
 
 ```
 1. Screen recording
-Attached: a recording made on a physical iPhone running the latest iOS, from launching the app through the typical flow: creating habits, marking days, a skipped day, the year grid of a habit, a reminder, sharing the year, Settings, buying Quilt Pro with a sandbox account, a Pro feature and Restore purchase. Quilt has no account registration, login or account deletion, and nothing is shared with other users (no user-generated content), so those flows do not exist.
+Attached: a recording made on a physical iPhone running the latest iOS, starting from a fresh install: creating a habit with its days and a daily reminder, marking it done for today, Settings with the backup, import and CSV export, the Quilt Pro screen, buying Quilt Pro with a sandbox account, the Pro feature of having more than three habits (the free limit), and the home screen widget. The Buy button shows the price StoreKit returns: in the recording it is the US price ($3.99) because the device had not signed in to the sandbox store yet, and the purchase sheet then shows the Spanish price (4.99 EUR). Quilt has no account registration, login or account deletion, and nothing is shared with other users (no user-generated content), so those flows do not exist.
 
 2. Purpose and audience
 Quilt is a yearly habit tracker. Each habit is a grid of the whole year: every day you keep it becomes a filled patch, and by the end of the year you have the whole quilt. It is for people who want to build habits with a clear visual overview and no pressure: no accounts, no social feeds and no ads. Everything stays on the device.
