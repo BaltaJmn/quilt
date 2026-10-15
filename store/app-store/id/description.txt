@@ -14,6 +14,9 @@ Kamu sakit. Kamu sedang bepergian. Kamu memilih istirahat. Tekan lama pada satu 
 KEBIASAAN DENGAN HITUNGAN
 Delapan gelas air. Tiga puluh menit membaca. Tiga set latihan. Atur target harian dan lihat progresnya terisi, di aplikasi maupun di widget.
 
+TIGA HARI SEMINGGU, HARI APA PUN YANG COCOK
+Mau lari tiga kali seminggu tanpa terikat hari tertentu? Atur target mingguan: hari apa pun dihitung, dan streak serta persentase dihitung per minggu. Satu hari Selasa yang berantakan tidak lagi memutus streak.
+
 PENGINGAT YANG TIDAK CEREWET
 Satu kali per kebiasaan, sesuai hari yang kamu jadwalkan sendiri. Tanpa notifikasi bertubi-tubi, tanpa pemberitahuan jam sebelas malam yang cuma bilang kamu sudah gagal.
 
