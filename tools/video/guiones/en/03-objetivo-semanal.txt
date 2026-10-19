@@ -1,0 +1,13 @@
+# Coordenadas de Pixel_8_capturas (IDIOMA=en-US): su barra de estado es mas alta y todo baja unos 70 px en la lista
+# y 104 px en el detalle respecto a los guiones en espanol.
+# Aviso: en este emulador el toque en el circulo de una fila abre el detalle en vez de marcar el dia, asi que el
+# clip no muestra el toque (19-10-2026, sin resolver). Sirve para listas y detalles.
+# Correr tres veces por semana, los dias que sean. La ficha cuenta semanas, no dias.
+# El guion termina con la hoja de editar abierta, sin `atras`. Cerrarla dejaba cuatro
+# segundos de pantalla anterior al final de la grabacion que el montaje no puede usar:
+# el ultimo fotograma es el que se clona, asi que tiene que ser el que se quiere ver.
+esperar 3.5
+tocar 360 920
+esperar 4.5
+tocar 895 240
+esperar 6

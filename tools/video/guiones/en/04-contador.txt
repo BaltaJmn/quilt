@@ -1,0 +1,18 @@
+# Coordenadas de Pixel_8_capturas (IDIOMA=en-US): su barra de estado es mas alta y todo baja unos 70 px en la lista
+# y 104 px en el detalle respecto a los guiones en espanol.
+# Aviso: en este emulador el toque en el circulo de una fila abre el detalle en vez de marcar el dia, asi que el
+# clip no muestra el toque (19-10-2026, sin resolver). Sirve para listas y detalles.
+# DATOS=agua.json. Ocho vasos: cada toque llena un poco mas el cuadrito.
+esperar 3.5
+tocar 920 500
+esperar 0.9
+tocar 920 500
+esperar 0.9
+tocar 920 500
+esperar 0.9
+tocar 920 500
+esperar 0.9
+tocar 920 500
+esperar 3
+tocar 360 480
+esperar 4

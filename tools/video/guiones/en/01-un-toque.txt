@@ -1,0 +1,13 @@
+# Coordenadas de Pixel_8_capturas (IDIOMA=en-US): su barra de estado es mas alta y todo baja unos 70 px en la lista
+# y 104 px en el detalle respecto a los guiones en espanol.
+# Aviso: en este emulador el toque en el circulo de una fila abre el detalle en vez de marcar el dia, asi que el
+# clip no muestra el toque (19-10-2026, sin resolver). Sirve para listas y detalles.
+# La promesa base: un toque marca el dia, y la ficha lo cuenta todo.
+# Coordenadas de la pantalla de inicio en 1080x2400.
+esperar 6
+tocar 920 940
+esperar 3.5
+tocar 360 480
+esperar 5
+atras
+esperar 3

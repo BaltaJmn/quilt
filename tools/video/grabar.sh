@@ -27,6 +27,11 @@
 # datos lo pide con DATOS:
 #
 #   DATOS=agua.json ./grabar.sh 04-contador
+#
+# La app se graba en es-ES. Con IDIOMA=en-US sale en ingles, con los habitos de demostracion en ingles, y
+# el clip queda en grabaciones/en/ (video de @balta.dev en ingles, D15 del plan de redes):
+#
+#   IDIOMA=en-US ./grabar.sh 01-un-toque
 
 set -euo pipefail
 
@@ -35,6 +40,9 @@ ADB="${ADB:-$HOME/Library/Android/sdk/platform-tools/adb}"
 PAQUETE="com.baltajmn.habit"
 MAX_SEG="${MAX_SEG:-30}"
 DATOS="${DATOS:-habits.json}"
+export IDIOMA="${IDIOMA:-es-ES}"   # generar.py lo lee para los nombres de los habitos
+SALIDA="$RAIZ/grabaciones"
+[[ "$IDIOMA" == es-ES ]] || SALIDA="$SALIDA/${IDIOMA%%-*}"
 GBOARD="com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME"
 VOZ="com.google.android.tts/com.google.android.apps.speech.tts.googletts.settings.asr.voiceime.VoiceInputMethodService"
 
@@ -79,7 +87,7 @@ $ADB shell cmd uimode night no >/dev/null
 # app dentro de una franja horizontal, sin avisar de nada.
 $ADB shell settings put system accelerometer_rotation 0 >/dev/null
 $ADB shell settings put system user_rotation 0 >/dev/null
-$ADB shell cmd locale set-app-locales "$PAQUETE" --locales es-ES >/dev/null 2>&1 || true
+$ADB shell cmd locale set-app-locales "$PAQUETE" --locales "$IDIOMA" >/dev/null 2>&1 || true
 $ADB shell cmd statusbar add-tile "$PAQUETE/com.baltajmn.habit.widget.QuickToggleTileService" >/dev/null 2>&1 || true
 
 # Sin teclado en pantalla. El formulario de habito es una Column sin scroll ni imePadding:
@@ -153,15 +161,15 @@ echo "esperando a que screenrecord agote sus ${MAX_SEG}s"
 wait "$grabador" 2>/dev/null || true
 sleep 1.5   # el fichero se cierra despues de que el proceso termine
 
-mkdir -p "$RAIZ/grabaciones"
-$ADB pull /sdcard/rec.mp4 "$RAIZ/grabaciones/${nombre}.mp4" >/dev/null
+mkdir -p "$SALIDA"
+$ADB pull /sdcard/rec.mp4 "$SALIDA/${nombre}.mp4" >/dev/null
 $ADB shell rm -f /sdcard/rec.mp4
 $ADB shell svc wifi enable
 $ADB shell svc data enable
 
 echo "grabaciones/${nombre}.mp4"
-ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "$RAIZ/grabaciones/${nombre}.mp4"
+ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "$SALIDA/${nombre}.mp4"
 echo "instantes con cambio de pantalla (para escribir los tiempos de los rotulos):"
 ffprobe -v error -select_streams v:0 -show_entries frame=pts_time -of csv=p=0 \
-  "$RAIZ/grabaciones/${nombre}.mp4" | awk -F. '!seen[$1]++' | tr '\n' ' '
+  "$SALIDA/${nombre}.mp4" | awk -F. '!seen[$1]++' | tr '\n' ' '
 echo

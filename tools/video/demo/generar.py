@@ -12,6 +12,7 @@ reconstruye el mismo historial desplazado, con las mismas rachas y los mismos hu
 from __future__ import annotations
 
 import json
+import os
 import random
 import sys
 from datetime import date, timedelta
@@ -102,7 +103,12 @@ def escribe(nombre: str, habitos: list[dict], pro: bool) -> None:
     print(f"{nombre}: {len(habitos)} habitos, isPro={pro}")
 
 
+# Nombres de los habitos de demostracion segun el idioma de la app (IDIOMA, como en grabar.sh).
+NOMBRES = {"es-ES": ("Leer", "Correr", "Meditar", "Agua"), "en-US": ("Read", "Run", "Meditate", "Water")}
+
+
 def main() -> None:
+    n_leer, n_correr, n_meditar, n_agua = NOMBRES[os.environ.get("IDIOMA", "es-ES")]
     hoy = date.fromisoformat(sys.argv[1]) if len(sys.argv) > 1 else date.today()
     enero = date(hoy.year, 1, 1)
     febrero = date(hoy.year, 2, 1)
@@ -110,13 +116,13 @@ def main() -> None:
     # dia saltado necesita tener ya en la rejilla antes de empezar a grabar.
     vac = (hoy - timedelta(days=52), hoy - timedelta(days=46))
 
-    leer = habito("a1", "Leer", "📚", SALVIA, enero, hoy, exito=0.86, semilla=7,
+    leer = habito("a1", n_leer, "📚", SALVIA, enero, hoy, exito=0.86, semilla=7,
                   recordatorio=1320, vacaciones=vac, hoy_hecho=True)
-    correr = semanal("b2", "Correr", "🏃", ROSA, enero, hoy, veces=3, semilla=11,
+    correr = semanal("b2", n_correr, "🏃", ROSA, enero, hoy, veces=3, semilla=11,
                      hoy_hecho=False)
-    meditar = habito("c3", "Meditar", "🧘", MELOCOTON, febrero, hoy, exito=0.74,
+    meditar = habito("c3", n_meditar, "🧘", MELOCOTON, febrero, hoy, exito=0.74,
                      semilla=23, hoy_hecho=True)
-    agua = habito("d4", "Agua", "💧", CIELO, enero, hoy, exito=0.80, semilla=31,
+    agua = habito("d4", n_agua, "💧", CIELO, enero, hoy, exito=0.80, semilla=31,
                   target=8, hoy_hecho=False, hoy_parcial=3)
 
     escribe("habits.json", [leer, correr, meditar], pro=False)
