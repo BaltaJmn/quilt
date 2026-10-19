@@ -21,6 +21,9 @@ import com.revenuecat.purchases.kmp.models.Package
  */
 expect val revenueCatApiKey: String?
 
+/** The store that bills the subscription, for the renewal text. */
+expect val storeName: String
+
 /**
  * Two ways to the same [ENTITLEMENT]: the lifetime purchase (the one that is pushed) and a monthly
  * subscription (mostly the anchor beside it). Product ids and prices live in the RevenueCat

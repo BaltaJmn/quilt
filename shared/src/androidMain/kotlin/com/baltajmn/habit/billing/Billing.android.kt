@@ -5,3 +5,4 @@ package com.baltajmn.habit.billing
  * anyone can pull it out of the binary. The secret key ("sk_...") never belongs in this repository.
  */
 actual val revenueCatApiKey: String? = "goog_mCyBEWJEbXQzORZzDDlZfpgmiKL"
+actual val storeName: String = "Google Play"
