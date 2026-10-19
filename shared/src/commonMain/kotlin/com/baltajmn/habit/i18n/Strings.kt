@@ -839,43 +839,43 @@ object S {
     )
     val pitch = t(
         "Pro removes the habit limit and unlocks the full colour palette.\n\n" +
-            "One-time purchase, no subscription. Every widget, every reminder, the whole year " +
+            "Pay once and keep Pro forever, or pay month to month. Every widget, every reminder, the whole year " +
             "and exporting your data stay free forever.",
         "Pro quita el límite de hábitos y desbloquea la paleta de colores completa.\n\n" +
-            "Pago único, sin suscripción. Todos los widgets, todos los recordatorios, el año " +
+            "Paga una vez y quédate con Pro para siempre, o paga mes a mes. Todos los widgets, todos los recordatorios, el año " +
             "entero y la exportación de tus datos siguen siendo gratis siempre.",
         "O Pro remove o limite de hábitos e desbloqueia a paleta de cores completa.\n\n" +
-            "Pagamento único, sem assinatura. Todos os widgets, todos os lembretes, o ano " +
+            "Paga uma vez e fica com o Pro para sempre, ou paga mês a mês. Todos os widgets, todos os lembretes, o ano " +
             "inteiro e a exportação dos seus dados continuam sempre gratuitos.",
         "Pro hebt das Gewohnheiten-Limit auf und schaltet die komplette Farbpalette frei.\n\n" +
-            "Einmalzahlung, kein Abo. Alle Widgets, alle Erinnerungen, das ganze Jahr und der " +
+            "Zahle einmal und behalte Pro für immer, oder zahle monatlich. Alle Widgets, alle Erinnerungen, das ganze Jahr und der " +
             "Export deiner Daten bleiben für immer kostenlos.",
         "Pro supprime la limite d'habitudes et débloque la palette de couleurs complète.\n\n" +
-            "Paiement unique, sans abonnement. Tous les widgets, tous les rappels, l'année " +
+            "Paie une fois et garde Pro pour toujours, ou paie mois par mois. Tous les widgets, tous les rappels, l'année " +
             "entière et l'export de vos données restent gratuits pour toujours.",
         "Pro rimuove il limite di abitudini e sblocca la palette di colori completa.\n\n" +
-            "Acquisto unico, nessun abbonamento. Tutti i widget, tutti i promemoria, l'anno " +
+            "Paga una volta e tieni Pro per sempre, oppure paga mese per mese. Tutti i widget, tutti i promemoria, l'anno " +
             "intero e l'esportazione dei tuoi dati restano gratis per sempre.",
         "Proにすると習慣の上限がなくなり、すべての色を使えるようになります。\n\n" +
-            "買い切りで、サブスクリプションではありません。すべてのウィジェット、すべての" +
+            "一度支払えばProをずっと使えます。月ごとの支払いも選べます。すべてのウィジェット、すべての" +
             "リマインダー、一年まるごとの表示、データの書き出しはずっと無料です。",
         "Pro는 습관 개수 제한을 없애고 모든 색상을 열어 줍니다.\n\n" +
-            "한 번 구매로 끝나며 구독이 아닙니다. 모든 위젯, 모든 알림, 1년 전체 보기, " +
+            "한 번만 결제하면 Pro를 계속 쓸 수 있고, 월 단위로 결제할 수도 있어요. 모든 위젯, 모든 알림, 1년 전체 보기, " +
             "데이터 내보내기는 앞으로도 계속 무료입니다.",
         "Pro znosi limit nawyków i odblokowuje pełną paletę kolorów.\n\n" +
-            "Jednorazowy zakup, bez subskrypcji. Wszystkie widgety, wszystkie przypomnienia, " +
+            "Zapłać raz i zachowaj Pro na zawsze albo płać miesiąc po miesiącu. Wszystkie widgety, wszystkie przypomnienia, " +
             "cały rok i eksport Twoich danych pozostają darmowe na zawsze.",
         "Pro, alışkanlık sınırını kaldırır ve tüm renk paletini açar.\n\n" +
-            "Tek seferlik satın alma, abonelik yok. Tüm widget'lar, tüm hatırlatıcılar, yılın " +
+            "Bir kez öde ve Pro'yu sonsuza dek kullan, ya da ay ay öde. Tüm widget'lar, tüm hatırlatıcılar, yılın " +
             "tamamı ve verilerini dışa aktarma sonsuza dek ücretsiz kalır.",
         "Pro menghapus batas kebiasaan dan membuka semua pilihan warna.\n\n" +
-            "Sekali bayar, tanpa langganan. Semua widget, semua pengingat, tampilan setahun " +
+            "Bayar sekali dan pakai Pro selamanya, atau bayar bulan demi bulan. Semua widget, semua pengingat, tampilan setahun " +
             "penuh, dan ekspor datamu tetap gratis selamanya.",
         "Pro снимает ограничение на число привычек и открывает всю палитру цветов.\n\n" +
-            "Разовая покупка, без подписки. Все виджеты, все напоминания, весь год и экспорт " +
+            "Заплати один раз и пользуйся Pro всегда или плати помесячно. Все виджеты, все напоминания, весь год и экспорт " +
             "ваших данных остаются бесплатными навсегда.",
         "Pro haalt de limiet op gewoonten weg en ontgrendelt het volledige kleurenpalet.\n\n" +
-            "Eenmalige aankoop, geen abonnement. Alle widgets, alle herinneringen, het hele " +
+            "Betaal één keer en houd Pro voor altijd, of betaal maand per maand. Alle widgets, alle herinneringen, het hele " +
             "jaar en het exporteren van je gegevens blijven altijd gratis.",
     )
     fun freeIncludes(limit: Int) = t(
@@ -968,6 +968,150 @@ object S {
         "Не удалось завершить покупку.",
         "De aankoop kon niet worden voltooid.",
     )
+    val planForever get() = t(
+        "Forever",
+        "Para siempre",
+        "Para sempre",
+        "Für immer",
+        "À vie",
+        "Per sempre",
+        "買い切り",
+        "평생",
+        "Na zawsze",
+        "Sonsuza dek",
+        "Selamanya",
+        "Навсегда",
+        "Voor altijd",
+    )
+
+    val planMonthly get() = t(
+        "Monthly",
+        "Mensual",
+        "Mensal",
+        "Monatlich",
+        "Mensuel",
+        "Mensile",
+        "月額",
+        "월간",
+        "Miesięcznie",
+        "Aylık",
+        "Bulanan",
+        "Ежемесячно",
+        "Maandelijks",
+    )
+
+    val bestValue get() = t(
+        "Best value",
+        "Mejor valor",
+        "Melhor custo-benefício",
+        "Bestes Angebot",
+        "Meilleure offre",
+        "Miglior valore",
+        "いちばんお得",
+        "최고의 가치",
+        "Najlepsza wartość",
+        "En iyi değer",
+        "Paling hemat",
+        "Самое выгодное",
+        "Beste waarde",
+    )
+
+    val foreverNote get() = t(
+        "Pay once and it's yours for good. That's just two months of the monthly plan.",
+        "Paga una vez y es tuyo para siempre. Equivale a solo dos meses del plan mensual.",
+        "Pague uma vez e fica seu para sempre. Equivale a apenas dois meses do plano mensal.",
+        "Zahl einmal und es gehört dir für immer. Das sind nur zwei Monate des Monatsabos.",
+        "Paie une fois et c'est à toi pour toujours. Cela ne représente que deux mois de l'abonnement mensuel.",
+        "Paghi una volta e resta tuo per sempre. Sono solo due mesi del piano mensile.",
+        "一度の支払いでずっと使えます。月額プランのわずか2か月分です。",
+        "한 번만 결제하면 평생 내 것이 돼요. 월간 플랜 두 달 값밖에 안 돼요.",
+        "Zapłać raz i zostaje na zawsze. To tylko dwa miesiące planu miesięcznego.",
+        "Bir kez öde, sonsuza dek senin olsun. Bu, aylık planın yalnızca iki ayına denk geliyor.",
+        "Bayar sekali dan jadi milikmu selamanya. Itu hanya setara dua bulan paket bulanan.",
+        "Заплати один раз, и это твоё навсегда. Это всего два месяца ежемесячного плана.",
+        "Betaal één keer en het is voor altijd van jou. Dat is slechts twee maanden van het maandabonnement.",
+    )
+
+    val termsOfUse get() = t(
+        "Terms of use",
+        "Términos de uso",
+        "Termos de uso",
+        "Nutzungsbedingungen",
+        "Conditions d'utilisation",
+        "Termini di utilizzo",
+        "利用規約",
+        "이용 약관",
+        "Warunki korzystania",
+        "Kullanım koşulları",
+        "Ketentuan penggunaan",
+        "Условия использования",
+        "Gebruiksvoorwaarden",
+    )
+
+    val subscriptionTerms get() = t(
+        "The monthly plan renews automatically every month until you cancel. Cancel any time in your App Store or Google Play account settings, at least 24 hours before the renewal date. Payment is charged to your store account. Pro is unlocked while it is active; your data is never deleted.",
+        "El plan mensual se renueva automáticamente cada mes hasta que lo canceles. Cancela cuando quieras en los ajustes de tu cuenta de App Store o Google Play, al menos 24 horas antes de la fecha de renovación. El pago se carga a tu cuenta de la tienda. Pro está desbloqueado mientras el plan esté activo; tus datos nunca se borran.",
+        "O plano mensal é renovado automaticamente todo mês até você cancelar. Cancele quando quiser nas configurações da sua conta da App Store ou do Google Play, pelo menos 24 horas antes da data de renovação. O pagamento é cobrado na sua conta da loja. O Pro fica desbloqueado enquanto o plano estiver ativo; seus dados nunca são apagados.",
+        "Das Monatsabo verlängert sich automatisch jeden Monat, bis du kündigst. Kündige jederzeit in den Einstellungen deines App-Store- oder Google-Play-Kontos, mindestens 24 Stunden vor dem Verlängerungsdatum. Die Zahlung wird über dein Store-Konto abgerechnet. Pro ist freigeschaltet, solange das Abo aktiv ist; deine Daten werden nie gelöscht.",
+        "L'abonnement mensuel se renouvelle automatiquement chaque mois jusqu'à ce que tu l'annules. Annule à tout moment dans les réglages de ton compte App Store ou Google Play, au moins 24 heures avant la date de renouvellement. Le paiement est prélevé sur ton compte de la boutique. Pro reste débloqué tant que l'abonnement est actif ; tes données ne sont jamais supprimées.",
+        "Il piano mensile si rinnova automaticamente ogni mese finché non lo annulli. Annulla in qualsiasi momento nelle impostazioni del tuo account App Store o Google Play, almeno 24 ore prima della data di rinnovo. Il pagamento viene addebitato sul tuo account dello store. Pro resta sbloccato finché il piano è attivo; i tuoi dati non vengono mai eliminati.",
+        "月額プランは、解約するまで毎月自動的に更新されます。更新日の24時間前までに、App StoreまたはGoogle Playのアカウント設定からいつでも解約できます。料金はストアのアカウントに請求されます。Proはプランが有効な間は利用でき、データが削除されることはありません。",
+        "월간 플랜은 해지하기 전까지 매달 자동으로 갱신돼요. 갱신일 최소 24시간 전까지 App Store 또는 Google Play 계정 설정에서 언제든지 해지할 수 있어요. 결제는 스토어 계정으로 청구돼요. Pro는 플랜이 활성화된 동안 잠금 해제되며, 데이터는 절대 삭제되지 않아요.",
+        "Plan miesięczny odnawia się automatycznie co miesiąc, dopóki go nie anulujesz. Możesz anulować w dowolnym momencie w ustawieniach konta App Store lub Google Play, co najmniej 24 godziny przed datą odnowienia. Płatność jest pobierana z konta w sklepie. Pro jest odblokowane, dopóki plan jest aktywny; Twoje dane nigdy nie są usuwane.",
+        "Aylık plan, sen iptal edene kadar her ay otomatik olarak yenilenir. App Store veya Google Play hesap ayarlarından yenileme tarihinden en az 24 saat önce istediğin zaman iptal edebilirsin. Ödeme mağaza hesabından tahsil edilir. Pro, plan etkin olduğu sürece açıktır; verilerin asla silinmez.",
+        "Paket bulanan diperpanjang otomatis setiap bulan sampai kamu membatalkannya. Batalkan kapan saja di pengaturan akun App Store atau Google Play, paling lambat 24 jam sebelum tanggal perpanjangan. Pembayaran ditagih ke akun toko kamu. Pro terbuka selama paket aktif; datamu tidak pernah dihapus.",
+        "Ежемесячный план продлевается автоматически каждый месяц, пока ты его не отменишь. Отменить можно в любой момент в настройках аккаунта App Store или Google Play, не позднее чем за 24 часа до даты продления. Оплата списывается с твоего аккаунта в магазине. Pro разблокирован, пока план активен; твои данные никогда не удаляются.",
+        "Het maandabonnement wordt elke maand automatisch verlengd totdat je opzegt. Zeg op elk moment op in de instellingen van je App Store- of Google Play-account, minstens 24 uur voor de verlengingsdatum. De betaling wordt via je storeaccount in rekening gebracht. Pro is ontgrendeld zolang het abonnement actief is; je gegevens worden nooit verwijderd.",
+    )
+
+    val subscriptionEnded get() = t(
+        "Your monthly plan has ended, so Pro is locked again. Your data is safe. Subscribe again or buy Pro forever.",
+        "Tu plan mensual ha terminado, así que Pro vuelve a estar bloqueado. Tus datos están a salvo. Suscríbete de nuevo o compra Pro para siempre.",
+        "Seu plano mensal terminou, então o Pro foi bloqueado novamente. Seus dados estão seguros. Assine de novo ou compre o Pro para sempre.",
+        "Dein Monatsabo ist abgelaufen, daher ist Pro wieder gesperrt. Deine Daten sind sicher. Abonniere erneut oder kaufe Pro für immer.",
+        "Ton abonnement mensuel est terminé, donc Pro est de nouveau verrouillé. Tes données sont en sécurité. Abonne-toi à nouveau ou achète Pro à vie.",
+        "Il tuo piano mensile è terminato, quindi Pro è di nuovo bloccato. I tuoi dati sono al sicuro. Abbonati di nuovo o acquista Pro per sempre.",
+        "月額プランが終了したため、Proは再びロックされました。データは安全に保たれています。もう一度登録するか、Proを買い切りで購入できます。",
+        "월간 플랜이 종료되어 Pro가 다시 잠겼어요. 데이터는 안전해요. 다시 구독하거나 Pro를 평생 구매할 수 있어요.",
+        "Twój plan miesięczny wygasł, więc Pro jest znowu zablokowane. Twoje dane są bezpieczne. Subskrybuj ponownie lub kup Pro na zawsze.",
+        "Aylık planın sona erdi, bu yüzden Pro yeniden kilitlendi. Verilerin güvende. Tekrar abone ol veya Pro'yu sonsuza dek satın al.",
+        "Paket bulananmu telah berakhir, jadi Pro terkunci lagi. Datamu aman. Berlangganan lagi atau beli Pro selamanya.",
+        "Твой ежемесячный план закончился, поэтому Pro снова заблокирован. Твои данные в безопасности. Подпишись снова или купи Pro навсегда.",
+        "Je maandabonnement is afgelopen, dus Pro is weer vergrendeld. Je gegevens zijn veilig. Abonneer je opnieuw of koop Pro voor altijd.",
+    )
+
+    fun perMonth(price: String) = t(
+        "${price} / month",
+        "${price} / mes",
+        "${price} / mês",
+        "${price} / Monat",
+        "${price} / mois",
+        "${price} / mese",
+        "${price} / 月",
+        "${price} / 월",
+        "${price} / miesiąc",
+        "${price} / ay",
+        "${price} / bulan",
+        "${price} / месяц",
+        "${price} / maand",
+    )
+
+    fun subscribe(price: String) = t(
+        "Subscribe for ${price} / month",
+        "Suscribirme por ${price} / mes",
+        "Assinar por ${price} / mês",
+        "Abonnieren für ${price} / Monat",
+        "S'abonner pour ${price} / mois",
+        "Abbonati a ${price} / mese",
+        "月額 ${price} で登録する",
+        "월 ${price}에 구독하기",
+        "Subskrybuj za ${price} / miesiąc",
+        "${price} / ay karşılığında abone ol",
+        "Berlangganan seharga ${price} / bulan",
+        "Подписаться за ${price} / месяц",
+        "Abonneer voor ${price} / maand",
+    )
+
     fun buyFor(price: String) = t(
         "Buy for $price",
         "Comprar por $price",

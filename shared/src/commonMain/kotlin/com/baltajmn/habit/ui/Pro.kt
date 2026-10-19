@@ -2,6 +2,11 @@ package com.baltajmn.habit.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Box
@@ -32,6 +37,8 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.baltajmn.habit.billing.Billing
+import com.baltajmn.habit.billing.ProOffer
+import com.baltajmn.habit.billing.ProState
 import com.baltajmn.habit.billing.PurchaseOutcome
 import com.baltajmn.habit.data.Backup
 import com.baltajmn.habit.data.HabitRepository
@@ -41,20 +48,53 @@ import com.revenuecat.purchases.kmp.models.Package
 import kotlinx.coroutines.launch
 import com.baltajmn.habit.i18n.S
 
+@Composable
+private fun PlanOption(
+    title: String,
+    price: String,
+    caption: String?,
+    badge: String?,
+    selected: Boolean,
+    enabled: Boolean,
+    onClick: () -> Unit,
+) {
+    val colors = MaterialTheme.colorScheme
+    val shape = RoundedCornerShape(12.dp)
+    Column(
+        Modifier.fillMaxWidth()
+            .clip(shape)
+            .border(if (selected) 2.dp else 1.dp, if (selected) colors.primary else colors.outlineVariant, shape)
+            .selectable(selected = selected, enabled = enabled, role = Role.RadioButton, onClick = onClick)
+            .padding(12.dp),
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(title, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
+            Text(price, style = MaterialTheme.typography.titleSmall)
+        }
+        badge?.let { Text(it, style = MaterialTheme.typography.labelSmall, color = colors.primary) }
+        caption?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = colors.onSurfaceVariant) }
+    }
+}
+
 /** The only paywall. Shown when a free user hits a wall, never at first launch. */
 @Composable
 fun ProDialog(onDismiss: () -> Unit) {
     val scope = rememberCoroutineScope()
-    var pack by remember { mutableStateOf<Package?>(null) }
+    var offer by remember { mutableStateOf<ProOffer?>(null) }
+    var picked by remember { mutableStateOf<Package?>(null) }
     var busy by remember { mutableStateOf(false) }
     var note by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
-        pack = Billing.proPackage()
-        if (pack == null) note = S.storeUnavailable
+        offer = Billing.proOffer()
+        if (offer == null) note = S.storeUnavailable
     }
 
-    val target = pack
+    // The lifetime purchase is the default and the highlighted one; the month is mostly its anchor.
+    val target = picked ?: offer?.let { it.lifetime ?: it.monthly }
+    val monthly = offer?.monthly
+    val lifetime = offer?.lifetime
+    val uriHandler = LocalUriHandler.current
     AlertDialog(
         onDismissRequest = { if (!busy) onDismiss() },
         containerColor = MaterialTheme.colorScheme.surface,
@@ -63,6 +103,43 @@ fun ProDialog(onDismiss: () -> Unit) {
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("${S.freeIncludes(HabitRepository.FREE_HABIT_LIMIT)} ${S.pitch}")
+                if (Billing.state == ProState.Ended) {
+                    Text(S.subscriptionEnded, style = MaterialTheme.typography.bodySmall)
+                }
+                if (lifetime != null && monthly != null) {
+                    PlanOption(
+                        title = S.planForever,
+                        price = lifetime.storeProduct.price.formatted,
+                        caption = S.foreverNote,
+                        badge = S.bestValue,
+                        selected = target == lifetime,
+                        enabled = !busy,
+                        onClick = { picked = lifetime },
+                    )
+                    PlanOption(
+                        title = S.planMonthly,
+                        price = S.perMonth(monthly.storeProduct.price.formatted),
+                        caption = null,
+                        badge = null,
+                        selected = target == monthly,
+                        enabled = !busy,
+                        onClick = { picked = monthly },
+                    )
+                    // Apple 3.1.2: renewal, how to cancel and the two documents, next to the purchase.
+                    Text(
+                        S.subscriptionTerms,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                        TextButton(onClick = { runCatching { uriHandler.openUri("https://quilt.baltajmn.dev/terms.html") } }) {
+                            Text(S.termsOfUse)
+                        }
+                        TextButton(onClick = { runCatching { uriHandler.openUri("https://quilt.baltajmn.dev/") } }) {
+                            Text(S.privacyPolicy)
+                        }
+                    }
+                }
                 note?.let {
                     Text(
                         it,
@@ -98,7 +175,16 @@ fun ProDialog(onDismiss: () -> Unit) {
                         }
                     }
                 },
-            ) { Text(target?.storeProduct?.price?.formatted?.let(S::buyFor) ?: S.buyPro) }
+            ) {
+                val price = target?.storeProduct?.price?.formatted
+                Text(
+                    when {
+                        price == null -> S.buyPro
+                        target == monthly -> S.subscribe(price)
+                        else -> S.buyFor(price)
+                    },
+                )
+            }
         },
         dismissButton = { TextButton(enabled = !busy, onClick = onDismiss) { Text(S.notNow) } },
     )

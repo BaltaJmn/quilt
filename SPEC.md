@@ -142,11 +142,11 @@ La contrapartida honesta: la venta única no compone. Un suscriptor de 3 años v
 Pero eso solo se cumple si la retención aguanta, y en esta categoría la gente se da de baja justo cuando deja
 de usar la app, que es pronto.
 
-**Decisión: pago único como único producto de pago. Nada de suscripción mientras no haya coste recurrente real.**
+**Decisión: pago único como producto principal. Decision (19-10-2026): se anade una suscripcion mensual de 0,99 EUR (`pro_monthly`) con el mismo derecho `pro`; el vitalicio sigue a 1,99 EUR y es la opcion destacada ("dos meses y es para siempre"), el mes es sobre todo ancla. Motivo: solo 3 ventas en la familia.**
 
 ### Los tres niveles
 
-| | Gratis, para siempre | Pro, pago único |
+| | Gratis, para siempre | Pro, pago único o mensual |
 |---|---|---|
 | Hábitos | 5 | Ilimitados |
 | Grid anual, rachas, % del año | ✅ | ✅ |

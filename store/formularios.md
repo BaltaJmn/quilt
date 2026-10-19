@@ -133,7 +133,7 @@ The app works the same in every region. It is available in every App Store count
 Not applicable: Quilt is not in a regulated industry and includes no protected third-party material.
 
 7. In-App Purchase
-One non-consumable product, Quilt Pro (com.baltajmn.habit.pro_lifetime): a one-time payment, no subscription. The free plan allows 3 habits and the first 4 of the 8 colors; Pro removes both limits. Widgets, reminders, export and import and the full year grid are free for everyone. The Pro dialog opens when you tap + with 3 habits already created, when you tap a locked color in the habit form, and from Settings > Get Pro; tap "Buy for <price>". Restore purchase is in Settings and inside the Pro dialog; both are hidden once Pro is active.
+Two ways to buy Quilt Pro, both unlocking the same: a non-consumable lifetime purchase (com.baltajmn.habit.pro_lifetime, the highlighted option) and an auto-renewing monthly subscription (com.baltajmn.habit.pro_monthly, 0.99 EUR per month, cancel any time in the App Store settings). The Pro dialog shows both prices, the renewal and cancellation terms, and links to the terms of use and privacy policy. The free plan allows 3 habits and the first 4 of the 8 colors; Pro removes both limits. Widgets, reminders, export and import and the full year grid are free for everyone. The Pro dialog opens when you tap + with 3 habits already created, when you tap a locked color in the habit form, and from Settings > Get Pro; pick a plan and tap the buy button. Restore purchase is in Settings and inside the Pro dialog; both are hidden once Pro is active.
 ```
 
 ### Producto: `pro_lifetime` (Play), `com.baltajmn.habit.pro_lifetime` (App Store)
