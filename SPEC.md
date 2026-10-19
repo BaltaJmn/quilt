@@ -351,6 +351,15 @@ Ordenado por daño real, no por esfuerzo.
 
 ---
 
+## Petición de reseña
+
+Dentro de la app, con el diálogo del sistema (Play In-App Review en Android, `SKStoreReviewController` en iOS); la tienda decide si lo enseña.
+
+- Momento: al marcar un hábito cuya racha llega a una semana.
+- Regla: racha de 7 o más (implica una semana de uso) y 120 días desde la última petición (`reachedReviewStreak`). Antes era una sola vez en la vida.
+- Nunca tras un error, en el paywall ni sobre otra capa; se marca como pedida aunque la tienda no la enseñe.
+- Código: `review/` (Review.kt y sus actual) y la función de la condición, con test.
+
 ## 8. Identidad visual
 
 ### El nombre: Quilt

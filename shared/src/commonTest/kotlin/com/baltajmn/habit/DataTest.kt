@@ -148,6 +148,8 @@ class MutationTest {
 
 /** The once-ever in-app review prompt: fires exactly when a streak first reaches a week. */
 class ReviewTriggerTest {
+    private val dayMillis = 86_400_000L
+    private val now = 1_000 * dayMillis
 
     private fun weekLog(endingOn: LocalDate): Map<String, Int> =
         (0..6).associate { back -> (endingOn.minus(DatePeriod(days = back))).toString() to 1 }
@@ -156,19 +158,25 @@ class ReviewTriggerTest {
     fun a_streak_of_seven_asks_for_a_review() {
         val h = habit(log = weekLog(march10))
         assertEquals(7, h.streak(march10))
-        assertTrue(reachedReviewStreak(h, march10, alreadyRequested = false))
+        assertTrue(reachedReviewStreak(h, march10, askedAt = 0, now = now))
     }
 
     @Test
     fun a_shorter_streak_does_not_ask() {
         val h = habit(log = weekLog(march10) - "2026-03-04") // six days, not seven
-        assertFalse(reachedReviewStreak(h, march10, alreadyRequested = false))
+        assertFalse(reachedReviewStreak(h, march10, askedAt = 0, now = now))
     }
 
     @Test
-    fun it_never_fires_twice() {
+    fun it_does_not_ask_again_within_120_days() {
         val h = habit(log = weekLog(march10))
-        assertFalse(reachedReviewStreak(h, march10, alreadyRequested = true))
+        assertFalse(reachedReviewStreak(h, march10, askedAt = now - 119 * dayMillis, now = now))
+    }
+
+    @Test
+    fun it_asks_again_after_120_days() {
+        val h = habit(log = weekLog(march10))
+        assertTrue(reachedReviewStreak(h, march10, askedAt = now - 120 * dayMillis, now = now))
     }
 }
 
