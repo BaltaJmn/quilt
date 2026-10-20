@@ -101,7 +101,9 @@ fun ProDialog(onDismiss: () -> Unit) {
         shape = MaterialTheme.shapes.large,
         title = { Text(S.unlimitedHabits) },
         text = {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            // Scrolls because on an iPad the iPhone-only app gets a short window: MoodTraker, with the
+            // same dialog, was rejected when the links at the bottom were out of reach (3.1.2, 20-10-2026).
+            Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("${S.freeIncludes(HabitRepository.FREE_HABIT_LIMIT)} ${S.pitch}")
                 if (Billing.state == ProState.Ended) {
                     Text(S.subscriptionEnded, style = MaterialTheme.typography.bodySmall)
@@ -125,19 +127,22 @@ fun ProDialog(onDismiss: () -> Unit) {
                         enabled = !busy,
                         onClick = { picked = monthly },
                     )
-                    // Apple 3.1.2: renewal, how to cancel and the two documents, next to the purchase.
+                }
+                // Apple 3.1.2: renewal and how to cancel whenever the month is on offer, and the two
+                // documents always, so a product the store did not return cannot take them away.
+                if (monthly != null) {
                     Text(
                         S.subscriptionTerms,
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
-                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                        TextButton(onClick = { runCatching { uriHandler.openUri("https://quilt.baltajmn.dev/terms.html") } }) {
-                            Text(S.termsOfUse)
-                        }
-                        TextButton(onClick = { runCatching { uriHandler.openUri("https://quilt.baltajmn.dev/") } }) {
-                            Text(S.privacyPolicy)
-                        }
+                }
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                    TextButton(onClick = { runCatching { uriHandler.openUri("https://quilt.baltajmn.dev/terms.html") } }) {
+                        Text(S.termsOfUse)
+                    }
+                    TextButton(onClick = { runCatching { uriHandler.openUri("https://quilt.baltajmn.dev/") } }) {
+                        Text(S.privacyPolicy)
                     }
                 }
                 note?.let {
