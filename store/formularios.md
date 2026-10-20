@@ -31,6 +31,47 @@ Hechos de partida, comprobados en el codigo:
 
 ---
 
+## 0. Para enviar por la manana (version 1.9, 20-10-2026)
+
+Lo que ya esta hecho y comprobado por API esta noche; no hay nada que pegar, todo esta subido.
+
+| Donde | Estado |
+|---|---|
+| Google Play, prueba cerrada (alfa) | 1.9 (10) subida por la etiqueta `v1.9`, con novedades en los 13 idiomas |
+| Google Play, produccion | Sigue en 1.8 (9), que no lleva la suscripcion. Ahi no he tocado nada: ni la version ni la ficha |
+| App Store, version | 1.9 en preparacion (`PREPARE_FOR_SUBMISSION`), build 10 asociada (TestFlight, procesada), publicacion manual |
+| App Store, ficha | 13 idiomas con el Pro de por vida o mensual y el enlace a las condiciones de uso (Apple lo pide a una app con suscripcion), el objetivo semanal, novedades en 13 idiomas y las capturas de siempre (en-US y es-ES; el resto de idiomas heredan las de en-US) |
+| Revision de la app | Notas al revisor (punto 7: las dos formas de comprar), el video de siempre adjunto, contacto y telefono ya puestos |
+| Suscripcion `com.baltajmn.habit.pro_monthly` | 13 idiomas, 0,99 EUR en 174 paises, captura de revision y nota puestas; en RevenueCat dentro de `$rc_monthly` junto a `$rc_lifetime` |
+
+Un aviso: la API sigue dando `MISSING_METADATA` a la suscripcion (a las cuatro apps), aunque su version
+interna esta en `PREPARE_FOR_SUBMISSION` y no le falta nada de lo que la API deja ver. Si en el paso 3 no
+aparece en la lista, abrela en *Monetizacion > Suscripciones > Pro* y mira que dice que falta.
+
+Clics en App Store Connect, en orden:
+
+1. Opcional, antes de enviar: instalar 1.9 (10) desde TestFlight en el iPhone y probar la compra mensual
+   con la cuenta sandbox (*Ajustes > Obtener Pro > Mensual*). Es el unico camino que prueba el paywall nuevo.
+2. appstoreconnect.apple.com > *Quilt* > *iOS 1.9* (Preparar para enviar). Mira que arriba pone la
+   build 10 y que *Novedades* sale en espanol.
+3. En *Compras dentro de la app y suscripciones* de esa misma pagina, *Seleccionar* y marcar
+   **Quilt Pro monthly**. (`pro_lifetime`, el vitalicio, ya esta aprobada: no hace falta.)
+4. *Anadir a revision* (arriba a la derecha).
+5. En *Revision de la app*, comprobar que el envio lleva dos elementos, la version 1.9 y la suscripcion, y
+   pulsar *Enviar a revision*.
+6. Cuando Apple la apruebe, la publicacion es manual: *Publicar esta version*.
+
+Clics en Play Console, cuando quieras que la 1.9 llegue a todos (la alfa ya la tiene):
+
+1. *Quilt > Pruebas y lanzamiento > Pruebas cerradas > Alfa > Promocionar version > Produccion*.
+   Las novedades vienen copiadas de la alfa. *Guardar* y *Enviar cambios a revision*.
+2. Cuando Play la publique, decirme que suba la ficha, o ejecutar (la ficha de hoy cuenta el Pro mensual,
+   y en produccion no puede ir antes de que haya una version que lo lleve):
+
+```bash
+/Users/baltajmn/keys/play.sh ficha com.baltajmn.habit HabitTracker https://quilt.baltajmn.dev/
+```
+
 ## 5. App Store: privacidad de la app
 
 *App Store Connect > Quilt > Privacidad de la app.*
