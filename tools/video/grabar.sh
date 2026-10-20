@@ -29,7 +29,9 @@
 #   DATOS=agua.json ./grabar.sh 04-contador
 #
 # La app se graba en es-ES. Con IDIOMA=en-US sale en ingles, con los habitos de demostracion en ingles, y
-# el clip queda en grabaciones/en/ (video de @balta.dev en ingles, D15 del plan de redes):
+# el clip queda en grabaciones/en/ (video de @balta.dev en ingles, D15 del plan de redes). El guion es el de
+# guiones/en/<nombre>.txt, con las coordenadas de Pixel_8_capturas (el emulador de espanol tiene la barra de
+# estado mas baja); sin ese fichero, error:
 #
 #   IDIOMA=en-US ./grabar.sh 01-un-toque
 
@@ -48,6 +50,11 @@ VOZ="com.google.android.tts/com.google.android.apps.speech.tts.googletts.setting
 
 nombre="${1:-}"
 guion="$RAIZ/guiones/${nombre}.txt"
+# En otro idioma, el guion propio de guiones/<idioma>/ y nunca el de espanol: sus coordenadas
+# son las de otro emulador (barra de estado mas baja) y un toque 68 px por encima del circulo
+# cae en la fila, que abre el detalle en vez de marcar el dia. Sin guion propio, error y no
+# reserva silenciosa.
+[[ "$IDIOMA" == es-ES ]] || guion="$RAIZ/guiones/${IDIOMA%%-*}/${nombre}.txt"
 [[ -n "$nombre" && -f "$guion" ]] || { echo "uso: $0 <nombre>   (falta $guion)"; exit 1; }
 command -v "$ADB" >/dev/null || { echo "no encuentro adb en $ADB"; exit 1; }
 [[ -n "$($ADB devices | sed -n '2p')" ]] || { echo "no hay emulador conectado"; exit 1; }
@@ -115,8 +122,13 @@ demo -e command network -e wifi show -e level 4
 demo -e command network -e mobile hide
 demo -e command notifications -e visible false
 
-$ADB shell am start -n "$PAQUETE/.MainActivity" >/dev/null
-sleep 2.5
+# Con la app recien arrancada el hilo principal va ahogado (build de depuracion, JIT) y los
+# toques se pierden al azar: medido en Pixel_8_capturas, de cinco toques cada 0,9 s llegaban
+# 0, 1, 4 o 5 si se tocaba a los 3 s de arrancar, y los cinco con la app ya en calor. -W espera
+# a que la Activity abra y los 8 s dejan que se asiente; ademas el clip empieza ya en la lista
+# y no en el splash.
+$ADB shell am start -W -n "$PAQUETE/.MainActivity" >/dev/null
+sleep 8
 
 echo "grabando $nombre"
 $ADB shell screenrecord --bit-rate 12000000 --time-limit "$MAX_SEG" /sdcard/rec.mp4 &

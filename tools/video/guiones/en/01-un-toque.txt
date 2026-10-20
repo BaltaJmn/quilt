@@ -1,7 +1,7 @@
 # Coordenadas de Pixel_8_capturas (IDIOMA=en-US): su barra de estado es mas alta y todo baja unos 70 px en la lista
 # y 104 px en el detalle respecto a los guiones en espanol.
-# Aviso: en este emulador el toque en el circulo de una fila abre el detalle en vez de marcar el dia, asi que el
-# clip no muestra el toque (19-10-2026, sin resolver). Sirve para listas y detalles.
+# El toque en el circulo marca el dia (comprobado con uiautomator: circulos en x 859-985, borde superior de los circulos de las tres filas: y 438, 877 y 1316).
+# El fallo de 19 y 20-10 ("el toque abre el detalle") era que grabar.sh tocaba con el guion de espanol, 68 px mas arriba.
 # La promesa base: un toque marca el dia, y la ficha lo cuenta todo.
 # Coordenadas de la pantalla de inicio en 1080x2400.
 esperar 6
