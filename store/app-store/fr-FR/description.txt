@@ -36,3 +36,5 @@ CE QUE VOUS NE TROUVEREZ PAS ICI
 Ni défis sociaux, ni amis, ni chat, ni coach en intelligence artificielle qui vous dit de respirer. Une grille, vos habitudes et l'année devant vous.
 
 Si vous avez déjà tenu sur papier un year in pixels, un calendrier d'habitudes ou une liste de routine quotidienne, Quilt c'est ça, sur votre téléphone : le suivi d'habitudes qui tient encore en décembre.
+
+Conditions d'utilisation: https://quilt.baltajmn.dev/terms.html

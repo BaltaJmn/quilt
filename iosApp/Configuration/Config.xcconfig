@@ -13,5 +13,5 @@ PRODUCT_BUNDLE_IDENTIFIER=$(APP_BUNDLE_ID)
 // release-ios.yml (BaltaJmn/ci) los saca de androidApp/build.gradle.kts al archivar, asi que las
 // dos tiendas llevan siempre la misma version y el mismo build. Los de aqui solo los usa un
 // archivado a mano desde Xcode: se suben con cada release.
-CURRENT_PROJECT_VERSION=9
-MARKETING_VERSION=1.8
+CURRENT_PROJECT_VERSION=10
+MARKETING_VERSION=1.9

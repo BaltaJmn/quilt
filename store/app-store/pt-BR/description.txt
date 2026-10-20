@@ -36,3 +36,5 @@ O QUE VOCÊ NÃO VAI ENCONTRAR AQUI
 Nem desafios sociais, nem amigos, nem chat, nem um coach de inteligência artificial mandando você respirar. Uma grade, os seus hábitos e o ano pela frente.
 
 Se você já manteve no papel um year in pixels, um calendário de hábitos ou uma lista de rotina diária, o Quilt é isso, no celular: o rastreador de hábitos que continua aberto em dezembro.
+
+Termos de uso: https://quilt.baltajmn.dev/terms.html

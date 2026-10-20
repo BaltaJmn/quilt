@@ -36,3 +36,5 @@ WAT JE HIER NIET VINDT
 Geen sociale uitdagingen, geen vrienden, geen chat, geen AI-coach die je vertelt dat je moet ademhalen. Een raster, je gewoonten en het jaar dat voor je ligt.
 
 Hield je ooit op papier een "year in pixels"-pagina bij, een gewoontekalender of een checklist voor je dagelijkse routine? Dan is Quilt precies dat, op je telefoon: de gewoontetracker die in december nog steeds openstaat.
+
+Gebruiksvoorwaarden: https://quilt.baltajmn.dev/terms.html

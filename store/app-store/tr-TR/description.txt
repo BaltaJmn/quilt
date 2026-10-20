@@ -36,3 +36,5 @@ BURADA BULAMAYACAKLARIN
 Sosyal meydan okuma yok, arkadaş yok, sohbet yok, sana nefes almanı söyleyen yapay zeka koçu yok. Bir ızgara, alışkanlıkların ve önündeki yıl.
 
 Hiç kâğıt üzerinde "year in pixels" sayfası, alışkanlık takvimi ya da günlük rutin kontrol listesi tuttuysan, Quilt bunun telefondaki hali: Aralık ayında hâlâ açık kalacak şekilde tasarlanmış alışkanlık takip uygulaması.
+
+Kullanım koşulları: https://quilt.baltajmn.dev/terms.html

@@ -36,3 +36,5 @@ CZEGO TU NIE ZNAJDZIESZ
 Żadnych wyzwań społecznościowych, żadnych znajomych, żadnego czatu, żadnego trenera AI, który każe Ci oddychać. Siatka, Twoje nawyki i rok przed Tobą.
 
 Jeśli zdarzyło Ci się kiedyś prowadzić na papierze stronę "rok w pikselach", kalendarz nawyków albo listę kontrolną codziennej rutyny, Quilt to dokładnie to, tylko w telefonie: tracker nawyków zbudowany tak, żeby wciąż był otwarty w grudniu.
+
+Warunki korzystania: https://quilt.baltajmn.dev/terms.html

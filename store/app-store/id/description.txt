@@ -36,3 +36,5 @@ YANG TIDAK AKAN KAMU TEMUKAN DI SINI
 Tidak ada tantangan sosial, tidak ada teman, tidak ada obrolan, tidak ada pelatih AI yang menyuruhmu bernapas. Hanya grid, kebiasaanmu, dan tahun yang menantimu.
 
 Kalau kamu pernah punya halaman "year in pixels", kalender kebiasaan, atau daftar centang rutinitas harian di atas kertas, Quilt adalah versi digitalnya: aplikasi kebiasaan yang dirancang supaya kamu masih membukanya di bulan Desember.
+
+Ketentuan penggunaan: https://quilt.baltajmn.dev/terms.html

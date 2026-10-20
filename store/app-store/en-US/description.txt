@@ -36,3 +36,5 @@ WHAT YOU WON'T FIND HERE
 No social challenges, no friends, no chat, no AI coach telling you to breathe. A grid, your habits and the year ahead.
 
 If you have ever kept a year in pixels page, a habit calendar or a daily routine checklist on paper, Quilt is that, on your phone: the habit tracker built to still be open in December.
+
+Terms of use: https://quilt.baltajmn.dev/terms.html

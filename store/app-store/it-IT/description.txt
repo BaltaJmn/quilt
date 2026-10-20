@@ -36,3 +36,5 @@ QUELLO CHE NON TROVERAI QUI
 Nessuna sfida social, nessun amico, nessuna chat, nessun coach basato sull'intelligenza artificiale che ti dice di respirare. Una griglia, le tue abitudini e l'anno che ti aspetta.
 
 Se hai mai tenuto su carta una pagina "un anno in pixel", un calendario delle abitudini o una checklist della routine giornaliera, Quilt è la stessa cosa, sul tuo telefono: il tracker di abitudini pensato per restare aperto anche a dicembre.
+
+Termini di utilizzo: https://quilt.baltajmn.dev/terms.html

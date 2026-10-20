@@ -36,3 +36,5 @@ NO VAS A ENCONTRAR AQUÍ
 Ni retos sociales, ni amigos, ni chat, ni un coach de inteligencia artificial diciéndote que respires. Una cuadrícula, tus hábitos y el año por delante.
 
 Si alguna vez has llevado en papel un year in pixels, un calendario de hábitos o una lista de rutina diaria, Quilt es eso en el móvil: el seguimiento de hábitos que sí aguanta hasta diciembre.
+
+Términos de uso: https://quilt.baltajmn.dev/terms.html
